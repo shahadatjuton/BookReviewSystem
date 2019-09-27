@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>@yield('title') </title>
 
         <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/frontend/fonts/icomoon/style.css')}}">
@@ -26,38 +26,20 @@
 
         <link rel="stylesheet" href="{{asset('assets/frontend/css/style.css')}}">
 
+        <!-- Toaster css -->
+
+        <link  href="{{ asset('assets/backend/css/toastr.min.css')}}" rel="stylesheet" />
+
     </head>
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
       <div class="site-wrap">
 
-        <div class="site-mobile-menu site-navbar-target">
-          <div class="site-mobile-menu-header">
-            <div class="site-mobile-menu-close mt-3">
-              <span class="icon-close2 js-menu-toggle"></span>
-            </div>
-          </div>
-          <div class="site-mobile-menu-body"></div>
-        </div>
+          @include('layouts.frontend.partial.header')
 
 
-        <div class="py-2 bg-light">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-9 d-none d-lg-block">
-                <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a>
-                <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 10 20 123 456</a>
-                <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@mydomain.com</a>
-              </div>
-              <div class="col-lg-3 text-right">
-                <a href="login.html" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
-                <a href="register.html" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        @include('layouts.frontend.partial.header')
+          @include('layouts.frontend.partial.navbar')
 
 
 
@@ -90,11 +72,20 @@
       <script src="{{ asset('assets/frontend/js/jquery.sticky.js')}}"></script>
       <script src="{{ asset('assets/frontend/js/jquery.mb.YTPlayer.min.js')}}"></script>
 
-
-
-
-
       <script src="{{ asset('assets/frontend/js/main.js')}}"></script>
+
+      <script src="{{ asset('assets/backend/js/toastr.min.js')}}"></script>
+      {!! Toastr::message() !!}
+      <script>
+          @if($errors->any())
+          @foreach($errors->all() as $error)
+          toastr.error('{{ $error }}','Error',{
+              closeButton:true,
+              progressBar:true,
+          });
+          @endforeach
+          @endif
+      </script>
 
     </body>
 </html>

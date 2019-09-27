@@ -1,13 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.frontend.master')
+
+@section('title','LOG-IN')
+
+@push('css')
+
+@endpush
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
 
-                <div class="card-body">
+
+
+    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('assets/frontend/images/bg_1.jpg')" >
+        <div class="container">
+            <div class="row align-items-end justify-content-center text-center">
+                <div class="col-lg-7">
+                    <h2 class="mb-0">Login</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-breadcrumns border-bottom">
+        <div class="container">
+            <a href="{{route('index')}}">Home</a>
+            <span class="mx-3 icon-keyboard_arrow_right"></span>
+            <span class="current">Login</span>
+        </div>
+    </div>
+
+    <div class="site-section">
+        <div class="container">
+
+
+            <div class="row justify-content-center">
+                <div class="col-md-7">
+
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -18,7 +47,7 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -32,7 +61,7 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
@@ -65,9 +94,17 @@
                             </div>
                         </div>
                     </form>
+
+
                 </div>
             </div>
+
+
+
         </div>
     </div>
-</div>
+
+
+
+
 @endsection

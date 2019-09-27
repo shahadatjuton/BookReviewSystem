@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') - {{ config('app.name', 'BookReview') }}</title>
     <!-- Favicon-->
        <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -37,6 +37,9 @@
 
        <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
        <link href="{{ asset('assets/backend/css/themes/all-themes.css')}}" rel="stylesheet" />
+    <!-- Toaster css -->
+
+    <link  href="{{ asset('assets/backend/css/toastr.min.css')}}" rel="stylesheet" />
 
        @stack('css')
    </head>
@@ -131,8 +134,17 @@
        <!-- Demo Js -->
        <script src="{{asset('assets/backend/js/demo.js')}}"></script>
        <script src="{{ asset('assets/backend/js/toastr.min.js')}}"></script>
-
-
+       {!! Toastr::message() !!}
+       <script>
+           @if($errors->any())
+           @foreach($errors->all() as $error)
+           toastr.error('{{ $error }}','Error',{
+               closeButton:true,
+               progressBar:true,
+           });
+           @endforeach
+           @endif
+       </script>
        @stack('js')
    </body>
 

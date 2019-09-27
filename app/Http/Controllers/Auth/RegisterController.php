@@ -38,7 +38,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-
         if (Auth::check() && Auth::user()->role->id==1)
         {
             $this->redirectTo = route('admin.dashboard');
@@ -50,13 +49,8 @@ class RegisterController extends Controller
             $this->redirectTo=route('author.dashboard');
         }else
         {
-            $this->redirectTo=route('user.dashboard');
+            $this->redirectTo=route('home');
         }
-
-
-        $this->middleware('guest')->except('logout');
-
-
         $this->middleware('guest');
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 
-@section('title','login')
+@section('title','BookReview')
 
 @push('css')
 

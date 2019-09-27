@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('index');
 
 Auth::routes(['verify'=>true]);
 
@@ -27,6 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middleware'=>['auth','admin' ] ], function (){
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('/tag','TagController');
 
 });
 
