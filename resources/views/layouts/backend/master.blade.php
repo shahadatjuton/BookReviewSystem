@@ -131,6 +131,10 @@
        <script src="{{asset('assets/backend/js/admin.js')}}"></script>
        <script src="{{asset('assets/backend/js/pages/index.js')}}"></script>
 
+       <!-- sweetalert2 Js -->
+
+       <script src="{{ asset('assets/backend/js/sweetalert2.all.min.js')}}"></script>
+
        <!-- Demo Js -->
        <script src="{{asset('assets/backend/js/demo.js')}}"></script>
        <script src="{{ asset('assets/backend/js/toastr.min.js')}}"></script>

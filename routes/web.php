@@ -28,6 +28,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::resource('/tag','TagController');
+    Route::resource('/category','CategoryController');
+    Route::resource('/user','UserController');
+
+
 
 });
 

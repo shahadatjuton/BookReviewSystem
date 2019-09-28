@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Tag;
+use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class TagController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags= Tag::latest()->get();
-        return view('admin.tag.index', compact('tags'));
+        $users = User::latest()->get();
+        return view('admin.user.index',compact('users'));
     }
 
     /**
@@ -28,7 +27,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('admin.tag.create');
+        //
     }
 
     /**
@@ -39,20 +38,7 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'tag_name'=>'required'
-
-        ]);
-
-        $tag= new Tag();
-
-        $tag->name=$request->tag_name;
-        $tag->slug=str::slug($request->tag_name);
-        $tag->save();
-
-        Toastr::success('Tag saved successfully', 'success' );
-
-        return redirect()->route('admin.tag.index');
+        //
     }
 
     /**
@@ -74,8 +60,7 @@ class TagController extends Controller
      */
     public function edit($id)
     {
-        $tag= Tag::find($id);
-        return view('admin.tag.edit', compact('tag'));
+        //
     }
 
     /**
@@ -87,15 +72,7 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tag= Tag::find($id);
-        $tag->name=$request->tag_name;
-        $tag->slug=str::slug( $request->tag_name);
-        $tag->save();
-
-
-        Toastr::success('Tag updated successfully', 'success');
-
-        return redirect()->route('admin.tag.index');
+        //
     }
 
     /**
@@ -106,8 +83,11 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        $tag= Tag::find($id)->delete();
-        Toastr::success('Your Data deleted successfully', 'successs');
-        return redirect()->route('admin.tag.index');
+        $user = User::find($id);
+        $user->delete();
+        Toastr::success('User is deleted from the system','success');
+        return redirect()->back();
+
+
     }
 }

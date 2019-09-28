@@ -93,7 +93,7 @@
             <div class="row mb-5 justify-content-center text-center">
                 <div class="col-lg-6 mb-5">
                     <h2 class="section-title-underline mb-3">
-                        <span>Popular Courses</span>
+                        <span>Popular Books</span>
                     </h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, id?</p>
                 </div>
