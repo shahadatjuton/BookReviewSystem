@@ -78,7 +78,7 @@ describe 'Morris.Bar', ->
       chart = Morris.Bar $.extend {}, defaults
       $('#graph').find("text[font-size='12px']").size().should.equal 7
 
-  describe 'when setting bar radius', ->
+  describe 'when settings bar radius', ->
     describe 'svg structure', ->
       defaults =
         element: 'graph'

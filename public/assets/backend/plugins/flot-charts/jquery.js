@@ -1477,7 +1477,7 @@ jQuery.support = (function() {
 
 		if ( typeof div.style.zoom !== "undefined" ) {
 			// Check if natively block-level elements act like inline-block
-			// elements when setting their display to 'inline' and giving
+			// elements when settings their display to 'inline' and giving
 			// them layout
 			// (IE < 8 does this)
 			div.innerHTML = "";
@@ -2198,7 +2198,7 @@ jQuery.fn.extend({
 
 			hooks = jQuery.valHooks[ this.type ] || jQuery.valHooks[ this.nodeName.toLowerCase() ];
 
-			// If set returns undefined, fall back to normal setting
+			// If set returns undefined, fall back to normal settings
 			if ( !hooks || !("set" in hooks) || hooks.set( this, val, "value" ) === undefined ) {
 				this.value = val;
 			}
@@ -2342,7 +2342,7 @@ jQuery.extend({
 					propName = jQuery.propFix[ name ] || name;
 					isBool = rboolean.test( name );
 
-					// See #9699 for explanation of this approach (setting first, then removal)
+					// See #9699 for explanation of this approach (settings first, then removal)
 					// Do not do this for boolean attributes (see #10870)
 					if ( !isBool ) {
 						jQuery.attr( elem, name, "" );
@@ -2496,7 +2496,7 @@ boolHook = {
 	}
 };
 
-// IE6/7 do not support getting/setting some attributes with get/setAttribute
+// IE6/7 do not support getting/settings some attributes with get/setAttribute
 if ( !getSetAttribute ) {
 
 	fixSpecified = {
@@ -5200,7 +5200,7 @@ if ( document.querySelectorAll ) {
 		assert(function( div ) {
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explictly
-			// setting a boolean content attribute,
+			// settings a boolean content attribute,
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
 			div.innerHTML = "<select><option selected=''></option></select>";
@@ -6106,7 +6106,7 @@ function cloneFixAttributes( src, dest ) {
 
 		dest.defaultChecked = dest.checked = src.checked;
 
-		// IE6-7 get confused and end up setting the value of a cloned
+		// IE6-7 get confused and end up settings the value of a cloned
 		// checkbox/radio button to an empty string instead of "on"
 		if ( dest.value !== src.value ) {
 			dest.value = src.value;
@@ -6669,7 +6669,7 @@ jQuery.fn.extend({
 
 jQuery.extend({
 	// Add in style property hooks for overriding the default
-	// behavior of getting and setting a style property
+	// behavior of getting and settings a style property
 	cssHooks: {
 		opacity: {
 			get: function( elem, computed ) {
@@ -6696,7 +6696,7 @@ jQuery.extend({
 	},
 
 	// Add in properties whose names you wish to fix before
-	// setting or getting the value
+	// settings or getting the value
 	cssProps: {
 		// normalize float css property
 		"float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
@@ -6720,7 +6720,7 @@ jQuery.extend({
 		// followed by the unprefixed version
 		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
 
-		// Check if we're setting a value
+		// Check if we're settings a value
 		if ( value !== undefined ) {
 			type = typeof value;
 
@@ -6860,7 +6860,7 @@ if ( window.getComputedStyle ) {
 			ret = elem.currentStyle && elem.currentStyle[ name ],
 			style = elem.style;
 
-		// Avoid setting ret to empty string here
+		// Avoid settings ret to empty string here
 		// so we don't default to auto
 		if ( ret == null && style && style[ name ] ) {
 			ret = style[ name ];
@@ -7076,10 +7076,10 @@ if ( !jQuery.support.opacity ) {
 				filter = currentStyle && currentStyle.filter || style.filter || "";
 
 			// IE has trouble with opacity if it does not have layout
-			// Force it by setting the zoom level
+			// Force it by settings the zoom level
 			style.zoom = 1;
 
-			// if setting opacity to 1, and no other filters exist - attempt to remove filter attribute #6652
+			// if settings opacity to 1, and no other filters exist - attempt to remove filter attribute #6652
 			if ( value >= 1 && jQuery.trim( filter.replace( ralpha, "" ) ) === "" &&
 				style.removeAttribute ) {
 
@@ -7109,7 +7109,7 @@ jQuery(function() {
 		jQuery.cssHooks.marginRight = {
 			get: function( elem, computed ) {
 				// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
-				// Work around by temporarily setting element display to inline-block
+				// Work around by temporarily settings element display to inline-block
 				return jQuery.swap( elem, { "display": "inline-block" }, function() {
 					if ( computed ) {
 						return curCSS( elem, "marginRight" );
@@ -8996,7 +8996,7 @@ Tween.propHooks = {
 };
 
 // Remove in 2.0 - this supports IE8's panic based approach
-// to setting things on disconnected nodes
+// to settings things on disconnected nodes
 
 Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
 	set: function( tween ) {
@@ -9020,7 +9020,7 @@ jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
 jQuery.fn.extend({
 	fadeTo: function( speed, to, easing, callback ) {
 
-		// show any hidden elements after setting opacity to 0
+		// show any hidden elements after settings opacity to 0
 		return this.filter( isHidden ).css( "opacity", 0 ).show()
 
 			// animate to the value specified

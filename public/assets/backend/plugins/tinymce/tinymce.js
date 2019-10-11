@@ -2135,7 +2135,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		assert(function( div ) {
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
-			// setting a boolean content attribute,
+			// settings a boolean content attribute,
 			// since its presence should be enough
 			// http://bugs.jquery.com/ticket/12359
 			div.innerHTML = "<select msallowcapture=''><option selected=''></option></select>";
@@ -8574,7 +8574,7 @@ define("tinymce/dom/DOMUtils", [
 		},
 
 		/**
-		 * Shows the specified element(s) by ID by setting the "display" style.
+		 * Shows the specified element(s) by ID by settings the "display" style.
 		 *
 		 * @method show
 		 * @param {String/Element/Array} elm ID of DOM element or DOM element or array with elements or IDs to show.
@@ -8584,7 +8584,7 @@ define("tinymce/dom/DOMUtils", [
 		},
 
 		/**
-		 * Hides the specified element(s) by ID by setting the "display" style.
+		 * Hides the specified element(s) by ID by settings the "display" style.
 		 *
 		 * @method hide
 		 * @param {String/Element/Array} elm ID of DOM element or DOM element or array with elements or IDs to hide.
@@ -12502,7 +12502,7 @@ define("tinymce/html/Schema", [
 /**
  * This class parses HTML code using pure JavaScript and executes various events for each item it finds. It will
  * always execute the events in the right order for tag soup code like <b><p></b></p>. It will also remove elements
- * and attributes that doesn't fit the schema if the validate setting is enabled.
+ * and attributes that doesn't fit the schema if the validate settings is enabled.
  *
  * @example
  * var parser = new tinymce.html.SaxParser({
@@ -13721,7 +13721,7 @@ define("tinymce/html/DomParser", [
 			});
 		}
 
-		// Force anchor names closed, unless the setting "allow_html_in_named_anchor" is explicitly included.
+		// Force anchor names closed, unless the settings "allow_html_in_named_anchor" is explicitly included.
 		if (!settings.allow_html_in_named_anchor) {
 			self.addAttributeFilter('id,name', function(nodes) {
 				var i = nodes.length, sibling, prevSibling, parent, node;
@@ -26871,17 +26871,17 @@ define("tinymce/ui/Control", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} style Style CSS properties to add.
-		 * @setting {String} border Border box values example: 1 1 1 1
-		 * @setting {String} padding Padding box values example: 1 1 1 1
-		 * @setting {String} margin Margin box values example: 1 1 1 1
-		 * @setting {Number} minWidth Minimal width for the control.
-		 * @setting {Number} minHeight Minimal height for the control.
-		 * @setting {String} classes Space separated list of classes to add.
-		 * @setting {String} role WAI-ARIA role to use for control.
-		 * @setting {Boolean} hidden Is the control hidden by default.
-		 * @setting {Boolean} disabled Is the control disabled by default.
-		 * @setting {String} name Name of the control instance.
+		 * @settings {String} style Style CSS properties to add.
+		 * @settings {String} border Border box values example: 1 1 1 1
+		 * @settings {String} padding Padding box values example: 1 1 1 1
+		 * @settings {String} margin Margin box values example: 1 1 1 1
+		 * @settings {Number} minWidth Minimal width for the control.
+		 * @settings {Number} minHeight Minimal height for the control.
+		 * @settings {String} classes Space separated list of classes to add.
+		 * @settings {String} role WAI-ARIA role to use for control.
+		 * @settings {Boolean} hidden Is the control hidden by default.
+		 * @settings {Boolean} disabled Is the control disabled by default.
+		 * @settings {String} name Name of the control instance.
 		 */
 		init: function(settings) {
 			var self = this, classes, defaultClasses;
@@ -28677,9 +28677,9 @@ define("tinymce/ui/Container", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Array} items Items to add to container in JSON format or control instances.
-		 * @setting {String} layout Layout manager by name to use.
-		 * @setting {Object} defaults Default settings to apply to all items.
+		 * @settings {Array} items Items to add to container in JSON format or control instances.
+		 * @settings {String} layout Layout manager by name to use.
+		 * @settings {Object} defaults Default settings to apply to all items.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -29982,7 +29982,7 @@ define("tinymce/ui/FloatPanel", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} autohide Automatically hide the panel.
+		 * @settings {Boolean} autohide Automatically hide the panel.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -30108,7 +30108,7 @@ define("tinymce/ui/FloatPanel", [
 		},
 
 		/**
-		 * Hide all visible float panels with he autohide setting enabled. This is for
+		 * Hide all visible float panels with he autohide settings enabled. This is for
 		 * manually hiding floating menus or panels.
 		 *
 		 * @method hideAll
@@ -30155,7 +30155,7 @@ define("tinymce/ui/FloatPanel", [
 	});
 
 	/**
-	 * Hide all visible float panels with he autohide setting enabled. This is for
+	 * Hide all visible float panels with he autohide settings enabled. This is for
 	 * manually hiding floating menus or panels.
 	 *
 	 * @static
@@ -31267,9 +31267,9 @@ define("tinymce/ui/Widget", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} tooltip Tooltip text to display when hovering.
-		 * @setting {Boolean} autofocus True if the control should be focused when rendered.
-		 * @setting {String} text Text to display inside widget.
+		 * @settings {String} tooltip Tooltip text to display when hovering.
+		 * @settings {Boolean} autofocus True if the control should be focused when rendered.
+		 * @settings {String} text Text to display inside widget.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -33651,7 +33651,7 @@ define("tinymce/EditorObservable", [
 	/**
 	 * Returns the event target so for the specified event. Some events fire
 	 * only on document, some fire on documentElement etc. This also handles the
-	 * custom event root setting where it returns that element instead of the body.
+	 * custom event root settings where it returns that element instead of the body.
 	 *
 	 * @private
 	 * @param {tinymce.Editor} editor Editor instance to get event target from.
@@ -36918,7 +36918,7 @@ define("tinymce/Editor", [
 		 * @property settings
 		 * @type Object
 		 * @example
-		 * // Get the value of the theme setting
+		 * // Get the value of the theme settings
 		 * tinymce.activeEditor.windowManager.alert("You are using the " + tinymce.activeEditor.settings.theme + " theme");
 		 */
 		settings = extend({
@@ -37439,7 +37439,7 @@ define("tinymce/Editor", [
 				self.iframeHTML += '<base href="' + self.documentBaseURI.getURI() + '" />';
 			}
 
-			// IE8 doesn't support carets behind images setting ie7_compat would force IE8+ to run in IE7 compat mode.
+			// IE8 doesn't support carets behind images settings ie7_compat would force IE8+ to run in IE7 compat mode.
 			if (!Env.caretAfter && settings.ie7_compat) {
 				self.iframeHTML += '<meta http-equiv="X-UA-Compatible" content="IE=7" />';
 			}
@@ -37592,7 +37592,7 @@ define("tinymce/Editor", [
 				settings.root_name = targetElm.nodeName.toLowerCase();
 			}
 
-			// It will not steal focus while setting contentEditable
+			// It will not steal focus while settings contentEditable
 			body = self.getBody();
 			body.disabled = true;
 			self.readonly = settings.readonly;
@@ -39761,7 +39761,7 @@ define("tinymce/EditorManager", [
 					return [settings.target];
 				}
 
-				// Fallback to old setting
+				// Fallback to old settings
 				switch (settings.mode) {
 					case "exact":
 						l = settings.elements || '';
@@ -41153,9 +41153,9 @@ define("tinymce/ui/Button", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} size Size of the button small|medium|large.
-		 * @setting {String} image Image to use for icon.
-		 * @setting {String} icon Icon to use for button.
+		 * @settings {String} size Size of the button small|medium|large.
+		 * @settings {String} image Image to use for icon.
+		 * @settings {String} icon Icon to use for button.
 		 */
 		init: function(settings) {
 			var self = this, size;
@@ -41422,7 +41422,7 @@ define("tinymce/ui/Checkbox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} checked True if the checkbox should be checked by default.
+		 * @settings {Boolean} checked True if the checkbox should be checked by default.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -41577,7 +41577,7 @@ define("tinymce/ui/ComboBox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} placeholder Placeholder text to display.
+		 * @settings {String} placeholder Placeholder text to display.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -42446,7 +42446,7 @@ define("tinymce/ui/ColorPicker", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} color Initial color value.
+		 * @settings {String} color Initial color value.
 		 */
 		init: function(settings) {
 			this._super(settings);
@@ -42648,7 +42648,7 @@ define("tinymce/ui/Path", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {String} delimiter Delimiter to display between row in path.
+		 * @settings {String} delimiter Delimiter to display between row in path.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -42847,7 +42847,7 @@ define("tinymce/ui/ElementPath", [
  *
  * @class tinymce.ui.FormItem
  * @extends tinymce.ui.Container
- * @setting {String} label Label to display for the form item.
+ * @settings {String} label Label to display for the form item.
  */
 define("tinymce/ui/FormItem", [
 	"tinymce/ui/Container"
@@ -43264,10 +43264,10 @@ define("tinymce/ui/FitLayout", [
 /**
  * This layout manager works similar to the CSS flex box.
  *
- * @setting {String} direction row|row-reverse|column|column-reverse
- * @setting {Number} flex A positive-number to flex by.
- * @setting {String} align start|end|center|stretch
- * @setting {String} pack start|end|justify
+ * @settings {String} direction row|row-reverse|column|column-reverse
+ * @settings {Number} flex A positive-number to flex by.
+ * @settings {String} align start|end|center|stretch
+ * @settings {String} pack start|end|justify
  *
  * @class tinymce.ui.FlexLayout
  * @extends tinymce.ui.AbsoluteLayout
@@ -43437,7 +43437,7 @@ define("tinymce/ui/FlexLayout", [
 			pos = contPaddingBox[beforeName];
 			rect = {};
 
-			// Handle pack setting moves the start position to end, center
+			// Handle pack settings moves the start position to end, center
 			if (totalFlex === 0) {
 				if (pack == "end") {
 					pos = availableSpace + contPaddingBox[beforeName];
@@ -44100,13 +44100,13 @@ define("tinymce/ui/FormatControls", [
 /**
  * This layout manager places controls in a grid.
  *
- * @setting {Number} spacing Spacing between controls.
- * @setting {Number} spacingH Horizontal spacing between controls.
- * @setting {Number} spacingV Vertical spacing between controls.
- * @setting {Number} columns Number of columns to use.
- * @setting {String/Array} alignH start|end|center|stretch or array of values for each column.
- * @setting {String/Array} alignV start|end|center|stretch or array of values for each column.
- * @setting {String} pack start|end
+ * @settings {Number} spacing Spacing between controls.
+ * @settings {Number} spacingH Horizontal spacing between controls.
+ * @settings {Number} spacingV Vertical spacing between controls.
+ * @settings {Number} columns Number of columns to use.
+ * @settings {String/Array} alignH start|end|center|stretch or array of values for each column.
+ * @settings {String/Array} alignV start|end|center|stretch or array of values for each column.
+ * @settings {String} pack start|end
  *
  * @class tinymce.ui.GridLayout
  * @extends tinymce.ui.AbsoluteLayout
@@ -44338,7 +44338,7 @@ define("tinymce/ui/GridLayout", [
 /**
  * This class creates an iframe.
  *
- * @setting {String} url Url to open in the iframe.
+ * @settings {String} url Url to open in the iframe.
  *
  * @-x-less Iframe.less
  * @class tinymce.ui.Iframe
@@ -44439,7 +44439,7 @@ define("tinymce/ui/InfoBox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} multiline Multiline label.
+		 * @settings {Boolean} multiline Multiline label.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -44537,7 +44537,7 @@ define("tinymce/ui/Label", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} multiline Multiline label.
+		 * @settings {Boolean} multiline Multiline label.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -45056,9 +45056,9 @@ define("tinymce/ui/MenuItem", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} selectable Selectable menu.
-		 * @setting {Array} menu Submenu array with items.
-		 * @setting {String} shortcut Shortcut to display for menu item. Example: Ctrl+X
+		 * @settings {Boolean} selectable Selectable menu.
+		 * @settings {Array} menu Submenu array with items.
+		 * @settings {String} shortcut Shortcut to display for menu item. Example: Ctrl+X
 		 */
 		init: function(settings) {
 			var self = this, text;
@@ -45677,7 +45677,7 @@ define("tinymce/ui/ListBox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Array} values Array with values to add to list box.
+		 * @settings {Array} values Array with values to add to list box.
 		 */
 		init: function(settings) {
 			var self = this, values, selected, selectedText, lastItemCtrl;
@@ -45967,7 +45967,7 @@ define("tinymce/ui/SelectBox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Array} values Array with values to add to list box.
+		 * @settings {Array} values Array with values to add to list box.
 		 */
 		init: function(settings) {
 			var self = this;
@@ -46512,7 +46512,7 @@ define("tinymce/ui/StackLayout", [
  * @class tinymce.ui.TabPanel
  * @extends tinymce.ui.Panel
  *
- * @setting {Number} activeTab Active tab index.
+ * @settings {Number} activeTab Active tab index.
  */
 define("tinymce/ui/TabPanel", [
 	"tinymce/ui/Panel",
@@ -46704,9 +46704,9 @@ define("tinymce/ui/TextBox", [
 		 *
 		 * @constructor
 		 * @param {Object} settings Name/value object with settings.
-		 * @setting {Boolean} multiline True if the textbox is a multiline control.
-		 * @setting {Number} maxLength Max length for the textbox.
-		 * @setting {Number} size Size of the textbox in characters.
+		 * @settings {Boolean} multiline True if the textbox is a multiline control.
+		 * @settings {Number} maxLength Max length for the textbox.
+		 * @settings {Number} size Size of the textbox in characters.
 		 */
 		init: function(settings) {
 			var self = this;

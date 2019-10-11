@@ -64,7 +64,7 @@
 
 					self.css('visibility', '');
 
-					// Run this if the oninit setting is defined
+					// Run this if the oninit settings is defined
 					// this logic will fire the oninit callback ones each
 					// matched editor instance is initialized
 					if (oninit) {

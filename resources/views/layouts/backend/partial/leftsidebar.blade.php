@@ -2,7 +2,7 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="{{asset('assets/backend/images/user.png')}}" width="48" height="48" alt="User" />
+            <img src="{{ asset('storage/profile/'.Auth::user()->image) }}" width="48" height="48" alt="User" />
         </div>
         <div class="info-container">
             <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</div>
@@ -125,6 +125,29 @@
 {{--                    </a>--}}
 {{--                </li>--}}
 
+
+                <li class="header ">System</li>
+
+                <li class="{{ Request::is('settings*') ? 'active' : '' }}">
+                    <a href="{{route('admin.settings.index')}}">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                        <i class="material-icons">input</i>
+                        <span>logout</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+
             @endif
 
         <!-- ================End Admin Side bar ============================  -->
@@ -152,6 +175,29 @@
                             <a href="{{route('author.post.create')}}">Create</a>
                         </li>
                     </ul>
+                </li>
+
+
+                <li class="header ">System</li>
+
+                <li class="{{ Request::is('author/settings*') ? 'active' : '' }}">
+                    <a href="{{route('author.settings.index')}}">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                        <i class="material-icons">input</i>
+                        <span>logout</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
 
         @endif
@@ -184,33 +230,34 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="header ">System</li>
+
+                            <li class="{{ Request::is('publisher/settings') ? 'active' : '' }}">
+                                <a href="{{route('publisher.settings.index')}}">
+                                    <i class="material-icons">settings</i>
+                                    <span>Settings</span>
+                                </a>
+                            </li>
+
+
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                        <i class="material-icons">input</i>
+                        <span>logout</span>
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
         @endif
 
         <!-- ================End Publisher Side bar ============================  -->
 
             <li class="header ">System</li>
-
-            <li class="{{ Request::is('admin/setting*') ? 'active' : '' }}">
-                <a href="{{route('admin.setting.index')}}">
-                    <i class="material-icons">settings</i>
-                    <span>Settings</span>
-                </a>
-            </li>
-
-            <li>
-            <a class="dropdown-item" href="{{ route('logout') }}"
-               onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                <i class="material-icons">input</i>
-                <span>logout</span>
-            </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            </li>
-
-
 
 
             <li>

@@ -19,6 +19,9 @@ Auth::routes(['verify'=>true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
+//Route::resource('/settings','SettingsController');
+//Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
+
 
 // ==========Admin group====================
 
@@ -29,8 +32,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
     Route::resource('/category','CategoryController');
     Route::resource('/user','UserController');
     Route::resource('/post','PostController');
-    Route::resource('/setting','SettingController');
-
+    Route::resource('/settings','SettingsController');
+    Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
 
 
 
@@ -47,6 +50,9 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::resource('/post','PostController');
+    Route::resource('/settings','SettingsController');
+    Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
+
 
 });
 // ==========Author group====================
@@ -55,6 +61,8 @@ Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'author', 'middle
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
     Route::resource('/post','PostController');
+    Route::resource('/settings','SettingsController');
+    Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
 
 
 });

@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Post;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
-class SettingController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class SettingController extends Controller
     {
         $user = User::findOrFail(Auth::id());
 
-        return view('admin.setting.index',compact('user'));
+        return view('admin.settings.index',compact('user'));
     }
 
     /**
@@ -79,7 +79,6 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $this->validate($request,[
 
             'name'=>'required',
@@ -132,6 +131,59 @@ class SettingController extends Controller
         Toastr::success('Profile  Updated successfully', 'success');
         return redirect()->back();
     }
+
+
+
+    /**
+     * match with old password
+     * Changing Password
+     */
+
+    public function pswupdate(Request $request, $id)
+    {
+        $this->validate( $request,[
+            'old_password'=>'required',
+            'password'=>'required|confirmed',
+        ]);
+
+        $hashedPassword = Auth::user()->password;
+
+        if (Hash::check($request->old_password, $hashedPassword))
+        {
+            if (!Hash::check($request->password, $hashedPassword))
+            {
+                $user= User::findOrFail(Auth::id());
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+                Toastr::warning('Your password has been changed successfully!','warning');
+                Auth::logout();
+                return redirect()->back();
+
+            } else
+            {
+                Toastr::warning('New password can not be same as old password','warning');
+                return redirect()->back();
+
+
+            }
+        } else
+        {
+            Toastr::error('Your password does not match', 'error');
+            return redirect()->back();
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.

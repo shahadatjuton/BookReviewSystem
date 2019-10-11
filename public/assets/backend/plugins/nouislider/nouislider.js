@@ -288,7 +288,7 @@
 
 		// NaN will evaluate to false too, but to keep
 		// logging clear, set step explicitly. Make sure
-		// not to override the 'step' setting with false.
+		// not to override the 'step' settings with false.
 		if ( !percentage ) {
 			if ( !isNaN( value[1] ) ) {
 				that.xSteps[0] = value[1];
@@ -420,7 +420,7 @@
 /*	Every input option is tested and parsed. This'll prevent
 	endless validation in internal methods. These tests are
 	structured with an item for every option available. An
-	option can be marked as required by setting the 'r' flag.
+	option can be marked as required by settings the 'r' flag.
 	The testing function is provided with three arguments:
 		- The provided value for the option;
 		- A reference to the options object;
@@ -1694,7 +1694,7 @@ function closure ( target, options, originalOptions ){
 			count += 1;
 		}
 
-		// If there are multiple handles to be set run the setting
+		// If there are multiple handles to be set run the settings
 		// mechanism twice for the first handle, to make sure it
 		// can be bounced of the second one properly.
 		for ( i = 0; i < count; i += 1 ) {
@@ -1716,7 +1716,7 @@ function closure ( target, options, originalOptions ){
 				to = options.format.from( to );
 
 				// Request an update for all links if the value was invalid.
-				// Do so too if setting the handle fails.
+				// Do so too if settings the handle fails.
 				if ( to === false || isNaN(to) || setHandle( scope_Handles[trigger], scope_Spectrum.toStepping( to ), i === (3 - options.dir) ) === false ) {
 					fireEvent('update', trigger);
 				}

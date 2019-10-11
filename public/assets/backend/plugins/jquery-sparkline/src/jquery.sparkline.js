@@ -70,7 +70,7 @@
 * as there's a slight performance overhead:
 *   $('.sparkline').sparkline([1,2,3,4], {enableTagOptions: true})
 *   <p>Sparkline: <span class="sparkline" sparkType="bar" sparkBarColor="red">loading</span></p>
-* Prefix all options supplied as tag attribute with "spark" (configurable by setting tagOptionsPrefix)
+* Prefix all options supplied as tag attribute with "spark" (configurable by settings tagOptionsPrefix)
 *
 * Supported options:
 *   lineColor - Color of the line used for the chart
@@ -102,7 +102,7 @@
 *   tooltipOffsetY - How many pixels away from the mouse pointer to render the tooltip on the r axis
 *   tooltipFormatter  - Optional callback that allows you to override the HTML displayed in the tooltip
 *       callback is given arguments of (sparkline, options, fields)
-*   tooltipChartTitle - If specified then the tooltip uses the string specified by this setting as a title
+*   tooltipChartTitle - If specified then the tooltip uses the string specified by this settings as a title
 *   tooltipFormat - A format string or SPFormat object  (or an array thereof for multiple entries)
 *       to control the format of the tooltip
 *   tooltipPrefix - A string to prepend to each field displayed in a tooltip

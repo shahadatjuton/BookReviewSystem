@@ -5891,7 +5891,7 @@ DatePicker.prototype.navigate = function( type, value, options ) {
 
 
 /**
- * Normalize a date by setting the hours to midnight.
+ * Normalize a date by settings the hours to midnight.
  */
 DatePicker.prototype.normalize = function( value/*, options*/ ) {
     value.setHours( 0, 0, 0, 0 )
