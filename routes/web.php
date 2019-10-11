@@ -13,13 +13,11 @@
 
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/','HomeController@index')->name('home');
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 
 // ==========Admin group====================
@@ -30,7 +28,14 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
     Route::resource('/tag','TagController');
     Route::resource('/category','CategoryController');
     Route::resource('/user','UserController');
+    Route::resource('/post','PostController');
+    Route::resource('/setting','SettingController');
 
+
+
+
+    Route::get('/pending/post','PostController@pending')->name('post.pending');
+    Route::put('/post/{id}/approve','PostController@approve')->name('post.approve');
 
 
 });
@@ -41,6 +46,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
 Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher', 'middleware'=>['auth','publisher' ] ], function (){
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('/post','PostController');
 
 });
 // ==========Author group====================
@@ -48,6 +54,7 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'author', 'middleware'=>['auth','author' ] ], function (){
 
     Route::get('/dashboard','DashboardController@index')->name('dashboard');
+    Route::resource('/post','PostController');
 
 
 });

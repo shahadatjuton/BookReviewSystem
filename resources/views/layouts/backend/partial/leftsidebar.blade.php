@@ -49,30 +49,69 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+
                 <li class="{{ Request::is('admin/tag*') ? 'active' : '' }}">
-                    <a href="{{route('admin.tag.index')}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">label</i>
                         <span>Tag</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.tag.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.tag.create')}}">Create</a>
+                        </li>
+                    </ul>
                 </li>
+
                 <li class="{{ Request::is('admin/category*') ? 'active' : '' }}">
-                    <a href="{{route('admin.category.index')}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">apps</i>
                         <span>Category</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.category.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.category.create')}}">Create</a>
+                        </li>
+                    </ul>
                 </li>
+
+                <li class="{{ Request::is('admin/post*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">library_books</i>
+                        <span>Book-Post</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.post.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.post.create')}}">Create</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.post.pending')}}">Pending-Post</a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li class="{{ Request::is('admin/user*') ? 'active' : '' }}">
-                    <a href="{{route('admin.user.index')}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">assignment_ind</i>
                         <span>User-List</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.user.index')}}">Index</a>
+                        </li>
+                    </ul>
                 </li>
-{{--                <li class="{{ Request::is('admin/post*') ? 'active' : '' }}">--}}
-{{--                    <a href="{{route('admin.post.index')}}">--}}
-{{--                        <i class="material-icons">library_books</i>--}}
-{{--                        <span>Post</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+
+
 {{--                <li class="{{ Request::is('admin/pending/post') ? 'active' : '' }}">--}}
 {{--                    <a href="{{route('admin.post.pending')}}">--}}
 {{--                        <i class="material-icons">library_books</i>--}}
@@ -100,18 +139,63 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-{{--                <li class="{{ Request::is('author/post*') ? 'active' : '' }}">--}}
-{{--                    <a href="{{route('author.post.index')}}">--}}
-{{--                        <i class="material-icons">library_books</i>--}}
-{{--                        <span>Post</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="{{ Request::is('author/post*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">library_books</i>
+                        <span>Book-Post</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('author.post.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('author.post.create')}}">Create</a>
+                        </li>
+                    </ul>
+                </li>
 
         @endif
 
         <!-- ================End author Side bar ============================  -->
 
+
+    <!-- ===================Start Publisher Side bar ============================  -->
+
+            @if(Request::is('publisher*'))
+
+                <li class="{{ Request::is('publisher/dashboard') ? 'active' : '' }}">
+                    <a href="{{route('publisher.dashboard')}}">
+                        <i class="material-icons">dashboard</i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="{{ Request::is('publisher/post*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">library_books</i>
+                        <span>Book-Post</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('publisher.post.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('publisher.post.create')}}">Create</a>
+                        </li>
+                    </ul>
+                </li>
+        @endif
+
+        <!-- ================End Publisher Side bar ============================  -->
+
             <li class="header ">System</li>
+
+            <li class="{{ Request::is('admin/setting*') ? 'active' : '' }}">
+                <a href="{{route('admin.setting.index')}}">
+                    <i class="material-icons">settings</i>
+                    <span>Settings</span>
+                </a>
+            </li>
 
             <li>
             <a class="dropdown-item" href="{{ route('logout') }}"

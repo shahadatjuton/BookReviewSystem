@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,10 +14,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
+//    public function __construct()
+//    {
+//        $this->middleware(['auth','verified']);
+//    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $posts =Post::all();
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('welcome',compact(['posts', 'tags', 'categories']));
     }
+
+
 }

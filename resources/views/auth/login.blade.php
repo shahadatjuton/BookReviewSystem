@@ -23,7 +23,7 @@
 
     <div class="custom-breadcrumns border-bottom">
         <div class="container">
-            <a href="{{route('index')}}">Home</a>
+            <a href="{{route('home')}}">Home</a>
             <span class="mx-3 icon-keyboard_arrow_right"></span>
             <span class="current">Login</span>
         </div>

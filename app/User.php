@@ -45,6 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class);
     }
 
+    //=============relation with Post model=====================
 
+    public function posts(){
+        return $this->hasMany('App\Post');
+
+    }
+    
 
 }
