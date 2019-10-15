@@ -19,9 +19,7 @@ Auth::routes(['verify'=>true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::resource('/settings','SettingsController');
-//Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
-
+Route::post('/subscriber','SubscriberController@store')->name('subscriber.store');
 
 // ==========Admin group====================
 
@@ -39,6 +37,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
 
     Route::get('/pending/post','PostController@pending')->name('post.pending');
     Route::put('/post/{id}/approve','PostController@approve')->name('post.approve');
+
+    Route::resource('/subscriber','SubscriberController');
 
 
 });

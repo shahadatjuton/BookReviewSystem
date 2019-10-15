@@ -3,7 +3,9 @@
 @section('title','BookReview')
 
 @push('css')
+    <link href="{{ asset('assets/frontend/css/home/styles.css')}}" rel="stylesheet">
 
+    <link href="{{ asset('assets/frontend/css/home/responsive.css')}}" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -114,6 +116,7 @@
                                 </figure>
                                 <div class="course-1-content pb-4">
                                     <h2>{{$post->title}}</h2>
+                                    <p class="desc mb-4">{{ $post->body }}</p>
                                     <div class="rating text-center mb-3">
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
@@ -121,9 +124,16 @@
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
                                     </div>
-                                    <p class="desc mb-4">{{ $post->body }}</p>
                                     <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
+
+                                    <ul class="post-footer">
+                                        <li><a href="#"><i class="ion-heart"></i>57</a></li>
+                                        <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
+                                        <li><a href="#"><i class="ion-eye"></i>138</a></li>
+                                    </ul>
+
                                 </div>
+
                             </div>
                        @endforeach
 
@@ -373,9 +383,11 @@
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,</p>
                 </div>
                 <div class="col-lg-5">
-                    <form action="" class="d-flex">
-                        <input type="text" class="rounded form-control mr-2 py-3" placeholder="Enter your email">
-                        <button class="btn btn-primary rounded py-3 px-4" type="submit">Send</button>
+                    <form action="{{route('subscriber.store')}}" method="post" class="d-flex">
+                        @csrf
+
+                        <input type="email" name="email" class="rounded form-control mr-2 py-3" placeholder="Enter your email">
+                        <button class="btn btn-primary rounded py-3 px-4" type="submit">Subscribe</button>
                     </form>
                 </div>
             </div>

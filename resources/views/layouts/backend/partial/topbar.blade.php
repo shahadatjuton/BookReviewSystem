@@ -197,6 +197,15 @@
                     </ul>
                 </li>
                 <!-- #END# Tasks -->
+
+
+                <li class="footer">
+                    <div class="image">
+                        <img src="{{ asset('storage/profile/'.Auth::user()->image) }}" width="48" height="48" alt="User" />
+                    </div>
+                </li>
+
+
                 <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
             </ul>
         </div>
