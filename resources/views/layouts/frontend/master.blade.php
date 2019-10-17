@@ -5,8 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>@yield('title') </title>
+        <!-- Font -->
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 
         <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/common-css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/common-css/swiper.css')}}">
+        <link rel="stylesheet" href="{{ asset('assets/frontend/css/all.min.css')}}">
         <link rel="stylesheet" href="{{ asset('assets/frontend/fonts/icomoon/style.css')}}">
 
         <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap.min.css')}} ">
@@ -29,7 +36,7 @@
         <!-- Toaster css -->
 
         <link  href="{{ asset('assets/backend/css/toastr.min.css')}}" rel="stylesheet" />
-
+        @stack('css')
     </head>
     <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -71,6 +78,10 @@
       <script src="{{ asset('assets/frontend/js/jquery.fancybox.min.js')}}"></script>
       <script src="{{ asset('assets/frontend/js/jquery.sticky.js')}}"></script>
       <script src="{{ asset('assets/frontend/js/jquery.mb.YTPlayer.min.js')}}"></script>
+      <script src="{{ asset('assets/frontend/js/common-js/scripts.js')}}"></script>
+      <script src="{{ asset('assets/frontend/js/common-js/swiper.js')}}"></script>
+      <script src="{{ asset('assets/frontend/js/common-js/tether.min.js')}}"></script>
+
 
       <script src="{{ asset('assets/frontend/js/main.js')}}"></script>
 
@@ -86,6 +97,6 @@
           @endforeach
           @endif
       </script>
-
+      @stack('js')
     </body>
 </html>

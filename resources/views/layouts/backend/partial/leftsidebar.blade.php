@@ -95,6 +95,13 @@
                         <li>
                             <a href="{{route('admin.post.pending')}}">Pending-Post</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.post.favourite')}}">
+                                <i class="material-icons">favorite</i>
+                                <span>Favourite-Post</span>
+                            </a>
+
+                        </li>
                     </ul>
                 </li>
 
@@ -167,6 +174,7 @@
                         <li>
                             <a href="{{route('author.post.create')}}">Create</a>
                         </li>
+
                     </ul>
                 </li>
 
@@ -220,6 +228,13 @@
                         </li>
                         <li>
                             <a href="{{route('publisher.post.create')}}">Create</a>
+                        </li>
+                        <li>
+                            <a href="{{route('publisher.post.favourite')}}">
+                                <i class="material-icons">favorite</i>
+                                <span>Favourite-Post</span>
+                            </a>
+
                         </li>
                     </ul>
                 </li>

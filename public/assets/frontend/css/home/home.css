@@ -1,0 +1,26 @@
+.post-footer{
+    text-align: center;
+
+
+
+}
+
+.post-footer ul {
+    list-style-type: none;
+
+}
+
+.post-footer ul li{
+
+    display: inline;
+    padding: 30px;
+
+
+
+
+}
+
+.post-footer ul li a{
+    color: grey;
+
+}

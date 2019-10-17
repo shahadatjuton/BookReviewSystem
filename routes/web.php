@@ -14,12 +14,21 @@
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/','HomeController@index')->name('home');
+Route::get('/post/{slug}','PostDetailsController@details')->name('post.details');
+
 
 Auth::routes(['verify'=>true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/subscriber','SubscriberController@store')->name('subscriber.store');
+
+// ==========Authenticated user group====================
+
+
+Route::group(['middleware'=> ['auth']], function (){
+   Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
+});
 
 // ==========Admin group====================
 
@@ -34,6 +43,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
     Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
 
 
+    Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');
 
     Route::get('/pending/post','PostController@pending')->name('post.pending');
     Route::put('/post/{id}/approve','PostController@approve')->name('post.approve');
@@ -52,6 +62,9 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
     Route::resource('/post','PostController');
     Route::resource('/settings','SettingsController');
     Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
+
+
+    Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');
 
 
 });

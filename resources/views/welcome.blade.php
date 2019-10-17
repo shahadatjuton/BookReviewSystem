@@ -3,9 +3,15 @@
 @section('title','BookReview')
 
 @push('css')
-    <link href="{{ asset('assets/frontend/css/home/styles.css')}}" rel="stylesheet">
 
-    <link href="{{ asset('assets/frontend/css/home/responsive.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/css/home/home.css')}}" rel="stylesheet">
+
+
+    <style>
+        .favourite_posts{
+            color: #0f9d58;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -124,14 +130,40 @@
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
                                     </div>
-                                    <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
+                                    <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
 
-                                    <ul class="post-footer">
-                                        <li><a href="#"><i class="ion-heart"></i>57</a></li>
-                                        <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
-                                        <li><a href="#"><i class="ion-eye"></i>138</a></li>
+
+
+                                </div>
+                                <div class="post-footer">
+                                    <ul >
+
+                                        <li>
+                                            @guest
+                                                <a href="javascript:void(0);"
+                                                   onclick="toastr.info('To add favorite list. You need to login first.','Info',{
+                                                    closeButton: true,
+                                                    progressBar: true,
+                                                })"><i class="fas fa-heart"></i>{{ $post->favourite_to_users->count() }}</a>
+                                            @else
+                                                <a href="javascript:void(0);"
+                                                   onclick="document.getElementById('favourite-post-{{$post->id}}').submit();"
+
+                                                   class="{{ Auth::user()->favourite_posts()->where('post_id',$post->id)->count()==0? 'favourite_posts':'' }}" >
+                                                    <i class="fas fa-heart"></i>{{ $post->favourite_to_users->count() }}</a>
+
+                                                <form id="favourite-post-{{$post->id}}" method="post" action="{{route('post.favourite',$post->id)}}" style="display: none;">
+                                                    @csrf
+                                                </form>
+
+                                            @endguest
+
+
+
+                                        </li>
+                                        <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
+                                        <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
                                     </ul>
-
                                 </div>
 
                             </div>

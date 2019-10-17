@@ -4,12 +4,15 @@ namespace App\Http\Controllers\publisher;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Notifications\AdminNotification;
 use App\Post;
 use App\Tag;
+use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -109,6 +112,9 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
+
+        $users = User::where('role_id','1')->get();
+        Notification::send($users, new AdminNotification($post));
 
         Toastr::success('Category  Created successfully', 'success');
         return redirect()->route('publisher.post.index');

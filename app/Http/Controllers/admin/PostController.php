@@ -4,11 +4,16 @@ namespace App\Http\Controllers\admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Notifications\PublisherNotification;
+use App\Notifications\SubscriberNotification;
 use App\Post;
+use App\Subscriber;
 use App\Tag;
+use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -105,6 +110,14 @@ class PostController extends Controller
 //            Notification::route('mail',$subscriber->email)->notify(new NotifySubscriber($post));
 //        }
 
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber)
+        {
+//            Notification::route('mail',$subscriber->email)->notify(new SubscriberNotification($post));
+            Notification::send('mail',$subscriber->email)
+                ->notify(new SubscriberNotification($post));
+
+        }
 
 
         $post->categories()->attach($request->categories);
@@ -263,8 +276,8 @@ class PostController extends Controller
             $pendingPost->status=true;
             $pendingPost->save();
 
+            $pendingPost->user->notify(new PublisherNotification($pendingPost));
 
-//            $pendingPost->user->notify(new AuthorPostApprove($pendingPost));
 
             toastr::success('Your post is approved successfully','success');
         }else{
