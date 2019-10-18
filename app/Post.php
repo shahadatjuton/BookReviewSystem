@@ -24,7 +24,14 @@ class Post extends Model
     }
 
     public function favourite_to_users(){
-        return $this->belongsToMany('App\User')->withTimestamps();
+        return $this->belongsToMany('App\User');
     }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+
+
 
 }

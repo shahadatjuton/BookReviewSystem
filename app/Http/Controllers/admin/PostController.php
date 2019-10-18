@@ -110,14 +110,14 @@ class PostController extends Controller
 //            Notification::route('mail',$subscriber->email)->notify(new NotifySubscriber($post));
 //        }
 
-        $subscribers = Subscriber::all();
-        foreach ($subscribers as $subscriber)
-        {
-//            Notification::route('mail',$subscriber->email)->notify(new SubscriberNotification($post));
-            Notification::send('mail',$subscriber->email)
-                ->notify(new SubscriberNotification($post));
-
-        }
+//        $subscribers = Subscriber::all();
+//        foreach ($subscribers as $subscriber)
+//        {
+////            Notification::route('mail',$subscriber->email)->notify(new SubscriberNotification($post));
+//            Notification::send('mail',$subscriber->email)
+//                ->notify(new SubscriberNotification($post));
+//
+//        }
 
 
         $post->categories()->attach($request->categories);

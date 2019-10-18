@@ -8,9 +8,9 @@
 
     <link href="{{ asset('assets/frontend/css/home/home.css')}}" rel="stylesheet">
 
-{{--    <link href="{{ asset('assets/frontend/css/DetailsPost/ionicons.css')}}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('assets/frontend/css/DetailsPost/styles.css')}}" rel="stylesheet">--}}
-{{--    <link href="{{ asset('assets/frontend/css/DetailsPost/responsive.css')}}" rel="stylesheet">--}}
+
+    <link href="{{ asset('assets/frontend/css/DetailsPost/styles.css')}}" rel="stylesheet">
+    <link href="{{ asset('assets/frontend/css/DetailsPost/responsive.css')}}" rel="stylesheet">
 
 
 @endpush
@@ -191,6 +191,93 @@
 
         </div>
     </div>
+
+
+
+{{-- ===================================Comment Section =================================================================--}}
+
+    <section class="comment-section" >
+        <div class="container">
+            <h4><b>POST COMMENT</b></h4>
+            <div class="row">
+
+                <div class="col-lg-8 col-md-12">
+                    <div class="comment-form">
+
+                        @guest
+
+                            To comment you need to <a href="{{route('login')}}">Log In</a>  first. <a href="{{route('login')}}">Click Here</a>
+
+                            @else
+
+
+                        <form method="post" action="{{route('comment.store',$post->id)}}">
+                            @csrf
+                            <div class="row">
+
+
+                                <div class="col-sm-12">
+									<textarea name="comment" rows="2" class="text-area-messge form-control"
+                                              placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
+                                </div><!-- col-sm-12 -->
+                                <div class="col-sm-12">
+                                    <button class="submit-btn" type="submit" id="form-submit"><b>POST COMMENT</b></button>
+                                </div><!-- col-sm-12 -->
+
+                            </div><!-- row -->
+                        </form>
+
+                        @endguest
+
+                    </div><!-- comment-form -->
+
+                    <h4><b>COMMENTS({{$post->comments()->count()}})</b></h4>
+                    @if($post->comments()->count() == 0)
+                        No Comments found for this post
+                    @else
+                    <div class="commnets-area">
+                        @foreach($post->comments as $comment)
+
+                        <div class="comment">
+
+                            <div class="post-info">
+
+                                <div class="left-area">
+                                    <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$comment->user->image) }}" alt="Profile Image"></a>
+                                </div>
+
+                                <div class="middle-area">
+                                    <a class="name" href="#"><b>{{$comment->user->name}}</b></a>
+                                    <h6 class="date">on {{$comment->created_at->diffForHumans()}}</h6>
+                                </div>
+
+                                <div class="right-area">
+                                    <h5 class="reply-btn" ><a href="#"><b>REPLY</b></a></h5>
+                                </div>
+
+                            </div><!-- post-info -->
+
+                            <p>{{$comment->comment}}</p>
+
+                        </div>
+
+                        @endforeach
+
+                    </div><!-- commnets-area -->
+
+                    @endif
+                    <a class="more-comment-btn" href="#"><b>VIEW MORE COMMENTS</a>
+
+                </div><!-- col-lg-8 col-md-12 -->
+
+            </div><!-- row -->
+
+        </div><!-- container -->
+    </section>
+
+
+
+
 
 @endsection
 

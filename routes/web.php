@@ -28,6 +28,7 @@ Route::post('/subscriber','SubscriberController@store')->name('subscriber.store'
 
 Route::group(['middleware'=> ['auth']], function (){
    Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
+   Route::post('/comment/{post}','CommentController@store')->name('comment.store');
 });
 
 // ==========Admin group====================

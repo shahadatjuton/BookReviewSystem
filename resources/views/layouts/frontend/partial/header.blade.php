@@ -17,8 +17,36 @@
         <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@mydomain.com</a>
       </div>
       <div class="col-lg-3 text-right">
-        <a href="{{route('login')}}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
-        <a href="{{route('register')}}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+
+        @guest
+ <a href="{{route('login')}}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
+ <a href="{{route('register')}}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+        @else
+              @if(Auth::user()->role->id ==1)
+            <a href="{{route('admin.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
+
+                <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+                </form>
+
+          @endif
+                @if(Auth::user()->role->id ==2)
+                  <a href="{{route('publisher.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
+                  <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                  </form>
+                @endif
+
+        @endguest
+
+
+
       </div>
     </div>
   </div>
