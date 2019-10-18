@@ -46,6 +46,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
 
     Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');
 
+    Route::get('/comments','CommentController@index')->name('comment.index');
+    Route::post('/comments/{id}','CommentController@destroy')->name('comment.destroy');
+
     Route::get('/pending/post','PostController@pending')->name('post.pending');
     Route::put('/post/{id}/approve','PostController@approve')->name('post.approve');
 
@@ -66,6 +69,8 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
 
 
     Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');
+
+    Route::get('/comments','CommentController@index')->name('comment.index');
 
 
 });

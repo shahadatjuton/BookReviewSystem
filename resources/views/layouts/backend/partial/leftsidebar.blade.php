@@ -102,6 +102,13 @@
                             </a>
 
                         </li>
+                        <li>
+                            <a href="{{route('admin.comment.index')}}">
+                                <i class="material-icons">comment</i>
+                                <span>Comments</span>
+                            </a>
+
+                        </li>
                     </ul>
                 </li>
 
@@ -233,6 +240,13 @@
                             <a href="{{route('publisher.post.favourite')}}">
                                 <i class="material-icons">favorite</i>
                                 <span>Favourite-Post</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="{{route('publisher.comment.index')}}">
+                                <i class="material-icons">comment</i>
+                                <span>Comments</span>
                             </a>
 
                         </li>

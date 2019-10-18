@@ -266,6 +266,9 @@
                     </div><!-- commnets-area -->
 
                     @endif
+
+
+
                     <a class="more-comment-btn" href="#"><b>VIEW MORE COMMENTS</a>
 
                 </div><!-- col-lg-8 col-md-12 -->
