@@ -92,7 +92,7 @@
                                                 <i class="material-icons" >delete</i>
 
                                             </button>
-                                            <form  id="delete-comment-{{$comment->id}}" method="post" action="{{'admin.comment.destroy'}}" style="display:none;"
+                                            <form  id="delete-comment-{{$comment->id}}" method="post" action="{{'admin.comment.destroy',$comment->id}}" style="display:none;"
                                             >
                                                 @csrf
                                                 @method('DELETE')

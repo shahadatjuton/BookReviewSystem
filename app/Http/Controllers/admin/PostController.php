@@ -260,7 +260,7 @@ class PostController extends Controller
      */
     public function pending()
     {
-        $posts = Post::where('status',false)->get();
+        $posts = Post::where('status',false)->latest()->get();
         return view('admin.post.pending',compact('posts'));
     }
 

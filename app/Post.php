@@ -31,7 +31,14 @@ class Post extends Model
         return $this->hasMany('App\Comment');
     }
 
-
+    public function scopePopular($query)
+    {
+        return $query->where('view_count', '>', 1);
+    }
+    public function scopeStatus($query)
+    {
+        return $query->where('status', 1);
+    }
 
 
 }

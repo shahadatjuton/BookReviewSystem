@@ -19,8 +19,11 @@ class CommentController extends Controller
     public function destroy (Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
+
         $comment->delete();
+
         Toastr::success('Selected comment has been deleted','success');
+
         return redirect()->back();
     }
 }

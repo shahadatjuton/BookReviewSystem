@@ -34,7 +34,6 @@
 
                             </tr>
                             </thead>
-                            <tbody>
 
                             @foreach($posts as $key=> $post)
                                 @foreach($post->comments as $comment)
@@ -94,7 +93,7 @@
                                             <i class="material-icons" >delete</i>
 
                                         </button>
-                                        <form  id="delete-comment-{{$comment->id}}" method="post" action="{{'admin.comment.destroy'}}" style="display:none;"
+                                        <form  id="delete-comment-{{$comment->id}}" method="post" action="{{'admin.comment.destroy',$comment->id}}" style="display:none;"
                                         >
                                             @csrf
                                             @method('DELETE')
@@ -106,11 +105,10 @@
                                     </td>
                                 </tr>
 
-
-
+                                <h2>No post comment found</h2>
+                                    @endforeach
                                 @endforeach
-                                        @endforeach
-                               </tbody>
+                                </thead>
 
 
 

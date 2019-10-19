@@ -172,17 +172,15 @@
                             </div>
                         @endforeach
 
-
-
                     </div>
 
                 </div>
             </div>
 
-
-
         </div>
     </div>
+    <p class="text-center"><a href="{{ route('post.index', $post->slug) }}" class="btn btn-primary rounded-0 px-4">View All Posts</a></p>
+
 
     {{--   =========================== Popular books    =======================     --}}
 
@@ -204,7 +202,7 @@
                 <div class="col-12">
                     <div class="owl-slide-3 owl-carousel">
 
-                       @foreach( $posts as $post )
+                       @foreach( $popular_posts as $post )
                             <div class="course-1-item">
                                 <figure class="thumnail">
                                     <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
@@ -271,7 +269,9 @@
 
 
         </div>
+
     </div>
+    <p class="text-center"><a href="{{ route('post.index', $post->slug) }}" class="btn btn-primary rounded-0 px-4">View All Posts</a></p>
 
 
 

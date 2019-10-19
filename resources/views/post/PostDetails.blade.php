@@ -48,7 +48,7 @@
 
 
 
-                    <div class="rating text-center mb-3">
+                    <div class="rating text-center mb-2 mt-5">
                         <span class="icon-star2 text-warning"></span>
                         <span class="icon-star2 text-warning"></span>
                         <span class="icon-star2 text-warning"></span>
@@ -85,6 +85,10 @@
                             <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
                             <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
                         </ul>
+                        <p class="text-center">
+                            <a href="#" class="btn btn-primary rounded-0 btn-lg px-5">Add to Cart</a>
+                        </p>
+
                     </div>
 
 
@@ -101,20 +105,39 @@
 
                     <p class="text-center">{!! html_entity_decode($post->body) !!}</p>
 
-                    <p class="text-center">
-                        <a href="#" class="btn btn-primary rounded-0 btn-lg px-5">Add to Cart</a>
-                    </p>
 
 
 
 
                 </div>
-                <div class="col-lg-4 ml-auto align-self-center">
-                    <h2 class="section-title-underline mb-5">
-                        <span>{{ $post->title }}</span>
-                    </h2>
-                    <p> Posted by <b><i>{{ $post->user->name }}</i></b></p>
-                    <p class="mb-5">On <b>{{ $post-> created_at->diffForhumans()  }}</b></p>
+                <div class="col-lg-3 ml-auto align-self-center">
+                    <div class="categories">
+                        <h3 class="section-title-underline mb-5">
+                            <span>Used Categories</span>
+                        </h3>
+                        @foreach($post->categories as $category)
+                            <ul class="ul-check primary list-unstyled mb-5">
+                                <li> <a href="{{route('category.posts',$category->slug)}}">{{$category->name}}</a></li>
+                            </ul>
+                        @endforeach
+
+                        <hr>
+                    </div>
+
+                    <div class="tags">
+                        <h3 class="section-title-underline mb-5">
+                            <span>Used Tags</span>
+                        </h3>
+                        @foreach($post->tags as $tag)
+
+                                <ul class="ul-check primary list-unstyled mb-5">
+                                    <li> <a href="{{route('category.posts',$tag->slug)}}">{{$tag->name}}</a></li>
+
+                            </ul>
+                        @endforeach
+
+                        <hr>
+                    </div>
 
 
                 </div>
@@ -269,7 +292,7 @@
 
 
 
-                    <a class="more-comment-btn" href="#"><b>VIEW MORE COMMENTS</a>
+{{--                    <a class="more-comment-btn" href="#"><b>VIEW MORE COMMENTS</a>--}}
 
                 </div><!-- col-lg-8 col-md-12 -->
 

@@ -26,11 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $posts =Post::all();
+        $posts =Post::status()->latest()->get();
         $tags = Tag::all();
         $categories = Category::all();
-        return view('welcome',compact(['posts', 'tags', 'categories']));
+        $popular_posts = Post::popular()->get();
+
+        return view('welcome',compact(['posts', 'tags', 'categories','popular_posts']));
     }
 
 

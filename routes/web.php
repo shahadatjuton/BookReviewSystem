@@ -14,7 +14,16 @@
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/','HomeController@index')->name('home');
+//for single post
 Route::get('/post/{slug}','PostDetailsController@details')->name('post.details');
+//To show all of the post in one page
+Route::get('/posts','PostDetailsController@index')->name('post.index');
+//To show category wise post
+Route::get('/category/{slug}','PostDetailsController@CategoryPost')->name('category.posts');
+//To show tag wise post
+Route::get('/tag/{slug}','PostDetailsController@tagPost')->name('tag.posts');
+
+
 
 
 Auth::routes(['verify'=>true]);
@@ -71,6 +80,8 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
     Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');
 
     Route::get('/comments','CommentController@index')->name('comment.index');
+    Route::post('/comments/{id}','CommentController@destroy')->name('comment.destroy');
+
 
 
 });
