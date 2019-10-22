@@ -3,15 +3,15 @@
     <div class="container">
         <div class="d-flex align-items-center">
             <div class="site-logo">
-                <a href="index.html" class="d-block">
-                    <img src="images/logo.jpg" alt="Image" class="img-fluid">
+                <a href="{{route('home')}}" class="d-block">
+                    <img src="images/logo.jpg" alt="Book Review" class="img-fluid">
                 </a>
             </div>
             <div class="mr-auto">
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                         <li class="active">
-                            <a href="index.html" class="nav-link text-left">Home</a>
+                            <a href="{{route('home')}}" class="nav-link text-left">Home</a>
                         </li>
                         <li class="has-children">
                             <a href="about.html" class="nav-link text-left">About Us</a>
@@ -21,10 +21,10 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="admissions.html" class="nav-link text-left">Admissions</a>
+                            <a href="{{route('blog.index')}}" class="nav-link text-left">Blog</a>
                         </li>
                         <li>
-                            <a href="courses.html" class="nav-link text-left">Courses</a>
+                            <a href="{{route('post.index')}}" class="nav-link text-left">Books</a>
                         </li>
                         <li>
                             <a href="{{route('contact.form')}}" class="nav-link text-left">Contact</a>

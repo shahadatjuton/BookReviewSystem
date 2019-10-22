@@ -20,7 +20,7 @@ class ContactMessageToUser extends Mailable
      *
      * @return void
      */
-    public function __construct($reply)
+    public function __construct()
     {
 
 //        $this->reply = $reply;

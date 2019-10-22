@@ -17,7 +17,7 @@ Route::get('/','HomeController@index')->name('home');
 //for single post
 Route::get('/book/{slug}','PostDetailsController@details')->name('post.details');
 //To show all of the post in one page
-Route::get('/posts','PostDetailsController@index')->name('post.index');
+Route::get('/books','PostDetailsController@index')->name('post.index');
 //To show category wise post
 Route::get('/category/{slug}','PostDetailsController@CategoryPost')->name('category.posts');
 //To show tag wise post
@@ -32,6 +32,19 @@ Route::get('/cart/clear','CartController@clear')->name('cart.clear');
 //Contact us
 Route::get('/contact-us','ContactMessageController@ContactForm')->name('contact.form');
 Route::post('/store','ContactMessageController@store')->name('contact.store');
+
+Route::group(['prefix'=>'blog','namespace'=>'blog'], function () {
+
+    route::get('/posts','BlogController@index')->name('blog.index');
+    route::get('/post/{slug}','BlogController@singleblog')->name('blog.singleblog');
+    route::get('/create','BlogController@create')->name('blog.create');
+    route::post('/store','BlogController@store')->name('blog.store');
+    Route::post('comment/store/{id}','BlogController@commentstore')->name('blog.commentstore');
+
+
+
+
+});
 
 
 
@@ -50,6 +63,7 @@ Route::post('/subscriber','SubscriberController@store')->name('subscriber.store'
 Route::group(['middleware'=> ['auth']], function (){
    Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
    Route::post('/comment/{post}','CommentController@store')->name('comment.store');
+
 });
 
 // ==========Admin group====================

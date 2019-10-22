@@ -30,9 +30,11 @@
 
     <div class="custom-breadcrumns border-bottom">
         <div class="container">
-            <a href="index.html">Home</a>
+            <a href="{{route('home')}}">Home</a>
             <span class="mx-3 icon-keyboard_arrow_right"></span>
-            <span class="current">Courses</span>
+            <a href="{{route('post.index')}}">
+            <span class="current">Books</span>
+            </a>
         </div>
     </div>
 

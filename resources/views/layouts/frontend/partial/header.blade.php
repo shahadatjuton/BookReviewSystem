@@ -12,16 +12,16 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-9 d-none d-lg-block">
-        <a href="#" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a>
-        <a href="#" class="small mr-3"><span class="icon-phone2 mr-2"></span> 10 20 123 456</a>
-        <a href="#" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@mydomain.com</a>
+        <a href="{{route('contact.form')}}" class="small mr-3"><span class="icon-question-circle-o mr-2"></span> Have a questions?</a>
+        <a href="{{route('contact.form')}}" class="small mr-3"><span class="icon-phone2 mr-2"></span> 10 20 123 456</a>
+        <a href="{{route('contact.form')}}" class="small mr-3"><span class="icon-envelope-o mr-2"></span> info@mydomain.com</a>
       </div>
       <div class="col-lg-3 text-right">
 
         @guest
  <a href="{{route('login')}}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
  <a href="{{route('register')}}" class="small btn btn-primary px-2 py-2 rounded-0"><span class="icon-users"></span> Register</a>
- <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
+ <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>({{\App\Cart::where('user_ip', \Request::ip())->count()}})</a>
 
         @else
               @if(Auth::user()->role->id ==1)
