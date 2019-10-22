@@ -12,7 +12,8 @@ class PostDetailsController extends Controller
 {
     public function details($slug)
     {
-       $post = Post::where('slug',$slug)->first();
+
+        $post = Post::where('slug',$slug)->first();
 
        $viewCount = 'count_'.$post->id;
        if (!Session::has($viewCount))

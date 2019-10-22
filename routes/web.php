@@ -15,13 +15,25 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/','HomeController@index')->name('home');
 //for single post
-Route::get('/post/{slug}','PostDetailsController@details')->name('post.details');
+Route::get('/book/{slug}','PostDetailsController@details')->name('post.details');
 //To show all of the post in one page
 Route::get('/posts','PostDetailsController@index')->name('post.index');
 //To show category wise post
 Route::get('/category/{slug}','PostDetailsController@CategoryPost')->name('category.posts');
 //To show tag wise post
 Route::get('/tag/{slug}','PostDetailsController@tagPost')->name('tag.posts');
+//search option
+Route::get('/search','SearchController@search')->name('search');
+//Cart option
+Route::get('/cart/book/{id}','CartController@store')->name('cart.store');
+Route::get('/cart','CartController@index')->name('cart.index');
+Route::get('/cart/{id}','CartController@destroy')->name('cart.destroy');
+Route::get('/cart/clear','CartController@clear')->name('cart.clear');
+//Contact us
+Route::get('/contact-us','ContactMessageController@ContactForm')->name('contact.form');
+Route::post('/store','ContactMessageController@store')->name('contact.store');
+
+
 
 
 
@@ -51,6 +63,13 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
     Route::resource('/post','PostController');
     Route::resource('/settings','SettingsController');
     Route::put('/settings/{id}/change','SettingsController@pswupdate')->name('password.change');
+    Route::get('/index','ContactMessageController@index')->name('contact.index');
+    Route::get('/contact/reply/{id}','ContactMessageController@reply')->name('contact.reply');
+    Route::post('/reply/message/{id}','ContactMessageController@ReplyMessage')->name('contact.ReplyMessage');
+
+
+    Route::delete('/destroy/{id}','ContactMessageController@destroy')->name('contact.destroy');
+
 
 
     Route::get('/favourite/post','FavouriteController@index')->name('post.favourite');

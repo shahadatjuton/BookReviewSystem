@@ -20,7 +20,9 @@
 
         @guest
  <a href="{{route('login')}}" class="small mr-3"><span class="icon-unlock-alt"></span> Log In</a>
- <a href="{{route('register')}}" class="small btn btn-primary px-4 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+ <a href="{{route('register')}}" class="small btn btn-primary px-2 py-2 rounded-0"><span class="icon-users"></span> Register</a>
+ <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
+
         @else
               @if(Auth::user()->role->id ==1)
             <a href="{{route('admin.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
@@ -31,8 +33,9 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                   @csrf
                 </form>
+                  <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
 
-          @endif
+              @endif
                 @if(Auth::user()->role->id ==2)
                   <a href="{{route('publisher.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
                   <a  href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -41,7 +44,10 @@
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                   </form>
-                @endif
+
+                      <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
+
+                  @endif
 
         @endguest
 

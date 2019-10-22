@@ -131,6 +131,12 @@
                         <span>Subscriber List</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/contact') ? 'active' : '' }}">
+                    <a href="{{route('admin.contact.index')}}">
+                        <i class="material-icons">message</i>
+                        <span>Contact-Message</span>
+                    </a>
+                </li>
 
 
                 <li class="header ">System</li>
@@ -254,14 +260,12 @@
                 </li>
 
                 <li class="header ">System</li>
-
-                            <li class="{{ Request::is('publisher/settings') ? 'active' : '' }}">
-                                <a href="{{route('publisher.settings.index')}}">
-                                    <i class="material-icons">settings</i>
-                                    <span>Settings</span>
-                                </a>
-                            </li>
-
+                    <li class="{{ Request::is('publisher/settings') ? 'active' : '' }}">
+                      <a href="{{route('publisher.settings.index')}}">
+                          <i class="material-icons">settings</i>
+                          <span>Settings</span>
+                      </a>
+                </li>
 
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"

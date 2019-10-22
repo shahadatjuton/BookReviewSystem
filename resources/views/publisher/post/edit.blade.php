@@ -55,13 +55,20 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-
-                                <input type="checkbox" id="publish" class="filled-in" name="status"
-                                       value="1" {{ $post->status == true ? 'checked' : '' }} >
-                                <label for="">Publish</label>
-
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <label for="">Product Quantity</label>
+                                    <input type="number" name="quantity" >
+                                </div>
                             </div>
+
+{{--                            <div class="form-group">--}}
+
+{{--                                <input type="checkbox" id="publish" class="filled-in" name="status"--}}
+{{--                                       value="1" {{ $post->status == true ? 'checked' : '' }} >--}}
+{{--                                <label for="">Publish</label>--}}
+
+{{--                            </div>--}}
 
 
                         </div>

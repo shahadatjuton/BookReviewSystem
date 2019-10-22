@@ -27,21 +27,35 @@
                             <a href="courses.html" class="nav-link text-left">Courses</a>
                         </li>
                         <li>
-                            <a href="contact.html" class="nav-link text-left">Contact</a>
+                            <a href="{{route('contact.form')}}" class="nav-link text-left">Contact</a>
                         </li>
                     </ul>                                                                                                                                                                                                                                                                                          </ul>
                 </nav>
 
             </div>
             <div class="ml-auto">
-                <div class="social-wrap">
-                    <a href="#"><span class="icon-facebook"></span></a>
-                    <a href="#"><span class="icon-twitter"></span></a>
-                    <a href="#"><span class="icon-linkedin"></span></a>
 
-                    <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
-                                class="icon-menu h3"></span></a>
+
+                <!-- Top Search Area -->
+                <div class="top-search-area">
+                    <form action="{{route('search')}}" method="GET">
+
+                        <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder="Search">
+                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
                 </div>
+
+
+
+
+{{--                <div class="social-wrap">--}}
+{{--                    <a href="#"><span class="icon-facebook"></span></a>--}}
+{{--                    <a href="#"><span class="icon-twitter"></span></a>--}}
+{{--                    <a href="#"><span class="icon-linkedin"></span></a>--}}
+
+{{--                    <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span--}}
+{{--                                class="icon-menu h3"></span></a>--}}
+{{--                </div>--}}
             </div>
 
         </div>

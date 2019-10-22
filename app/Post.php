@@ -40,5 +40,9 @@ class Post extends Model
         return $query->where('status', 1);
     }
 
+    public function add_to_carts(){
+        return $this->belongsToMany('App\Cart')->withTimestamps();
+    }
+
 
 }

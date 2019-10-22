@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Mail\NotifySubscriber;
 use App\Notifications\PublisherNotification;
 use App\Notifications\SubscriberNotification;
 use App\Post;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -60,6 +62,7 @@ class PostController extends Controller
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
+            'quantity'=>'required',
 
 
         ]);
@@ -94,6 +97,7 @@ class PostController extends Controller
         $post->title=$request->title;
         $post->slug=$slug;
         $post->image=$image_name;
+        $post->quantity = $request->quantity;
         $post->body=$request->body;
 //        if (isset($request->status)) {
 //            $post->status=true;
@@ -180,6 +184,7 @@ class PostController extends Controller
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
+            'quantity'=>'required',
 
 
         ]);
@@ -219,6 +224,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = $slug;
         $post->image = $image_name;
+        $post->quantity = $request->quantity;
         $post->body = $request->body;
         $post->status = true;
         $post->save();
@@ -277,6 +283,10 @@ class PostController extends Controller
             $pendingPost->save();
 
             $pendingPost->user->notify(new PublisherNotification($pendingPost));
+
+            $subscribers = Subscriber::all();
+
+            Mail::to($subscribers)->send(new NotifySubscriber($pendingPost));
 
 
             toastr::success('Your post is approved successfully','success');

@@ -86,7 +86,14 @@
                             <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
                         </ul>
                         <p class="text-center">
-                            <a href="#" class="btn btn-primary rounded-0 btn-lg px-5">Add to Cart</a>
+                            @if($post->quantity > 0)
+                            <a href="{{ route('cart.store', $post->id) }}" class="btn btn-primary rounded-0 btn-lg px-5">Add to Cart</a>
+                        <p> {{$post->quantity}} items in stock</p>
+                            @else
+                            <div class="alert alert-danger">
+                                No books available for sell
+                            </div>
+                            @endif
                         </p>
 
                     </div>

@@ -123,8 +123,13 @@
                                     <div class="category"><h3>{{$post->title}}</h3></div>
                                 </figure>
                                 <div class="course-1-content pb-4">
-                                    <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
-
+                                    @if($post->quantity > 0)
+                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
+                                    @else
+                                        <div class="alert alert-danger">
+                                            <p>Stock Out</p>
+                                        </div>
+                                    @endif
                                     <p class="desc mb-4">{{ $post->body }}</p>
                                     <div class="rating text-center mb-3">
                                         <span class="icon-star2 text-warning"></span>
@@ -210,8 +215,13 @@
                                     <div class="category"><h3>{{$post->title}}</h3></div>
                                 </figure>
                                 <div class="course-1-content pb-4">
-                                    <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
-
+                                    @if($post->quantity > 0)
+                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
+                                    @else
+                                        <div class="alert alert-danger">
+                                            <p>Stock Out</p>
+                                        </div>
+                                    @endif
                                     <p class="desc mb-4">{{ $post->body }}</p>
                                     <div class="rating text-center mb-3">
                                         <span class="icon-star2 text-warning"></span>

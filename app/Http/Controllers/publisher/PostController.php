@@ -4,6 +4,7 @@ namespace App\Http\Controllers\publisher;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Mail\publisher\PostApproval;
 use App\Notifications\AdminNotification;
 use App\Post;
 use App\Tag;
@@ -12,6 +13,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -58,6 +60,7 @@ class PostController extends Controller
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
+            'quantity'=>'required',
 
 
         ]);
@@ -92,6 +95,7 @@ class PostController extends Controller
         $post->title=$request->title;
         $post->slug=$slug;
         $post->image=$image_name;
+        $post->quantity = $request->quantity;
         $post->body=$request->body;
 //        if (isset($request->status)) {
 //            $post->status=true;
@@ -102,19 +106,20 @@ class PostController extends Controller
         $post->status=false;
         $post->save();
 
-//        $subscribers =Subscriber::all();
-//        foreach ($subscribers as $subscriber)
-//        {
-//            Notification::route('mail',$subscriber->email)->notify(new NotifySubscriber($post));
-//        }
-
-
-
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
 
-        $users = User::where('role_id','1')->get();
-        Notification::send($users, new AdminNotification($post));
+
+//        Mail sending to admin for approval
+
+//        $users = User::where('role_id','1')->get();
+//
+//       Mail::to($users)->send(new \App\Mail\PostApproval($post));
+
+
+
+
+//        Notification::send($users, new AdminNotification($post));
 
         Toastr::success('Category  Created successfully', 'success');
         return redirect()->route('publisher.post.index');
@@ -184,6 +189,7 @@ class PostController extends Controller
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
+            'quantity'=>'required',
 
 
         ]);
@@ -223,6 +229,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = $slug;
         $post->image = $image_name;
+        $post->quantity = $request->quantity;
         $post->body = $request->body;
         $post->status = false;
         $post->save();
