@@ -28,7 +28,13 @@ Route::get('/search','SearchController@search')->name('search');
 Route::get('/cart/book/{id}','CartController@store')->name('cart.store');
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::get('/cart/{id}','CartController@destroy')->name('cart.destroy');
-Route::get('/cart/clear','CartController@clear')->name('cart.clear');
+Route::get('clear/cart','CartController@clear')->name('cart.clear');
+Route::get('/cart/single/update/{id}','CartController@SingleProductUpdate')->name('cart.single.update');
+Route::get('checkout/cart','CartController@checkout')->name('cart.checkout');
+
+
+
+
 //Contact us
 Route::get('/contact-us','ContactMessageController@ContactForm')->name('contact.form');
 Route::post('/store','ContactMessageController@store')->name('contact.store');

@@ -281,7 +281,19 @@
                 </li>
         @endif
 
-        <!-- ================End Publisher Side bar ============================  -->
+        <!-- ================End User Side bar ============================  -->
+
+            <!-- ===================Start User  Side bar ============================  -->
+            <li class="{{ Request::is('settings*') ? 'active' : '' }}">
+                <a href="{{route('admin.settings.index')}}">
+                    <i class="material-icons">settings</i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <!-- ================End User Side bar ============================  -->
+
+
 
             <li class="header ">System</li>
 

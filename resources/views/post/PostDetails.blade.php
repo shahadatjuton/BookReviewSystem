@@ -138,8 +138,7 @@
                         @foreach($post->tags as $tag)
 
                                 <ul class="ul-check primary list-unstyled mb-5">
-                                    <li> <a href="{{route('category.posts',$tag->slug)}}">{{$tag->name}}</a></li>
-
+                                    <li> <a href="{{route('tag.posts',$tag->slug)}}">{{$tag->name}}</a></li>
                             </ul>
                         @endforeach
 

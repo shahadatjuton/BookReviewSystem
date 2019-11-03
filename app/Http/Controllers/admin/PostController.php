@@ -1,20 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
+use App\Subscriber;
+use Notification;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Mail\NotifySubscriber;
 use App\Notifications\PublisherNotification;
 use App\Notifications\SubscriberNotification;
 use App\Post;
-use App\Subscriber;
 use App\Tag;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -108,12 +107,11 @@ class PostController extends Controller
         $post->status=true;
         $post->save();
 
-//        $subscribers =Subscriber::all();
-//        foreach ($subscribers as $subscriber)
-//        {
-//            Notification::route('mail',$subscriber->email)->notify(new NotifySubscriber($post));
-//        }
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber) {
+            Notification::send($subscriber, new SubscriberNotification($post));
 
+        }
 //        $subscribers = Subscriber::all();
 //        foreach ($subscribers as $subscriber)
 //        {

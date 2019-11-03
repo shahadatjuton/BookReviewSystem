@@ -10,7 +10,7 @@
             <div class="mr-auto">
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                        <li class="active">
+                        <li class="">
                             <a href="{{route('home')}}" class="nav-link text-left">Home</a>
                         </li>
                         <li class="has-children">

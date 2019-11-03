@@ -48,7 +48,7 @@ class SubscriberNotification extends Notification
             ->subject('See the new book')
             ->line($this->post->title)
             ->line('To check out click the below button')
-            ->action('View the post', url(route('/', $this->post->id)))
+            ->action('View the post', url(route('home', $this->post->id)))
             ->line('Thank you for using our application!');
     }
 

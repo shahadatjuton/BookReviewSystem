@@ -71,7 +71,7 @@ class CategoryController extends Controller
 
             //==========Check and upload Image  ==================
 
-            $imageSize=Image::make($image)->resize(1600,479)->save($image->getClientOriginalExtension());
+            $imageSize=Image::make($image)->resize(1900,1200)->save($image->getClientOriginalExtension());
 
 
             Storage::disk('public')->put('category/'.$imageName,$imageSize);
@@ -86,7 +86,7 @@ class CategoryController extends Controller
 
             //==========Check and set Image Directory==================
 
-            $sliderImageSize=Image::make($image)->resize(500,333)->save($image->getClientOriginalExtension());
+            $sliderImageSize=Image::make($image)->resize(1900,1200)->save($image->getClientOriginalExtension());
 
 
             Storage::disk('public')->put('category/slider/'.$imageName,$sliderImageSize);
@@ -176,7 +176,7 @@ class CategoryController extends Controller
             }
             //==========Check and upload Image  ==================
 
-            $imageSize=Image::make($image)->resize(1600,479)->save($image->getClientOriginalExtension());
+            $imageSize=Image::make($image)->resize(1900,1200)->save($image->getClientOriginalExtension());
 
 
             Storage::disk('public')->put('category/'.$imageName,$imageSize);
@@ -197,7 +197,7 @@ class CategoryController extends Controller
             }
             //==========Check and set Image Directory==================
 
-            $sliderImageSize=Image::make($image)->resize(500,333)->save($image->getClientOriginalExtension());
+            $sliderImageSize=Image::make($image)->resize(1900,1200)->save($image->getClientOriginalExtension());
             Storage::disk('public')->put('category/slider/'.$imageName,$sliderImageSize);
 
         }else {

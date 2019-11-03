@@ -65,7 +65,7 @@ class BlogController extends Controller
                 Storage::disk('public')->makeDirectory('blog');
             }
 
-            $imageSize=Image::make($image)->resize(1600,1066)->save($image->getClientOriginalExtension());
+            $imageSize=Image::make($image)->resize(1900,1266)->save($image->getClientOriginalExtension());
 
 
             Storage::disk('public')->put('blog/'.$image_name,$imageSize);

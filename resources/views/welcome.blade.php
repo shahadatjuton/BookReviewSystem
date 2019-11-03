@@ -19,26 +19,17 @@
 
 
     <div class="hero-slide owl-carousel site-blocks-cover">
-        <div class="intro-section" style="background-image: url('images/hero_1.jpg');">
+        @foreach($categories as $category)
+        <div class="intro-section" style="background-image: url({{ URL::asset('storage/Category/slider/'.$category->image) }});">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-12 mx-auto text-center" data-aos="fade-up">
-                        <h1>Academics University</h1>
+                        <a href="{{route('category.posts',$category->slug)}}"><h1>{{$category->name}}</h1></a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="intro-section" style="background-image: url('images/hero_1.jpg');">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-12 mx-auto text-center" data-aos="fade-up">
-                        <h1>You Can Learn Anything</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @endforeach
     </div>
 
 
@@ -55,7 +46,6 @@
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-
                     <div class="feature-1 border">
                         <div class="icon-wrapper bg-primary">
                             <span class="flaticon-mortarboard text-white"></span>

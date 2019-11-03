@@ -27,19 +27,37 @@ class PostDetailsController extends Controller
     }
 
 
-
+// ===============All - Posts ==============================
 
     public function index(Request $request)
     {
         $posts =Post::all();
-        return view('post.posts', compact('posts'));
+        $categories = Category::all();
+        return view('post.posts', compact('posts','categories'));
     }
+
+// ===============Tag wis post ==============================
+
+
+//    public function tagPost($slug)
+//    {
+//        $tag = Tag::where('slug',$slug)->first();
+//        return view('post.tag_post',compact('tag'));
+//    }
+//
+
+
+
+// ===============Category wise post ==============================
 
 public function CategoryPost($slug)
 {
        $category = Category::where('slug',$slug)->first();
       return view('post.category_post',compact('category'));
 }
+
+
+// ===============Tag wis post ==============================
 
 
     public function tagPost($slug)

@@ -6,7 +6,9 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Mail\publisher\PostApproval;
 use App\Notifications\AdminNotification;
+use App\Notifications\SubscriberNotification;
 use App\Post;
+use App\Subscriber;
 use App\Tag;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -105,6 +107,13 @@ class PostController extends Controller
 //        }
         $post->status=false;
         $post->save();
+
+        $subscribers = Subscriber::all();
+        foreach ($subscribers as $subscriber) {
+            Notification::send($subscriber, new SubscriberNotification($post));
+
+        }
+
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);

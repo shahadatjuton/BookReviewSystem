@@ -124,7 +124,7 @@
 
                             <br>
                             <a class="btn btn-danger m-t-15 waves-effect" href="{{route('admin.post.index')}}"> Back</a>
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Submit</button>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Update</button>
 
                         </div>
                     </div>
