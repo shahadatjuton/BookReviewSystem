@@ -14,23 +14,28 @@
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/','HomeController@index')->name('home');
+//=============Cart option==================
 //for single post
 Route::get('/book/{slug}','PostDetailsController@details')->name('post.details');
 //To show all of the post in one page
 Route::get('/books','PostDetailsController@index')->name('post.index');
+Route::get('/book/category/{slug}','PostDetailsController@bookCategory')->name('book.category');
+
 //To show category wise post
 Route::get('/category/{slug}','PostDetailsController@CategoryPost')->name('category.posts');
 //To show tag wise post
 Route::get('/tag/{slug}','PostDetailsController@tagPost')->name('tag.posts');
 //search option
 Route::get('/search','SearchController@search')->name('search');
-//Cart option
+//===============Cart option=========================
 Route::get('/cart/book/{id}','CartController@store')->name('cart.store');
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::get('/cart/{id}','CartController@destroy')->name('cart.destroy');
 Route::get('clear/cart','CartController@clear')->name('cart.clear');
 Route::get('/cart/single/update/{id}','CartController@SingleProductUpdate')->name('cart.single.update');
 Route::get('checkout/cart','CartController@checkout')->name('cart.checkout');
+Route::get('cart/invoice/{id}','CartController@generateInvoice')->name('cart.invoice');
+
 
 
 

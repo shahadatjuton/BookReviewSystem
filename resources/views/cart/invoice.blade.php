@@ -1,51 +1,4 @@
-@extends('layouts.frontend.master')
-
-@section('title','Cart')
-
-
-
-@push('css')
-
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/css/home/home.css')}}" rel="stylesheet">
-
-
-
-    <link href="{{ asset('assets/frontend/css/DetailsPost/responsive.css')}}" rel="stylesheet">
-
-    <link href="{{ asset('assets/frontend/css/cart/animate.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/css/cart/font-awesome.min.css')}}" rel="stylesheet">
-
-    <link href="{{ asset('assets/frontend/css/cart/styles.css')}}" rel="stylesheet">
-
-
-@endpush
-
-@section('content')
-    <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url('images/bg_1.jpg')">
-        <div class="container">
-            <div class="row align-items-end">
-                <div class="col-lg-7">
-                    <h2 class="mb-0">How To Create Mobile Apps Using Ionic</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="custom-breadcrumns border-bottom">
-        <div class="container">
-            <a href="{{route('home')}}">Home</a>
-            <span class="mx-3 icon-keyboard_arrow_right"></span>
-            <a href="{{route('cart.index')}}">Cart</a>
-            <span class="mx-3 icon-keyboard_arrow_right"></span>
-            <span class="current">Checkout</span>
-        </div>
-    </div>
-
-    <!-- Page -->
+<!-- Page -->
     <div class="page-area cart-page spad">
         <div class="container">
             <form class="checkout-form">
@@ -140,16 +93,10 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
-                                    <button type="submit" class="btn btn-primary mr-4">
+                                    <button type="submit" class="btn btn-primary">
                                         {{ __('Place Order') }}
                                     </button>
-
-                                <a href="{{route('cart.invoice', $cart->id)}}" class="btn btn-primary">
-                                    generate invoice
-                                </a>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -157,17 +104,3 @@
         </div>
     </div>
     <!-- Page end -->
-
-
-@endsection
-
-
-@push('js')
-
-    <link href="{{ asset('assets/frontend/js/cart/mixitup.min.js')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/js/cart/sly.min.js')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/js/cart/jquery.nicescroll.min.js')}}" rel="stylesheet">
-
-
-
-@endpush

@@ -29,12 +29,21 @@ class PostDetailsController extends Controller
 
 // ===============All - Posts ==============================
 
-    public function index(Request $request)
+    public function index()
     {
         $posts =Post::all();
+
         $categories = Category::all();
         return view('post.posts', compact('posts','categories'));
     }
+
+    public function bookCategory($slug)
+    {
+        $category = Category::where('slug',$slug)->first();
+        $categories = Category::all();
+        return view('post.books',compact('category','categories'));
+    }
+
 
 // ===============Tag wis post ==============================
 
@@ -52,7 +61,7 @@ class PostDetailsController extends Controller
 
 public function CategoryPost($slug)
 {
-       $category = Category::where('slug',$slug)->first();
+      $category = Category::where('slug',$slug)->first();
       return view('post.category_post',compact('category'));
 }
 

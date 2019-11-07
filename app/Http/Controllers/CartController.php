@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Category;
 use App\Post;
+use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function Sodium\increment;
+
 
 class CartController extends Controller
 {
@@ -95,6 +97,14 @@ class CartController extends Controller
         return view('cart.checkout', compact('carts'));
     }
 
+
+    public function generateInvoice($id)
+    {
+        $carts = Cart::where('id',$id)->get();
+
+        $pdf = PDF::loadView('cart.invoice', compact('carts'));
+        return $pdf->stream('invoice.pdf');
+    }
 
 
 }

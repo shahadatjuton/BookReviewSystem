@@ -71,7 +71,7 @@
                     @foreach($categories as $category)
                         <ul style="list-style-type:none;">
                             <li class="alert alert-secondary mt-4">
-                                <a href="{{route('category.posts',$category->slug)}}">{{$category->name}}</a>
+                                <a href="{{route('book.category',$category->slug)}}">{{$category->name}}({{$category->posts ->count()}})</a>
                             </li>
                         </ul>
                     @endforeach

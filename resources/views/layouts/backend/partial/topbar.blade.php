@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="{{route('admin.dashboard')}}">{{strtoupper(Auth::user()->name)}} DASHBOARD</a>
+            <a class="navbar-brand" href="{{route('home')}}">Book Review System</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -200,9 +200,9 @@
 
 
                 <li class="footer">
-                    <div class="image">
-                        <img src="{{ asset('storage/profile/'.Auth::user()->image) }}" width="48" height="48" alt="User" />
-                    </div>
+{{--                    <div class="image">--}}
+{{--                        <img src="{{ asset('storage/profile/'.Auth::user()->image) }}" width="48" height="48" alt="User" />--}}
+{{--                    </div>--}}
                 </li>
 
 
