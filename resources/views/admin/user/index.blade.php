@@ -28,21 +28,9 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            TOTAL TAGS <b>:</b>
-                            <span class="badge bg-blue">{{ $users->count() }}</span>
+                            <b>TOTAL USERS </b>
+                            <span class="badge bg-blue" style="font-size: 35px;">{{ $users->count() }}</span>
                         </h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -51,6 +39,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Role</th>
                                     <th>Created At </th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -66,6 +55,15 @@
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td>{{$user->name}}</td>
+                                        @if($user->role_id == 1)
+                                        <td>Admin</td>
+                                        @elseif ($user->role_id ==2)
+                                            <td>Publisher</td>
+                                        @elseif($user->role_id ==3)
+                                            <td>Author</td>
+                                        @elseif($user->role_id ==4)
+                                            <td>Reader</td>
+                                        @endif
                                         <td>{{$user->created_at}}</td>
                                         <td>{{$user->updated_at}}</td>
                                         <td>

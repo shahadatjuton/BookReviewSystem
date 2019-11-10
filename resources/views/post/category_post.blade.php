@@ -16,7 +16,7 @@ Book Review System-{{$category->slug}}
     <div class="site-section ftco-subscribe-1 site-blocks-cover pb-4" style="background-image: url({{asset('storage/Category/'.$category->image)}})">
         <div class="container">
             <div class="row align-items-end">
-                <div class="col-lg-7">
+                <div class="col-lg-12 text-center">
                     <h2 class="mb-0">{{$category->slug}}</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
                 </div>
@@ -42,18 +42,21 @@ Book Review System-{{$category->slug}}
 
 
 
-                @foreach( $category->posts as $post )
+                @forelse( $category->posts as $post )
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="course-1-item">
                         <figure class="thumnail">
                             <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
-                            <div class="price">$99.00</div>
+                            <div class="price">99.00 TAKA</div>
                             <div class="category"><h3>{{$post->title}}</h3></div>
                         </figure>
                         <div class="course-1-content pb-4">
-                            <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
-
-                            <p class="desc mb-4">{{ $post->body }}</p>
+                            @if($post->quantity > 0)
+                                <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-success rounded-0 px-4">Add to Cart</a></p>
+                            @else
+                                <p class="btn btn-danger rounded-0 px-4 disabled">Stock Out</p>
+                            @endif
+                            <p class="desc mb-4">{{Str::limit( $post->body, 30) }}</p>
                             <div class="rating text-center mb-3">
                                 <span class="icon-star2 text-warning"></span>
                                 <span class="icon-star2 text-warning"></span>
@@ -99,7 +102,15 @@ Book Review System-{{$category->slug}}
 
                     </div>
                 </div>
-                @endforeach
+                    @empty
+
+                    <div>
+                        <h3 class="text-center">
+                            No posts available for this <span>category</span>
+                        </h3>
+                    </div>
+
+                @endforelse
 
 
 

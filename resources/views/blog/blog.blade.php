@@ -35,6 +35,17 @@
             <span class="mx-3 icon-keyboard_arrow_right"></span>
             <a class="current" href="{{route('blog.index')}}">Blog</a>
 
+            <!-- Top Search Area -->
+            <a class="float-right">
+                <div>
+                    <form action="{{route('search')}}" method="GET">
+
+                        <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder=" Blog-Search">
+                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </a>
+
 
         </div>
     </div>

@@ -109,18 +109,16 @@
                             <div class="course-1-item">
                                 <figure class="thumnail">
                                     <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
-                                    <div class="price">$99.00</div>
+                                    <div class="price">99.00 Taka</div>
                                     <div class="category"><h3>{{$post->title}}</h3></div>
                                 </figure>
                                 <div class="course-1-content pb-4">
                                     @if($post->quantity > 0)
-                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
+                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-success rounded-0 px-4">Add to Cart</a></p>
                                     @else
-                                        <div class="alert alert-danger">
-                                            <p>Stock Out</p>
-                                        </div>
+                                        <p class="btn btn-danger rounded-0 px-4 disabled">Stock Out</p>
                                     @endif
-                                    <p class="desc mb-4">{{ $post->body }}</p>
+                                    <p class="desc mb-4">{{Str::limit( $post->body, 30) }}</p>
                                     <div class="rating text-center mb-3">
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
@@ -201,19 +199,18 @@
                             <div class="course-1-item">
                                 <figure class="thumnail">
                                     <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
-                                    <div class="price">$99.00</div>
+                                    <div class="price">99.00 Taka</div>
                                     <div class="category"><h3>{{$post->title}}</h3></div>
                                 </figure>
                                 <div class="course-1-content pb-4">
                                     @if($post->quantity > 0)
-                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
+                                    <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-success rounded-0 px-4">Add to Cart</a></p>
                                     @else
-                                        <div class="alert alert-danger">
-                                            <p>Stock Out</p>
-                                        </div>
+                                        <p class="btn btn-danger rounded-0 px-4 disabled">Stock Out</p>
                                     @endif
-                                    <p class="desc mb-4">{{ $post->body }}</p>
-                                    <div class="rating text-center mb-3">
+                                        <p class="desc mb-4">{{Str::limit( $post->body, 30) }}</p>
+
+                                        <div class="rating text-center mb-3">
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
                                         <span class="icon-star2 text-warning"></span>
