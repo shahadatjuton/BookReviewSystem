@@ -57,6 +57,12 @@
                                     <input type="number" name="quantity" >
                                 </div>
                             </div>
+                            <div class="form-group form-float">
+                                <div class="form-line">
+                                    <label for="">Product Price</label>
+                                    <input type="number" name="price" >
+                                </div>
+                            </div>
 
 
 

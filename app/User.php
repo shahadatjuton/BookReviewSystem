@@ -69,5 +69,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function rating_posts(){
+        return $this->belongsToMany('App\Post')->withTimestamps();
+    }
 
 }

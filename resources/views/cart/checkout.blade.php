@@ -144,7 +144,7 @@
                                         {{ __('Place Order') }}
                                     </button>
 
-                                <a href="{{route('cart.invoice', $cart->id)}}" class="btn btn-primary">
+                                <a target="_blank" href="{{route('cart.invoice', $cart->id)}}"  class="btn btn-primary">
                                     generate invoice
                                 </a>
 

@@ -62,6 +62,8 @@ class PostController extends Controller
             'tags'=>'required',
             'body'=>'required',
             'quantity'=>'required',
+            'price'=>'required',
+
 
 
         ]);
@@ -97,6 +99,7 @@ class PostController extends Controller
         $post->slug=$slug;
         $post->image=$image_name;
         $post->quantity = $request->quantity;
+        $post->price = $request->price;
         $post->body=$request->body;
 //        if (isset($request->status)) {
 //            $post->status=true;
@@ -107,11 +110,11 @@ class PostController extends Controller
         $post->status=true;
         $post->save();
 
-        $subscribers = Subscriber::all();
-        foreach ($subscribers as $subscriber) {
-            Notification::send($subscriber, new SubscriberNotification($post));
+//        $subscribers = Subscriber::all();
+//        foreach ($subscribers as $subscriber) {
+//            Notification::send($subscriber, new SubscriberNotification($post));
 
-        }
+//        }
 //        $subscribers = Subscriber::all();
 //        foreach ($subscribers as $subscriber)
 //        {

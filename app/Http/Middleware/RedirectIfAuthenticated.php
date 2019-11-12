@@ -19,28 +19,24 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check() && Auth::user()->role->id==1)
         {
-
-            return redirect('admin.dashboard');
-
-        }elseif (Auth::guard($guard)->check() && Auth::user()->role->id==2)
+            return redirect()->route('admin.dashboard');
+        }
+        elseif (Auth::guard($guard)->check() && Auth::user()->role->id==2)
         {
+            return redirect()->route('publisher.dashboard');
 
-            return redirect('publisher.dashboard');
-
-        }elseif (Auth::guard($guard)->check() && Auth::user()->role->id==3)
+        } elseif (Auth::guard($guard)->check() && Auth::user()->role->id==3)
         {
+            return redirect()->route('author.dashboard');
 
-            return redirect('author.dashboard');
-
-        }elseif (Auth::guard($guard)->check() && Auth::user()->role->id==4)
+        } elseif (Auth::guard($guard)->check() && Auth::user()->role->id==4)
         {
+            return redirect()->route('user.dashboard');
 
-            return redirect('user.dashboard');
-
-        }else
-        {
-
+        }
+        else{
             return $next($request);
+
         }
     }
 }

@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->text('body');
             $table->string('image')->default('default.png');
+            $table->integer('quantity');
+            $table->double('price');
             $table->integer('view_count')->default(0);
             $table->boolean('status');
             $table->foreign('user_id')

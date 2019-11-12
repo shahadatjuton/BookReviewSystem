@@ -59,6 +59,20 @@
             <a href="{{route('post.index')}}">
             <span class="current">Books</span>
             </a>
+
+            <!-- Top Search Area -->
+            <a class="float-right">
+                <div>
+                    <form action="{{route('books.search')}}" method="GET">
+
+                        <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder=" Blog-Search">
+                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </a>
+
+
+
         </div>
     </div>
 

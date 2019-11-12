@@ -24,7 +24,7 @@ class Post extends Model
     }
 
     public function favourite_to_users(){
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
     public function comments(){
@@ -42,6 +42,10 @@ class Post extends Model
 
     public function add_to_carts(){
         return $this->belongsToMany('App\Cart')->withTimestamps();
+    }
+
+    public function ratings_to_users(){
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
 

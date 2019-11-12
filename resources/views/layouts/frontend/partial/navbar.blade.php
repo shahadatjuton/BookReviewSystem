@@ -38,7 +38,7 @@
 
                 <!-- Top Search Area -->
                 <div class="top-search-area">
-                    <form action="{{route('search')}}" method="GET">
+                    <form action="{{route('books.search')}}" method="GET">
 
                         <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder="Search">
                         <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>

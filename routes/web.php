@@ -26,7 +26,9 @@ Route::get('/category/{slug}','PostDetailsController@CategoryPost')->name('categ
 //To show tag wise post
 Route::get('/tag/{slug}','PostDetailsController@tagPost')->name('tag.posts');
 //search option
-Route::get('/search','SearchController@search')->name('search');
+Route::get('/books/search','SearchController@bookSearch')->name('books.search');
+Route::get('/blogs/search','SearchController@blogSearch')->name('blogs.search');
+
 //===============Cart option=========================
 Route::get('/cart/book/{id}','CartController@store')->name('cart.store');
 Route::get('/cart','CartController@index')->name('cart.index');
@@ -74,6 +76,7 @@ Route::post('/subscriber','SubscriberController@store')->name('subscriber.store'
 Route::group(['middleware'=> ['auth']], function (){
    Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
    Route::post('/comment/{post}','CommentController@store')->name('comment.store');
+   Route::post('/rating','CommentController@rating')->name('rating');
 
 });
 

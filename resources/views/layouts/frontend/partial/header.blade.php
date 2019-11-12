@@ -48,6 +48,18 @@
                       <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
 
                   @endif
+                  @if(Auth::user()->role->id ==3)
+                      <a href="{{route('author.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
+                      <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();"> {{ __('Logout') }} </a>
+
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
+
+                      <a href="{{ route('cart.index')}}" class="small mr-3"><i class="fa fa-shopping-cart"></i>{{\App\Cart::where('user_ip', \Request::ip())->count()}}</a>
+
+                  @endif
                   @if(Auth::user()->role->id ==4)
                       <a href="{{route('user.dashboard')}}" class="small mr-3"><span class="bg-green"></span>Dashboard</a>
                       <a  href="{{ route('logout') }}" onclick="event.preventDefault();

@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $posts =Post::status()->latest()->get();
         $tags = Tag::all();
         $categories = Category::all();

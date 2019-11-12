@@ -12,7 +12,47 @@
     <link href="{{ asset('assets/frontend/css/DetailsPost/styles.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/DetailsPost/responsive.css')}}" rel="stylesheet">
 
+    <style>
+        form .rating {
+            float:left;
+            width:300px;
+        }
+        form .rating span { float:right; position:relative; }
+        form .rating span input {
+            position:absolute;
+            top:0px;
+            left:0px;
+            opacity:0;
+        }
+        form .rating span label {
+            display:inline-block;
+            width:30px;
+            height:30px;
+            text-align:center;
+            color:#FFF;
+            background:#ccc;
+            font-size:30px;
+            margin-right:2px;
+            line-height:30px;
+            border-radius:50%;
+            -webkit-border-radius:50%;
+        }
+        form .rating span:hover ~ span label,
+        form .rating span:hover label,
+        form .rating span.checked label,
+        form .rating span.checked ~ span label {
+            background:#F90;
+            color:#FFF;
+        }
 
+        .text-warning {
+            color: #ccc !important;
+        }
+
+        .has {
+            color: #ffb700 !important;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -48,14 +88,66 @@
 
 
 
+                    @php
+                        $ratingsSum = \App\Rating::where('post_id', $post->id)->sum('rating_star');
+                        $ratingsCount = \App\Rating::where('post_id', $post->id)->count();
+                       $avgRating = 0;
+                       if ($ratingsCount > 0)
+                       {
+                        $avgRating = $ratingsSum/$ratingsCount;
+                       }
+
+                    @endphp
+
+                    @if($avgRating < 1)
+                        <div class="rating text-center mb-2 mt-5">
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                            <span class="icon-star2 text-warning"></span>
+                        </div>
+                    @elseif($avgRating == 1 || $avgRating < 1.5)
                     <div class="rating text-center mb-2 mt-5">
-                        <span class="icon-star2 text-warning"></span>
+                        <span class="icon-star2 text-warning has"></span>
                         <span class="icon-star2 text-warning"></span>
                         <span class="icon-star2 text-warning"></span>
                         <span class="icon-star2 text-warning"></span>
                         <span class="icon-star2 text-warning"></span>
                     </div>
-
+                    @elseif($avgRating == 2 || $avgRating < 2.5)
+                    <div class="rating text-center mb-2 mt-5">
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning"></span>
+                        <span class="icon-star2 text-warning"></span>
+                        <span class="icon-star2 text-warning"></span>
+                    </div>
+                    @elseif($avgRating == 3 || $avgRating < 3.5)
+                    <div class="rating text-center mb-2 mt-5">
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning"></span>
+                        <span class="icon-star2 text-warning"></span>
+                    </div>
+                    @elseif($avgRating == 4 || $avgRating < 4.5)
+                    <div class="rating text-center mb-2 mt-5">
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning"></span>
+                    </div>
+                    @else
+                    <div class="rating text-center mb-2 mt-5">
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                        <span class="icon-star2 text-warning has"></span>
+                    </div>
+                    @endif
                     <div class="post-footer">
                         <ul >
 
@@ -117,7 +209,9 @@
 
 
                 </div>
-                <div class="col-lg-3 ml-auto align-self-center">
+
+
+                <div class="col-lg-3 ml-auto align-self-center" style="margin-bottom: 55%;">
                     <div class="categories">
                         <h3 class="section-title-underline mb-5">
                             <span>Used Categories</span>
@@ -137,8 +231,8 @@
                         </h3>
                         @foreach($post->tags as $tag)
 
-                                <ul class="ul-check primary list-unstyled mb-5">
-                                    <li> <a href="{{route('tag.posts',$tag->slug)}}">{{$tag->name}}</a></li>
+                            <ul class="ul-check primary list-unstyled mb-5">
+                                <li> <a href="{{route('tag.posts',$tag->slug)}}">{{$tag->name}}</a></li>
                             </ul>
                         @endforeach
 
@@ -146,6 +240,34 @@
                     </div>
 
 
+
+                <div style="max-width: 100%;">
+                    <div class="card border-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header bg-transparent border-success">Review for <strong>{{ $post->title }}</strong></div>
+                        @if(\App\Rating::where('post_id',$post->id)->where('user_id',Auth::user()->id)->exists())
+                            <div>
+                                <h3>You already provided review</h3>
+                            </div>
+                        @else
+                        <div class="card-body text-success">
+                            <form action="{{ route('rating') }}" method="post">
+                                <input type="hidden" name="post_id" value="{{ $post->id }}">
+                                @csrf
+                                <div class="rating" style="margin-left: -115px;">
+                                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="review" required></textarea>
+                                </div>
+                                <button class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -315,5 +437,20 @@
 
 
 @push('js')
+            <script>
+                $(document).ready(function(){
+                    // Check Radio-box
+                    $(".rating input:radio").attr("checked", false);
 
+                    $('.rating input').click(function () {
+                        $(".rating span").removeClass('checked');
+                        $(this).parent().addClass('checked');
+                    });
+
+                    $('input:radio').change(
+                        function(){
+                            var userRating = this.value;
+                        });
+                });
+            </script>
 @endpush
