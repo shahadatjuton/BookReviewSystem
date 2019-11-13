@@ -84,10 +84,37 @@ class CartController extends Controller
     public function SingleProductUpdate(Request $request, $id )
 {
         $cart = Cart::FindOrFail($id);
-        $cart->quantity = $request->quantity;
-        $cart->save();
-    Toastr::success('Cart item updated successfully!!','success');
-    return redirect()->back();
+        $post = Post::findOrFail( $cart->post_id);
+        $cartQuantity = $cart->quantity;
+        $requestQuantity = $request->quantity;
+
+        if ($requestQuantity > $cartQuantity)
+        {
+            $operationalValue = $requestQuantity - $cartQuantity;
+            $cart->quantity = $request->quantity;
+            $post->quantity = $post->quantity - $operationalValue ;
+            $post->save();
+            $cart->save();
+
+            Toastr::success('Cart item updated successfully!!','success');
+            return redirect()->back();
+        }elseif ($cartQuantity > $requestQuantity)
+        {
+            $operationalValue = $cartQuantity - $requestQuantity;
+            $cart->quantity = $request->quantity;
+            $post->quantity;
+            $post->quantity = $post->quantity + $operationalValue ;
+            $post->save();
+            $cart->save();
+            Toastr::success('Cart item updated successfully!!','success');
+            return redirect()->back();
+        }else{
+            Toastr::success('Noting to update your cart list!!','success');
+            return redirect()->back();
+        }
+
+
+
 }
 
     public function checkout(Request $request)

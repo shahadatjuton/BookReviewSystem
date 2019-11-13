@@ -68,7 +68,6 @@
         </div>
     </div>
 
-
     <div class="custom-breadcrumns border-bottom">
         <div class="container">
             <a href="index.html">Home</a>
@@ -85,9 +84,6 @@
                     <p>
                         <img src="{{asset('storage/post/'.$post->image)}}" alt="Image" class="img-fluid">
                     </p>
-
-
-
                     @php
                         $ratingsSum = \App\Rating::where('post_id', $post->id)->sum('rating_star');
                         $ratingsCount = \App\Rating::where('post_id', $post->id)->count();
@@ -96,9 +92,7 @@
                        {
                         $avgRating = $ratingsSum/$ratingsCount;
                        }
-
                     @endphp
-
                     @if($avgRating < 1)
                         <div class="rating text-center mb-2 mt-5">
                             <span class="icon-star2 text-warning"></span>
@@ -150,7 +144,6 @@
                     @endif
                     <div class="post-footer">
                         <ul >
-
                             <li>
                                 @guest
                                     <a href="javascript:void(0);"
@@ -168,11 +161,7 @@
                                     <form id="favourite-post-{{$post->id}}" method="post" action="{{route('post.favourite',$post->id)}}" style="display: none;">
                                         @csrf
                                     </form>
-
                                 @endguest
-
-
-
                             </li>
                             <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
                             <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
@@ -182,35 +171,19 @@
                             <a href="{{ route('cart.store', $post->id) }}" class="btn btn-primary rounded-0 btn-lg px-5">Add to Cart</a>
                         <p> {{$post->quantity}} items in stock</p>
                             @else
-                            <div class="alert alert-danger">
-                                No books available for sell
+                            <div class="btn btn-danger rounded-0 btn-lg px-5">
+                               Stock Out
                             </div>
                             @endif
                         </p>
-
                     </div>
-
-
-
-
                     <h2 class="section-title-underline mb-5 text-center">
                         <span>{{ $post->title }}</span>
-
                     </h2>
-
                     <p class="text-center"> Posted by <b><i>{{ $post->user->name }}</i></b></p>
                     <p class="mb-5 text-center">On <b>{{ $post-> created_at->diffForhumans()  }}</b></p>
-
-
                     <p class="text-center">{!! html_entity_decode($post->body) !!}</p>
-
-
-
-
-
                 </div>
-
-
                 <div class="col-lg-3 ml-auto align-self-center" style="margin-bottom: 55%;">
                     <div class="categories">
                         <h3 class="section-title-underline mb-5">
@@ -235,12 +208,8 @@
                                 <li> <a href="{{route('tag.posts',$tag->slug)}}">{{$tag->name}}</a></li>
                             </ul>
                         @endforeach
-
                         <hr>
                     </div>
-
-
-
                 <div style="max-width: 100%;">
                     <div class="card border-success mb-3" style="max-width: 18rem;">
                         <div class="card-header bg-transparent border-success">Review for <strong>{{ $post->title }}</strong></div>
@@ -254,11 +223,11 @@
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                                 @csrf
                                 <div class="rating" style="margin-left: -115px;">
-                                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
-                                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-                                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-                                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="icon-star2 text-warning has"></label></span>
+                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="icon-star2 text-warning has"></label></span>
                                 </div>
                                 <div class="form-group">
                                     <textarea class="form-control" name="review" required></textarea>
@@ -298,13 +267,9 @@
                                 <span class="icon-star2 text-warning"></span>
                             </div>
                             <p><a href="{{ route('post.details', $randomPost->slug) }}" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
-
-
-
                         </div>
                         <div class="post-footer">
                             <ul >
-
                                 <li>
                                     @guest
                                         <a href="javascript:void(0);"
@@ -322,24 +287,15 @@
                                         <form id="favourite-post-{{$randomPost->id}}" method="post" action="{{route('post.favourite',$randomPost->id)}}" style="display: none;">
                                             @csrf
                                         </form>
-
                                     @endguest
-
-
-
                                 </li>
                                 <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
                                 <li><a href="#"><i class="fas fa-eye"> </i>{{ $randomPost->view_count}}</a></li>
                             </ul>
                         </div>
-
                     </div>
                 @endforeach
-
-
-
             </div>
-
         </div>
     </div>
 

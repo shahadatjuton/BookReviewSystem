@@ -97,7 +97,7 @@
                                         @php
                                             $total_price = 0;
                                         @endphp
-                                        @foreach($carts as $cart)
+                                        @forelse($carts as $cart)
                                         <tr>
                                             <td>{{\App\Post::find($cart->post_id)->title}}</td>
                                             @php
@@ -105,7 +105,9 @@
                                             @endphp
                                             <td>{{($cart->quantity) *($cart->price)}} Taka</td>
                                         </tr>
-                                        @endforeach
+                                        @empty
+                                            <h3 class="text-center"> There is nothing to show</h3>
+                                        @endforelse
                                         <tr>
                                             <td>Shipping Cost</td>
                                             <td>0 Taka</td>

@@ -15,7 +15,7 @@
 
     <link href="{{ asset('assets/frontend/css/cart/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/css/cart/font-awesome.min.css')}}" rel="stylesheet">
+{{--    <link href="{{ asset('assets/frontend/css/cart/font-awesome.min.css')}}" rel="stylesheet">--}}
 
     <link href="{{ asset('assets/frontend/css/cart/styles.css')}}" rel="stylesheet">
 
@@ -78,13 +78,18 @@
 
                                 <span>Qty</span>
                                 <form action="{{route('cart.single.update',$cart->id)}}" method="PUT">
-                                <input type="number" name="quantity" value="{{$cart->quantity}}">
+                                <input type="number" name="quantity" value="{{$cart->quantity}}" min="1">
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                                 @else
-                                    <div class="alert alert-danger" style="width: 120px">
-                                        <p>Stock Out</p>
-                                    </div>
+                                    <span>Qty</span>
+                                <div class="row">
+                                    <form action="{{route('cart.single.update',$cart->id)}}" method="PUT">
+                                        <input type="number" name="quantity" value="{{$cart->quantity}}" min="1">
+                                        <p class="btn btn-danger mt-2 ">Stock Out</p>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                </div>
                                 @endif
                             </div>
                         </td>

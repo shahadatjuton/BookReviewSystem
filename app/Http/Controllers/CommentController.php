@@ -106,13 +106,9 @@ class CommentController extends Controller
         $user = Auth::user();
         $rated = $user->rating_posts()->where('post_id',$post_id)->count();
         if ($rated > 0 ){
-
             Toastr::success('This book is already rated','Success');
             return redirect()->back();
-
         }else{
-
-
         $rating = new Rating();
         $rating->post_id = $request->post_id;
         $rating->user_id = $user->id;

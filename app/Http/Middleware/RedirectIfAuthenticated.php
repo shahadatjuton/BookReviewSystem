@@ -31,7 +31,7 @@ class RedirectIfAuthenticated
 
         } elseif (Auth::guard($guard)->check() && Auth::user()->role->id==4)
         {
-            return redirect()->route('user.dashboard');
+            return redirect()->route('home');
 
         }
         else{
