@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Category;
+use App\Order;
+use App\PaymentMethod;
 use App\Post;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use function Sodium\increment;
 
 
@@ -119,9 +125,10 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
+        $paymentmethods =PaymentMethod::all();
         $user_ip = $request->ip();
         $carts =Cart::where('user_ip',$user_ip)->get();
-        return view('cart.checkout', compact('carts'));
+        return view('cart.checkout', compact('carts','paymentmethods'));
     }
 
 
@@ -133,5 +140,37 @@ class CartController extends Controller
         return $pdf->stream('invoice.pdf');
     }
 
+    public function order(Request $request)
+    {
+return $request;
+
+//        $this->validate($request,[
+//
+//            'name'=>'required',
+//            'email'=>'mimes:jpeg,bmp,png,jpg',
+//            'phone'=>'required',
+//            'address'=>'required',
+//        ]);
+
+        $user_ip = $request->ip();
+        $carts =Cart::where('user_ip',$user_ip)->get();
+
+        $order =new Order();
+        $order->user_id= Auth::id();
+        $order->title=$request->title;
+        $order->slug=$slug;
+        $order->image=$image_name;
+        $order->quantity = $request->quantity;
+        $order->price = $request->price;
+        $order->body=$request->body;
+//        if (isset($request->status)) {
+//            $post->status=true;
+//        }else {
+//            $post->status=false;
+//
+//        }
+        $post->status=true;
+        $order->save();
+    }
 
 }

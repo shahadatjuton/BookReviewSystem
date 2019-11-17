@@ -88,4 +88,6 @@ class SubscriberController extends Controller
         Toastr::success('Email is deleted from the subscriberlist', 'success');
         return redirect()->back();
     }
+
+
 }

@@ -101,14 +101,29 @@ class CommentController extends Controller
         //
     }
 
-    public function rating(Request $request) {
+    public function rating(Request $request)
+    {
+
+        $this->validate( $request, [
+
+            'review'=> 'required',
+
+        ]);
+
         $post_id = $request->post_id;
         $user = Auth::user();
-        $rated = $user->rating_posts()->where('post_id',$post_id)->count();
-        if ($rated > 0 ){
-            Toastr::success('This book is already rated','Success');
+
+        if(Rating::where('post_id',$post_id)->where('user_id',Auth::user()->id)->exists())
+        {
+             $ratings = Rating::where('post_id',$post_id)->where('user_id',Auth::user()->id)->first();
+            $rated = Rating::findOrFail($ratings->id);
+            $rated->rating_star = $request->rating;
+            $rated->review = $request->review;
+            $rated->save();
+            Toastr::success('Your review is updated!','success');
             return redirect()->back();
-        }else{
+        }
+        else{
         $rating = new Rating();
         $rating->post_id = $request->post_id;
         $rating->user_id = $user->id;

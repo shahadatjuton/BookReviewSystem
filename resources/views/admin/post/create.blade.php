@@ -86,17 +86,26 @@
                         </div>
                         <div class="body">
 
+{{--                            <div class="form-group form-float">--}}
+{{--                                <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">--}}
+{{--                                    <label for="">Select Category</label>--}}
+{{--                                    <select name="categories" class="form-control" >--}}
+{{--                                        <option value="">--Select Category--</option>--}}
+{{--                                        @foreach($categories as $category)--}}
+{{--                                        <option  value="">{{$category->name}}</option>--}}
+{{--                                        @endforeach--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
                             <div class="form-group form-float">
                                 <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">
                                     <label for="">Select Category</label>
-                                    <select name="categories[]" class="form-control show-tick" data-live-searche="true" multiple>
+                                    <select name="categories[]" >
                                         @foreach($categories as $category)
                                             <option value="{{$category->id}}">{{ $category->name }}</option>
-
                                         @endforeach
-
                                     </select>
-
                                 </div>
                             </div>
                             <div class="form-group form-float">

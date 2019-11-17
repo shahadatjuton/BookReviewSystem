@@ -125,6 +125,23 @@
                     </ul>
                 </li>
 
+                <li class="{{ Request::is('admin/paymentmethod*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">payment</i>
+                        <span>Payment Methodes</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.paymentmethod.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.paymentmethod.create')}}">Create</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
                 <li class="{{ Request::is('admin/subscriber') ? 'active' : '' }}">
                     <a href="{{route('admin.subscriber.index')}}">
                         <i class="material-icons">subscriptions</i>

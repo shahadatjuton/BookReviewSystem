@@ -15,7 +15,7 @@
 
     <link href="{{ asset('assets/frontend/css/cart/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{ asset('assets/frontend/css/cart/font-awesome.min.css')}}" rel="stylesheet">
+
 
     <link href="{{ asset('assets/frontend/css/cart/styles.css')}}" rel="stylesheet">
 
@@ -46,58 +46,58 @@
     </div>
 
     <!-- Page -->
-    <div class="page-area cart-page spad">
-        <div class="container">
-            <form class="checkout-form">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h4 class="checkout-title">Billing Address</h4>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <input type="text" placeholder="First Name *">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="check-out-form mt-4">
+
+                        <h4 class="checkout-title text-center">Billing Address</h4>
+                        <form action="{{route('order.cart')}}" method="post" >
+                            @csrf
+                            <div class="form-group form-float">
+                                <div class="form-line col-md-8 mt-4">
+                                    <label class="form-label" for="">Enter Reciever's Name</label>
+                                    <input type="text" id="name" class="form-control" name="name" placeholder="{{old('name')}}">
+                                </div>
+                                <div class="form-line col-md-8 mt-4">
+                                    <label class="form-label" for="">Enter Reciever's E-mail</label>
+                                    <input type="text" id="email" class="form-control" name="email" placeholder="{{old('email')}}">
+                                </div>
+                                <div class="form-line col-md-8 mt-4">
+                                    <label class="form-label" for="">Enter Reciever's Phone-Number</label>
+                                    <input type="text" id="phone" class="form-control" name="phone" placeholder="{{old('phone')}}">
+                                </div>
+
+                                <div class="form-line col-md-8 mt-4">
+                                    <label class="form-label" for="">Enter Reciever's Address</label>
+                                    <textarea id="address" class="form-control" name="address" placeholder="{{old('address')}}"> </textarea>
+                                </div>
+
                             </div>
-                            <div class="col-md-6 form-group">
-                                <input type="text" placeholder="Last Name *">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-group" placeholder="Company">
-                                <select class="form-group">
-                                    <option>Country *</option>
-                                    <option>USA</option>
-                                    <option>UK</option>
-                                    <option>BANGLADESH</option>
-                                </select>
-                                <input type="text" class="form-group" placeholder="Address *">
-                                <input type="text" class="form-group">
-                                <input type="text" class="form-group" placeholder="Zipcode *">
-                                <select>
-                                    <option>City/Town *</option>
-                                </select>
-                                <select>
-                                    <option>Province *</option>
-                                </select>
-                                <input type="text" placeholder="Phone no *">
-                                <input type="email" placeholder="Email Address *">
-                            </div>
-                        </div>
+
+
                     </div>
-                    <div class="col-lg-6 ">
-                        <div class="order-card">
-                            <div class="order-details">
-                                <div class="od-warp mb-4 mt-4">
-                                    <h4 class="checkout-title">Your order</h4>
-                                    <table class="order-table">
-                                        <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @php
-                                            $total_price = 0;
-                                        @endphp
-                                        @forelse($carts as $cart)
+                </div>
+                <div class="col-md-6">
+                    <div class="order-card">
+                        <div class="order-details">
+                            <div class="od-warp mb-4 mt-4">
+                                <h4 class="text-center checkout-title">Your order</h4>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @php
+                                        $total_price = 0;
+                                    @endphp
+                                    @forelse($carts as $cart)
+
                                         <tr>
                                             <td>{{\App\Post::find($cart->post_id)->title}}</td>
                                             @php
@@ -105,59 +105,57 @@
                                             @endphp
                                             <td>{{($cart->quantity) *($cart->price)}} Taka</td>
                                         </tr>
-                                        @empty
-                                            <h3 class="text-center"> There is nothing to show</h3>
-                                        @endforelse
-                                        <tr>
-                                            <td>Shipping Cost</td>
-                                            <td>0 Taka</td>
-                                        </tr>
+                                    @empty
+                                        <h3 class="text-center"> There is nothing to show</h3>
+                                    @endforelse
+                                    <tr>
+                                        <td>Shipping Cost</td>
+                                        <td>0 Taka</td>
+                                    </tr>
 
-                                        </tbody>
-                                        <tfoot class="mt-4" style="margin-top: 50px">
-                                        <tr class="order-total" style="margin-top: 50px">
-                                            <th>Total</th>
-                                            <th>{{$total_price}} TAKA</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="payment-method mb-4 mt-4 ">
-                                    <div class="pm-item">
-                                        <input type="radio" name="pm" id="one">
-                                        <label for="one">Paypal</label>
-                                    </div>
-                                    <div class="pm-item">
-                                        <input type="radio" name="pm" id="two">
-                                        <label for="two">Cash on delievery</label>
-                                    </div>
-                                    <div class="pm-item">
-                                        <input type="radio" name="pm" id="three">
-                                        <label for="three">Credit card</label>
-                                    </div>
-                                    <div class="pm-item">
-                                        <input type="radio" name="pm" id="four" checked>
-                                        <label for="four">Direct bank transfer</label>
-                                    </div>
-                                </div>
+                                    </tbody>
+                                    <tfoot class="mt-4" style="margin-top: 50px">
+                                    <tr class="order-total" style="margin-top: 50px">
+                                        <th>Total</th>
+                                        <th>{{$total_price}} TAKA</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="form-group row mb-4">
+                            <div class="payment-method mb-4 mt-4 ">
+
+                                <div class="form-group form-float">
+                                    <div class="form-line {{ $errors->has('paymentmethods') ? 'focused error' : '' }}">
+                                        <label for="">Select Payment Method</label>
+                                        <select name="paymentmethod[]" >
+                                            @foreach($paymentmethods as $paymentmethod)
+                                                <option value="{{$paymentmethod->id}}">{{ $paymentmethod->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
                                     <button type="submit" class="btn btn-primary mr-4">
                                         {{ __('Place Order') }}
                                     </button>
 
-                                <a target="_blank" href="{{route('cart.invoice', $cart->id)}}"  class="btn btn-primary">
-                                    generate invoice
-                                </a>
-
-                            </div>
+                            <a target="_blank" href="{{route('cart.invoice', $cart->id)}}"  class="btn btn-primary">
+                                generate invoice
+                            </a>
 
                         </div>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
+
         </div>
     </div>
+</div>
+
     <!-- Page end -->
 
 

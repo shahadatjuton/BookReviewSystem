@@ -33,10 +33,11 @@ Route::get('/blogs/search','SearchController@blogSearch')->name('blogs.search');
 Route::get('/cart/book/{id}','CartController@store')->name('cart.store');
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::get('/cart/{id}','CartController@destroy')->name('cart.destroy');
-Route::get('clear/cart','CartController@clear')->name('cart.clear');
+Route::get('/clear/cart','CartController@clear')->name('cart.clear');
 Route::get('/cart/single/update/{id}','CartController@SingleProductUpdate')->name('cart.single.update');
-Route::get('checkout/cart','CartController@checkout')->name('cart.checkout');
-Route::get('cart/invoice/{id}','CartController@generateInvoice')->name('cart.invoice');
+Route::get('/checkout/cart','CartController@checkout')->name('cart.checkout');
+Route::post('/order','CartController@order')->name('order.cart');
+Route::get('/cart/invoice/{id}','CartController@generateInvoice')->name('cart.invoice');
 
 
 
@@ -109,6 +110,13 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'admin', 'middlewar
     Route::put('/post/{id}/approve','PostController@approve')->name('post.approve');
 
     Route::resource('/subscriber','SubscriberController');
+    //payment method
+    Route::get('/paymentmethod/index','PaymentController@index')->name('paymentmethod.index');
+    Route::get('/paymentmethod/create','PaymentController@create')->name('paymentmethod.create');
+    Route::post('/paymentmethod/store','PaymentController@store')->name('paymentmethod.store');
+    Route::post('/paymentmethod/destroy/{id}','PaymentController@destroy')->name('paymentmethod.destroy');
+
+
 
 
 });

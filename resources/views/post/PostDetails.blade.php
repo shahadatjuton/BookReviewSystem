@@ -210,24 +210,30 @@
                         @endforeach
                         <hr>
                     </div>
+
+                    <div >
+                        @auth
+                            @if(\App\Rating::where('post_id',$post->id)->where('user_id',Auth::user()->id)->exists())
+                                <div>
+                                    <h3>You already provided review</h3>
+                                </div>
+                            @endif
+                        @endauth
+                    </div>
+
                 <div style="max-width: 100%;">
                     <div class="card border-success mb-3" style="max-width: 18rem;">
                         <div class="card-header bg-transparent border-success">Review for <strong>{{ $post->title }}</strong></div>
-                        @if(\App\Rating::where('post_id',$post->id)->where('user_id',Auth::user()->id)->exists())
-                            <div>
-                                <h3>You already provided review</h3>
-                            </div>
-                        @else
                         <div class="card-body text-success">
                             <form action="{{ route('rating') }}" method="post">
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                                 @csrf
                                 <div class="rating" style="margin-left: -115px;">
-                                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5" class="icon-star2 text-warning has"></label></span>
-                                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4" class="icon-star2 text-warning has"></label></span>
-                                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3" class="icon-star2 text-warning has"></label></span>
-                                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2" class="icon-star2 text-warning has"></label></span>
-                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1"><label for="str1" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str5" value="5" name="rating_star"><label for="str5" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str4" value="4" name="rating_star"><label for="str4" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str3" value="3" name="rating_star"><label for="str3" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str2" value="2" name="rating_star"><label for="str2" class="icon-star2 text-warning has"></label></span>
+                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1" name="rating_star"><label for="str1" class="icon-star2 text-warning has"></label></span>
                                 </div>
                                 <div class="form-group">
                                     <textarea class="form-control" name="review" required></textarea>
@@ -235,7 +241,7 @@
                                 <button class="btn btn-success">Submit</button>
                             </form>
                         </div>
-                        @endif
+
                     </div>
                 </div>
             </div>
