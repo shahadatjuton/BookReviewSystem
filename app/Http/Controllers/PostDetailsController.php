@@ -31,7 +31,7 @@ class PostDetailsController extends Controller
 
     public function index()
     {
-        $posts =Post::all();
+        $posts =Post::simplePaginate(9);
 
         $categories = Category::all();
         return view('post.posts', compact('posts','categories'));

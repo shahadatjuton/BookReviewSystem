@@ -89,6 +89,7 @@
                             </li>
                         </ul>
                     @endforeach
+
                 </div>
 
 
@@ -148,6 +149,9 @@
                            </div>
                        </div>
                        @endforeach
+                           <div class="text-center mt-4" style="margin-left: 300px;">
+                               {{ $posts->links() }}
+                           </div>
                    </div>
                 </div>
 
