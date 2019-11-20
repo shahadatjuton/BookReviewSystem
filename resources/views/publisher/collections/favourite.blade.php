@@ -13,26 +13,13 @@
 
 @section('content')
 
-    <div class="container-fluid">
-        <div class="block-header">
-            <h2>
-                Categories Table
-
-            </h2>
-
-            <a class="btn btn-primary waves-effect" href="{{route('publisher.post.create' )}}">
-
-                <span>Create Post</span>
-            </a>
-        </div>
-
         <!-- Exportable Table -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
                         <h2>
-                            TOTAL POSTS
+                            TOTAL FAVOURITE POSTS
                             <span class="badge bg-blue">{{ $posts->count() }}</span>
                         </h2>
                         <ul class="header-dropdown m-r--5">
@@ -57,60 +44,47 @@
                                     <th>Title</th>
                                     <th>Author</th>
                                     <th><i class="material-icons">visibility </i></th>
-                                    <th>Status</th>
+                                    <th><i class="material-icons">favorite </i></th>
 
-                                    <th>Updated At</th>
                                     <th>Action</th>
 
                                 </tr>
                                 </thead>
 
-
-
-                                @foreach($posts as $key=> $post)
+                                @forelse($posts as $key=> $post)
 
                                     <tr>
                                         <td>{{ $key +1 }}</td>
                                         <td>{{Str::limit($post->title,15)}}</td>
-
                                         <td>{{$post->user->name}}</td>
                                         <td>{{$post->view_count}}</td>
-                                        <td>
-                                            @if ($post->status==true)
-                                                <span class="badg bg-green">Approved</span>
-                                            @else
-                                                <span class="badg bg-yellow">Pending</span>
-                                            @endif
-                                        </td>
+                                        <td>{{$post->favourite_to_users->count()}}</td>
 
-
-                                        <td>{{$post->updated_at}} At</td>
                                         <td>
 
-
-                                            <a class="btn btn-info waves-effect" href="{{route('publisher.post.show', $post->id)}}">
+                                            <a class="btn btn-info waves-effect" href="{{route('admin.post.show', $post->id)}}">
                                                 <i class="material-icons">visibility </i>
                                             </a>
-                                            <a class="btn btn-info waves-effect" href="{{route('publisher.post.edit', $post->id)}}">
-                                                <i class="material-icons">edit </i>
-                                            </a>
 
-                                            <button type="button" name="button"  class="btn btn-danger waves-effect" onclick="deletepost({{$post->id}})">
+                                            <button type="button" name="button"  class="btn btn-danger waves-effect" onclick="removepost({{$post->id}})">
                                                 <i class="material-icons" >delete</i>
 
                                             </button>
-                                            <form  id="delete-post-{{$post->id}}" action="{{route('publisher.post.destroy', $post->id)}}"
+                                            <form  id="remove-post-{{$post->id}}" action="{{route('post.favourite', $post->id)}}"
                                                    method="post" style="display:none;"
                                             >
                                                 @csrf
-                                                @method('DELETE')
+
+
 
                                             </form>
 
                                         </td>
                                     </tr>
+                                    @empty
+                                    <h2>No favourite post found</h2>
 
-                                    @endforeach
+                                    @endforelse
                                     </thead>
 
 
@@ -153,7 +127,9 @@
 
 
     <script type="text/javascript">
-        function deletepost(id) {
+
+        function removepost(id) {
+
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -161,6 +137,7 @@
                 },
                 buttonsStyling: false
             })
+
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -172,7 +149,7 @@
             }).then((result) => {
                 if (result.value) {
                     event.preventDefault();
-                    document.getElementById('delete-post-' + id).submit();
+                    document.getElementById('remove-post-' + id).submit();
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
@@ -184,8 +161,9 @@
                     )
                 }
             })
-        }
-    </script>
 
+        }
+
+    </script>
 
 @endpush

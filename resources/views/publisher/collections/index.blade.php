@@ -33,7 +33,7 @@
                     <div class="header">
                         <h2>
                             TOTAL POSTS
-                            <span class="badge bg-blue">{{ $posts->count() }}</span>
+                            <span class="badge bg-blue">{{ $collectings->count() }}</span>
                         </h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
@@ -53,13 +53,12 @@
                             <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th><i class="material-icons">visibility </i></th>
-                                    <th>Status</th>
+                                    <th>No</th>
+                                    <th>Name of creating event</th>
+                                    <th>Publication</th>
+                                    <th>Start Date</th>
 
-                                    <th>Updated At</th>
+                                    <th>End Date</th>
                                     <th>Action</th>
 
                                 </tr>
@@ -67,39 +66,24 @@
 
 
 
-                                @foreach($posts as $key=> $post)
+                                @foreach($collectings as $key=> $collecting)
 
                                     <tr>
                                         <td>{{ $key +1 }}</td>
-                                        <td>{{Str::limit($post->title,15)}}</td>
+                                        <td>{{Str::limit($collecting->name,15)}}</td>
 
-                                        <td>{{$post->user->name}}</td>
-                                        <td>{{$post->view_count}}</td>
+                                        <td>{{$collecting->user->name}}</td>
+                                        <td>{{$collecting-> startDate}}</td>
+                                        <td>{{$collecting->endDate}}</td>
                                         <td>
-                                            @if ($post->status==true)
-                                                <span class="badg bg-green">Approved</span>
-                                            @else
-                                                <span class="badg bg-yellow">Pending</span>
-                                            @endif
-                                        </td>
-
-
-                                        <td>{{$post->updated_at}} At</td>
-                                        <td>
-
-
-                                            <a class="btn btn-info waves-effect" href="{{route('publisher.post.show', $post->id)}}">
-                                                <i class="material-icons">visibility </i>
-                                            </a>
-                                            <a class="btn btn-info waves-effect" href="{{route('publisher.post.edit', $post->id)}}">
+                                            <a class="btn btn-info waves-effect" href="{{route('publisher.post.edit', $collecting->id)}}">
                                                 <i class="material-icons">edit </i>
                                             </a>
-
-                                            <button type="button" name="button"  class="btn btn-danger waves-effect" onclick="deletepost({{$post->id}})">
+                                            <button type="button" name="button"  class="btn btn-danger waves-effect" onclick="deletepost({{$collecting->id}})">
                                                 <i class="material-icons" >delete</i>
 
                                             </button>
-                                            <form  id="delete-post-{{$post->id}}" action="{{route('publisher.post.destroy', $post->id)}}"
+                                            <form  id="delete-post-{{$collecting->id}}" action="{{route('publisher.post.destroy', $collecting->id)}}"
                                                    method="post" style="display:none;"
                                             >
                                                 @csrf
@@ -153,7 +137,9 @@
 
 
     <script type="text/javascript">
+
         function deletepost(id) {
+
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -161,6 +147,7 @@
                 },
                 buttonsStyling: false
             })
+
             swalWithBootstrapButtons.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -184,8 +171,9 @@
                     )
                 }
             })
-        }
-    </script>
 
+        }
+
+    </script>
 
 @endpush

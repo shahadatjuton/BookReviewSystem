@@ -9,4 +9,8 @@ class Category extends Model
     public function posts(){
         return $this->belongsToMany('App\Post')->withTimestamps();
     }
+
+    public function collectings(){
+        return $this->belongsToMany('App\Collecting')->withTimestamps();
+    }
 }

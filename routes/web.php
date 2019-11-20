@@ -137,6 +137,12 @@ Route::group(['as'=>'publisher.','prefix'=>'publisher', 'namespace'=>'publisher'
     Route::get('/comments','CommentController@index')->name('comment.index');
     Route::post('/comments/{id}','CommentController@destroy')->name('comment.destroy');
 
+//    Collecting writings
+
+    Route::get('/collectings/index','CollectingController@index')->name('collections.index');
+    Route::get('/collecting/writings','CollectingController@create')->name('collections.create');
+    Route::post('/store/writings','CollectingController@storeWriting')->name('collections.store');
+
 
 
 });

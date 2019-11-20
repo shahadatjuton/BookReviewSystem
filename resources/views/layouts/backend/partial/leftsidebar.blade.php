@@ -275,13 +275,30 @@
                         </li>
                     </ul>
                 </li>
+{{--===================Collecting Articles=====================================--}}
 
-                <li class="header ">System</li>
-                    <li class="{{ Request::is('publisher/settings') ? 'active' : '' }}">
-                      <a href="{{route('publisher.settings.index')}}">
-                          <i class="material-icons">settings</i>
-                          <span>Settings</span>
-                      </a>
+                <li class="{{ Request::is('publisher/Collected') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">comment</i>
+                        <span>Collected writings</span>
+                    </a>
+
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('publisher.collections.index')}}">
+                                <i class="material-icons">comment</i>
+                                <span>Index</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('publisher.collections.create')}}">
+                                <i class="material-icons">comment</i>
+                                <span>Create</span>
+                            </a>
+                        </li>
+
+                    </ul>
+
                 </li>
 
                 <li>
