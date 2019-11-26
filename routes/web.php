@@ -46,7 +46,7 @@ Route::get('/cart/invoice/{id}','CartController@generateInvoice')->name('cart.in
 //Contact us
 Route::get('/contact-us','ContactMessageController@ContactForm')->name('contact.form');
 Route::post('/store','ContactMessageController@store')->name('contact.store');
-
+//============Blog==================
 Route::group(['prefix'=>'blog','namespace'=>'blog'], function () {
 
     route::get('/posts','BlogController@index')->name('blog.index');
@@ -54,6 +54,8 @@ Route::group(['prefix'=>'blog','namespace'=>'blog'], function () {
     route::get('/create','BlogController@create')->name('blog.create');
     route::post('/store','BlogController@store')->name('blog.store');
     Route::post('comment/store/{id}','BlogController@commentstore')->name('blog.commentstore');
+    Route::post('reply/store/{comment}','BlogController@replystore')->name('blog.replystore');
+
 
 
 
@@ -75,9 +77,10 @@ Route::post('/subscriber','SubscriberController@store')->name('subscriber.store'
 
 
 Route::group(['middleware'=> ['auth']], function (){
-   Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
-   Route::post('/comment/{post}','CommentController@store')->name('comment.store');
-   Route::post('/rating','CommentController@rating')->name('rating');
+    Route::post('/favourite/{id}/add','FavouriteController@add')->name('post.favourite');
+    Route::post('/rating','CommentController@rating')->name('rating');
+//Comment and reply
+    Route::post('/comment/{post}','CommentController@store')->name('comment.store');
 
 });
 

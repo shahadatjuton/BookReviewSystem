@@ -5,6 +5,7 @@ namespace App\Http\Controllers\blog;
 use App\BlogComment;
 use App\BlogPost;
 use App\Comment;
+use App\CommentReply;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Brian2694\Toastr\Facades\Toastr;
@@ -104,13 +105,28 @@ class BlogController extends Controller
         Toastr::success('Comment submitted successfully','success');
         return redirect()->back();
 
-
-
-
     }
 
 
 
+    public function replystore(Request $request , $comment)
+    {
+//        $comment = BlogComment::findOrFail($comment);
+
+        $this->validate( $request, [
+            'blogCommenReply'=> 'required'
+        ]);
+
+        $commentReply = new CommentReply();
+
+         $commentReply->blog_comment_id =$comment;
+         $commentReply->user_id = Auth::id();
+        $commentReply->reply = $request->blogCommenReply;
+        $commentReply->save();
+        Toastr::success('Reply submitted successfully','success');
+        return redirect()->back();
+
+    }
 
 
 

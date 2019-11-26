@@ -200,6 +200,66 @@
 
                         </div>
 
+
+
+
+                        <div class="commentReply" style="margin-left: 100px;">
+
+                            <div class="comment-form">
+
+
+                                <form method="post" action="{{route('blog.replystore',$comment->id)}}">
+                                    @csrf
+
+                                        <div class="col-sm-12">
+									<textarea name="blogCommenReply" rows="2" class="text-area-messge form-control"
+                                              placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
+                                        </div><!-- col-sm-12 -->
+                                        @guest
+                                            <div class="col-sm-12">
+                                                <button class="submit-btn " type="button" id="form-submit" onclick="toastr.info('To comment here! You need to login first.','Info',{
+                                                    closeButton: true,
+                                                    progressBar: true,
+                                                })"><b>POST COMMENT</b></button>
+                                                <p class="text-center ml-4">Click <a href="{{route('login')}}">Here</a> to log in</a></p>
+                                            </div><!-- col-sm-12 -->
+                                        @else
+                                            <div class="col-sm-12">
+                                                <button class="submit-btn text-center" type="submit" id="form-submit"><b>POST COMMENT</b></button>
+                                            </div><!-- col-sm-12 -->
+                                        @endguest
+                                </form>
+
+
+                            </div><!-- reply-form -->
+
+
+                            <div class="comment">
+
+                                @foreach($comment->blogCommentReplies as $reply)
+
+                                <div class="post-info">
+
+                                    <div class="left-area">
+                                        <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$comment->user->image) }}" alt="Profile Image"></a>
+                                    </div>
+
+                                    <div class="middle-area">
+                                        <a class="name" href="#"><b>{{$reply->user->name}}</b></a>
+                                        <h6 class="date">on {{$reply->created_at->diffForHumans()}}</h6>
+                                    </div>
+
+                                </div><!-- post-info -->
+
+                                <p>{{$reply->reply}}</p>
+
+                                    @endforeach
+
+                            </div>
+                        </div>
+
+
+
                         @endforeach
 
                     </div><!-- commnets-area -->

@@ -41,7 +41,7 @@
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-lg-7">
-                    <h2 class="mb-0">How To Create Mobile Apps Using Ionic</h2>
+                    <h2 class="mb-0">Find your desirable book faster with search.</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
                 </div>
             </div>

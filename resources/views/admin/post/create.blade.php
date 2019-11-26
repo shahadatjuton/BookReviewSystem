@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <h1>Create Post</h1>
+    <h1>Upload a book post</h1>
 
 
     <div class="container-fluid">
@@ -28,13 +28,7 @@
             <div class="row clearfix">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <h2>
-                                Add Post
 
-                            </h2>
-
-                        </div>
                         <div class="body">
 
                             <div class="form-group form-float">
@@ -136,7 +130,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Add Post
+                                Describe about the book
 
                             </h2>
 

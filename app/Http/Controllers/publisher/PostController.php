@@ -57,12 +57,14 @@ class PostController extends Controller
     {
         $this->validate($request,[
 
-            'title'=>'required',
+            'title'=>'required|max:255',
             'image'=>'mimes:jpeg,bmp,png,jpg',
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
-            'quantity'=>'required',
+            'quantity'=>'required|numeric|min:0',
+            'price'=>'required|numeric|min:0',
+
 
 
         ]);
@@ -98,6 +100,7 @@ class PostController extends Controller
         $post->slug=$slug;
         $post->image=$image_name;
         $post->quantity = $request->quantity;
+        $post->price = $request->price;
         $post->body=$request->body;
 //        if (isset($request->status)) {
 //            $post->status=true;
@@ -108,11 +111,11 @@ class PostController extends Controller
         $post->status=false;
         $post->save();
 
-        $subscribers = Subscriber::all();
-        foreach ($subscribers as $subscriber) {
-            Notification::send($subscriber, new SubscriberNotification($post));
-
-        }
+//        $subscribers = Subscriber::all();
+//        foreach ($subscribers as $subscriber) {
+//            Notification::send($subscriber, new SubscriberNotification($post));
+//
+//        }
 
 
         $post->categories()->attach($request->categories);

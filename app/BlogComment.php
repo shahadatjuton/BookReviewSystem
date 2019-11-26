@@ -14,4 +14,8 @@ class BlogComment extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function blogCommentReplies(){
+        return $this->hasMany('App\CommentReply');
+    }
+
 }

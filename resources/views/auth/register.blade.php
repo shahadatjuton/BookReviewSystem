@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="row align-items-end justify-content-center text-center">
                     <div class="col-lg-7">
-                        <h2 class="mb-0">Login</h2>
+                        <h2 class="mb-0">Registration</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="col-md-8">
 
 
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group row">
@@ -87,6 +87,19 @@
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Photo') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image" required autocomplete="image">
+
+                                    @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 

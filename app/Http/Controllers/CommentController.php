@@ -103,16 +103,11 @@ class CommentController extends Controller
 
     public function rating(Request $request)
     {
-
         $this->validate( $request, [
-
             'review'=> 'required',
-
         ]);
-
         $post_id = $request->post_id;
         $user = Auth::user();
-
         if(Rating::where('post_id',$post_id)->where('user_id',Auth::user()->id)->exists())
         {
              $ratings = Rating::where('post_id',$post_id)->where('user_id',Auth::user()->id)->first();

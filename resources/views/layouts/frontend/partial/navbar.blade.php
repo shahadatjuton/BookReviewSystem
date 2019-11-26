@@ -4,7 +4,7 @@
         <div class="d-flex align-items-center">
             <div class="site-logo">
                 <a href="{{route('home')}}" class="d-block">
-                    <img src="images/logo.jpg" alt="Book Review" class="img-fluid">
+                    <img src="images/logo.jpg" alt="Book Lover" class="img-fluid">
                 </a>
             </div>
             <div class="mr-auto">
