@@ -178,11 +178,10 @@
                         @foreach($post->BlogComments as $comment)
 
                         <div class="comment">
-
                             <div class="post-info">
 
                                 <div class="left-area">
-                                    <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$comment->user->image) }}" alt="Profile Image"></a>
+                                    <a href="#"><img src="{{asset('storage/profile/'.$comment->user->image)}}" alt="{{$comment->user->name}}"  class="img-fluid"></a>
                                 </div>
 
                                 <div class="middle-area">

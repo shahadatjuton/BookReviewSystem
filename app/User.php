@@ -69,6 +69,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     }
 
+    public function CommentReplies(){
+        return $this->hasMany('App\BlogComment');
+
+    }
+
     public function rating_posts(){
         return $this->belongsToMany('App\Post')->withTimestamps();
     }
@@ -77,6 +82,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function collectings(){
         return $this->hasMany('App\Collecting');
 
+    }
+
+    public function ratings(){
+        return $this->hasMany('App\Rating')->withTimestamps();
     }
 
 

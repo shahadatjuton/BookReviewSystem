@@ -47,6 +47,8 @@ class Post extends Model
     public function ratings_to_users(){
         return $this->belongsToMany('App\User')->withTimestamps();
     }
-
+    public function ratings(){
+        return $this->hasMany('App\Rating');
+    }
 
 }

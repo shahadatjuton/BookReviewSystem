@@ -70,11 +70,11 @@
 
     <div class="custom-breadcrumns border-bottom">
         <div class="container">
-            <a href="index.html">Home</a>
+            <a href="{{route('home')}}">Home</a>
             <span class="mx-3 icon-keyboard_arrow_right"></span>
-            <a href="courses.html">Courses</a>
+            <a href="{{route('post.index')}}">Books</a>
             <span class="mx-3 icon-keyboard_arrow_right"></span>
-            <span class="current">Courses</span>
+            <span class="current">{{$post->slug}}</span>
         </div>
     </div>
     <div class="site-section">
@@ -258,12 +258,12 @@
                 @foreach( $randomPost as $randomPost )
                     <div class="course-1-item">
                         <figure class="thumnail">
-                            <a href="course-single.html"><img src="{{asset('storage/post/'.$randomPost->image)}}" alt="POst Image"  class="img-fluid"></a>
+                            <a href="course-single.html"><img src="{{asset('storage/post/'.$randomPost->image)}}" alt="POst Image" height="80px" width="100px;" class="img-fluid"></a>
                             <div class="price">$99.00</div>
-                            <div class="category"><h3>{{$randomPost->image}}</h3></div>
+                            <div class="category"><h2>{{$randomPost->title}}</h2></div>
                         </figure>
                         <div class="course-1-content pb-4">
-                            <h2>{{$randomPost->title}}</h2>
+
                             <p class="desc mb-4">{{ $randomPost->body }}</p>
                             <div class="rating text-center mb-3">
                                 <span class="icon-star2 text-warning"></span>
@@ -272,7 +272,7 @@
                                 <span class="icon-star2 text-warning"></span>
                                 <span class="icon-star2 text-warning"></span>
                             </div>
-                            <p><a href="{{ route('post.details', $randomPost->slug) }}" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>
+                            <p><a href="{{ route('post.details', $randomPost->slug) }}" class="btn btn-primary rounded-0 px-4">View Details</a></p>
                         </div>
                         <div class="post-footer">
                             <ul >
@@ -311,66 +311,124 @@
 
     <section class="comment-section" >
         <div class="container">
-            <h4><b>POST COMMENT</b></h4>
             <div class="row">
 
                 <div class="col-lg-8 col-md-12">
-                    <div class="comment-form">
+{{--                    <div class="comment-form">--}}
 
-                        @guest
+{{--                        @guest--}}
 
-                            To comment you need to <a href="{{route('login')}}">Log In</a>  first. <a href="{{route('login')}}">Click Here</a>
+{{--                            To comment you need to <a href="{{route('login')}}">Log In</a>  first. <a href="{{route('login')}}">Click Here</a>--}}
 
-                            @else
-
-
-                        <form method="post" action="{{route('comment.store',$post->id)}}">
-                            @csrf
-                            <div class="row">
+{{--                            @else--}}
 
 
-                                <div class="col-sm-12">
-									<textarea name="comment" rows="2" class="text-area-messge form-control"
-                                              placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
-                                </div><!-- col-sm-12 -->
-                                <div class="col-sm-12">
-                                    <button class="submit-btn" type="submit" id="form-submit"><b>POST COMMENT</b></button>
-                                </div><!-- col-sm-12 -->
+{{--                        <form method="post" action="{{route('comment.store',$post->id)}}">--}}
+{{--                            @csrf--}}
+{{--                            <div class="row">--}}
 
-                            </div><!-- row -->
-                        </form>
 
-                        @endguest
+{{--                                <div class="col-sm-12">--}}
+{{--									<textarea name="comment" rows="2" class="text-area-messge form-control"--}}
+{{--                                              placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >--}}
+{{--                                </div><!-- col-sm-12 -->--}}
+{{--                                <div class="col-sm-12">--}}
+{{--                                    <button class="submit-btn" type="submit" id="form-submit"><b>POST COMMENT</b></button>--}}
+{{--                                </div><!-- col-sm-12 -->--}}
 
-                    </div><!-- comment-form -->
+{{--                            </div><!-- row -->--}}
+{{--                        </form>--}}
 
-                    <h4><b>COMMENTS({{$post->comments()->count()}})</b></h4>
-                    @if($post->comments()->count() == 0)
-                        No Comments found for this post
+{{--                        @endguest--}}
+
+{{--                    </div><!-- comment-form -->--}}
+
+                    <h4><b>TOTAL - RATINGS ({{$post->ratings()->count()}})</b></h4>
+                    @if($post->ratings()->count() == 0)
+                        No Ratings found for this post
                     @else
                     <div class="commnets-area">
-                        @foreach($post->comments as $comment)
+                        @foreach($post->ratings as $comment)
 
                         <div class="comment">
 
                             <div class="post-info">
 
                                 <div class="left-area">
-                                    <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$comment->user->image) }}" alt="Profile Image"></a>
+                                    <a href="#"><img src="{{asset('storage/profile/'.$comment->user->image)}}" alt="{{$comment->user->name}}"  class="img-fluid"></a>
                                 </div>
 
                                 <div class="middle-area">
                                     <a class="name" href="#"><b>{{$comment->user->name}}</b></a>
                                     <h6 class="date">on {{$comment->created_at->diffForHumans()}}</h6>
                                 </div>
-
-                                <div class="right-area">
-                                    <h5 class="reply-btn" ><a href="#"><b>REPLY</b></a></h5>
-                                </div>
-
                             </div><!-- post-info -->
 
-                            <p>{{$comment->comment}}</p>
+{{-- ==============================Start-Ratings======================================================--}}
+
+                            @php
+                                $ratingsSum = \App\Rating::where('post_id', $post->id)->sum('rating_star');
+                                $ratingsCount = \App\Rating::where('post_id', $post->id)->count();
+
+                                $avgRating = 0;
+
+                               if ($ratingsCount > 0)
+                               {
+                                $avgRating = $ratingsSum/$ratingsCount;
+                               }
+                            @endphp
+                            @if($avgRating < 1)
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                            @elseif($avgRating == 1 || $avgRating < 1.5)
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                            @elseif($avgRating == 2 || $avgRating < 2.5)
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                            @elseif($avgRating == 3 || $avgRating < 3.5)
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                            @elseif($avgRating == 4 || $avgRating < 4.5)
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                            @else
+                                <div class="rating text-center mb-2 mt-5">
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                    <span class="icon-star2 text-warning has"></span>
+                                </div>
+                            @endif
+{{-- ==============================End-Ratings======================================================--}}
+
+                            <p>{{$comment->review}}</p>
 
                         </div>
 
