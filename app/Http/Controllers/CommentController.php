@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Rating;
+use App\ReviewReply;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +104,7 @@ class CommentController extends Controller
 
     public function rating(Request $request)
     {
+
         $this->validate( $request, [
             'review'=> 'required',
         ]);
@@ -131,4 +133,24 @@ class CommentController extends Controller
 
         }
     }
+
+
+
+    public function reviewReply(Request $request, $reply)
+    {
+        $reply_id = $reply;
+        $user_id = Auth::user()->id;
+        $reviewreply = new  ReviewReply();
+        $reviewreply->user_id = $user_id;
+        $reviewreply->rating_id = $reply_id;
+        $reviewreply->reply =$request->reviewreply;
+        $reviewreply->save();
+        Toastr::success('Reply submitted successfully','success');
+        return redirect()->back();
+
+
+    }
+
+
+
 }

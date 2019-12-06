@@ -10,7 +10,15 @@
     <link href="{{ asset('assets/frontend/css/DetailsPost/styles.css')}}" rel="stylesheet">
     <link href="{{ asset('assets/frontend/css/DetailsPost/responsive.css')}}" rel="stylesheet">
 
+    <style>
 
+        ul li {
+            list-style: none;
+        }
+
+
+
+    </style>
 @endpush
 
 @section('content')
@@ -67,16 +75,44 @@
 
                         </p>
                         <p>{{$post->title}}</p>
-                        <p>{{$post->body}}</p>
+                        <p>{{Str::limit($post->description,120)}}</p>
                         <a href="{{route('blog.singleblog', $post->slug)}}" class="btn btn-primary rounded-0 btn-lg px-2">Read More</a>
                     </div>
                     </div>
                     @endforeach
 
-
+{{--                        <div class="text-center mt-4" style="margin-left: 300px;">--}}
+{{--                            {{ $post->links() }}--}}
+{{--                        </div>--}}
                 </div>
                 <div class="col-md-4 mb-4">
 {{--       =============== second div             --}}
+
+
+                    <div class="single-sidebar-widget popular-post-widget">
+                        <h4 class="single-sidebar-widget__title">Popular Post</h4>
+                        <div class="popular-post-list">
+                            @foreach($quotes as $quote)
+                                <div class="single-post-list">
+                                    <div class="thumb">
+                                        <img class="card-img rounded-0" src="{{asset('storage/quote/'.$quote->image)}}" alt="">
+                                        <ul class="thumb-info">
+                                            <li class="text-center"><a href="#">{{ $quote->quote}}</a></li>
+                                            <li class="text-center"><a href="#">Published by  <strong>--{{$quote->author}}</strong></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="details mt-20">
+                                        <a href="blog-single.html">
+                                            <strong>{{Str::limit($quote->description, 100)}}</strong>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div>

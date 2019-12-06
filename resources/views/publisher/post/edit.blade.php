@@ -58,8 +58,15 @@
                             <div class="form-group form-float">
                                 <div class="form-line">
                                     <label for="">Product Quantity</label>
-                                    <input type="number" name="quantity" >
+                                    <input type="number" name="quantity" value="{{$post->quantity}}">
                                 </div>
+                            </div>
+                            <div class="form-group form-float {{ $errors->has('price') ? 'has-error' : ''}}">
+                                <div class="form-line">
+                                    <label for="">Product Price</label>
+                                    <input type="number" name="price" min="1" value="{{$post->price}}">
+                                </div>
+                                {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
                             </div>
 
 {{--                            <div class="form-group">--}}

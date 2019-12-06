@@ -8,6 +8,7 @@ use App\Comment;
 use App\CommentReply;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Quote;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,8 +22,10 @@ class BlogController extends Controller
 {
     public function index()
     {
-       $post = BlogPost::all();
-       return view('blog.blog',compact('post'));
+        $quotes =Quote::all()->random(2);
+        $sidepost =Post::all()->random(2);
+       $post = BlogPost::simplepaginate(10);
+       return view('blog.blog',compact('post','quotes','sidepost'));
     }
 
     public function singleblog(Request $request, $slug)

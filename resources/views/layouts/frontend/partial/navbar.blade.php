@@ -14,21 +14,22 @@
                             <a href="{{route('home')}}" class="nav-link text-left">Home</a>
                         </li>
                         <li class="has-children">
-                            <a href="about.html" class="nav-link text-left">About Us</a>
+                            <a href="javascript:void(0);" class="nav-link text-left">Community</a>
                             <ul class="dropdown">
-                                <li><a href="teachers.html">Our Teachers</a></li>
-                                <li><a href="about.html">Our School</a></li>
+                                <li><a href="{{route('quote.index')}}">Quotes</a></li>
+                                <li><a href="{{route('blog.index')}}">Blog</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="{{route('blog.index')}}" class="nav-link text-left">Blog</a>
-                        </li>
+
                         <li>
                             <a href="{{route('post.index')}}" class="nav-link text-left">Books</a>
                         </li>
                         <li>
                             <a href="{{route('contact.form')}}" class="nav-link text-left">Contact</a>
                         </li>
+{{--                        <li>--}}
+{{--                            <a href="{{route('about')}}" class="nav-link text-left">About Us</a>--}}
+{{--                        </li>--}}
                     </ul>                                                                                                                                                                                                                                                                                          </ul>
                 </nav>
 
@@ -36,14 +37,14 @@
             <div class="ml-auto">
 
 
-                <!-- Top Search Area -->
-                <div class="top-search-area">
-                    <form action="{{route('books.search')}}" method="GET">
+{{--                <!-- Top Search Area -->--}}
+{{--                <div class="top-search-area">--}}
+{{--                    <form action="{{route('books.search')}}" method="GET">--}}
 
-                        <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder="Search">
-                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
+{{--                        <input type="search" name="keyword" id="topSearch" value="{{ old('keyword') }}" placeholder="Search">--}}
+{{--                        <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
 
 
 

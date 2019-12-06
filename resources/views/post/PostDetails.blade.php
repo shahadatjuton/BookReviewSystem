@@ -85,6 +85,7 @@
                         <img src="{{asset('storage/post/'.$post->image)}}" alt="Image" class="img-fluid">
                     </p>
                     @php
+
                         $ratingsSum = \App\Rating::where('post_id', $post->id)->sum('rating_star');
                         $ratingsCount = \App\Rating::where('post_id', $post->id)->count();
                        $avgRating = 0;
@@ -229,11 +230,11 @@
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                                 @csrf
                                 <div class="rating" style="margin-left: -115px;">
-                                    <span><input type="radio" name="rating" id="str5" value="5" name="rating_star"><label for="str5" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str5" value="5" name="rating_star"><label for="str5" class="icon-star2 text-warning has" ></label></span>
                                     <span><input type="radio" name="rating" id="str4" value="4" name="rating_star"><label for="str4" class="icon-star2 text-warning has"></label></span>
                                     <span><input type="radio" name="rating" id="str3" value="3" name="rating_star"><label for="str3" class="icon-star2 text-warning has"></label></span>
                                     <span><input type="radio" name="rating" id="str2" value="2" name="rating_star"><label for="str2" class="icon-star2 text-warning has"></label></span>
-                                    <span class="checked"><input type="radio" name="rating" id="str1" value="1" name="rating_star"><label for="str1" class="icon-star2 text-warning has"></label></span>
+                                    <span><input type="radio" name="rating" id="str1" value="1" name="rating_star"><label for="str1" class="icon-star2 text-warning has"></label></span>
                                 </div>
                                 <div class="form-group">
                                     <textarea class="form-control" name="review" required></textarea>
@@ -348,19 +349,19 @@
                         No Ratings found for this post
                     @else
                     <div class="commnets-area">
-                        @foreach($post->ratings as $comment)
+                        @foreach($post->ratings as $rating)
 
                         <div class="comment">
 
                             <div class="post-info">
 
                                 <div class="left-area">
-                                    <a href="#"><img src="{{asset('storage/profile/'.$comment->user->image)}}" alt="{{$comment->user->name}}"  class="img-fluid"></a>
+                                    <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$rating->user->image) }}" alt="Profile Image"></a>
                                 </div>
 
                                 <div class="middle-area">
-                                    <a class="name" href="#"><b>{{$comment->user->name}}</b></a>
-                                    <h6 class="date">on {{$comment->created_at->diffForHumans()}}</h6>
+                                    <a class="name" href="#"><b>{{$rating->user->name}}</b></a>
+                                    <h6 class="date">on {{$rating->created_at->diffForHumans()}}</h6>
                                 </div>
                             </div><!-- post-info -->
 
@@ -428,10 +429,69 @@
                             @endif
 {{-- ==============================End-Ratings======================================================--}}
 
-                            <p>{{$comment->review}}</p>
+                            <p>{{$rating->review}}</p>
 
                         </div>
 
+
+
+{{--      ===========================Reply against review                      ====================================================--}}
+
+                            <div class="commentReply" style="margin-left: 100px;">
+
+                                <div class="comment-form">
+
+
+                                    <form method="post" action="{{route('reviewReply.store',$rating->id)}}">
+                                        @csrf
+
+                                        <div class="col-sm-12">
+									<textarea name="reviewreply" rows="2" class="text-area-messge form-control"
+                                              placeholder="Enter your comment" aria-required="true" aria-invalid="false"></textarea >
+                                        </div><!-- col-sm-12 -->
+                                        @guest
+                                            <div class="col-sm-12">
+                                                <button class="submit-btn " type="button" id="form-submit" onclick="toastr.info('To comment here! You need to login first.','Info',{
+                                                    closeButton: true,
+                                                    progressBar: true,
+                                                })"><b>POST COMMENT</b></button>
+                                                <p class="text-center ml-4">Click <a href="{{route('login')}}">Here</a> to log in</a></p>
+                                            </div><!-- col-sm-12 -->
+                                        @else
+                                            <div class="col-sm-12">
+                                                <button class="submit-btn text-center" type="submit" id="form-submit"><b>Submit </b></button>
+                                            </div><!-- col-sm-12 -->
+                                        @endguest
+                                    </form>
+
+
+                                </div><!-- reply-form -->
+
+
+                                <div class="comment">
+
+                                    @foreach($rating->review_replies as $reply)
+
+                                        <div class="post-info">
+
+                                            <div class="left-area">
+                                                <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$reply->user->image) }}" alt="Profile Image"></a>
+                                            </div>
+
+                                            <div class="middle-area">
+                                                <a class="name" href="#"><b>{{$reply->user->name}}</b></a>
+                                                <h6 class="date">on {{$reply->created_at->diffForHumans()}}</h6>
+                                            </div>
+
+                                        </div><!-- post-info -->
+
+                                        <p>{{$reply->reply}}</p>
+
+                                    @endforeach
+
+                                </div>
+                            </div>
+{{--     ============================End review Reply ====================                       --}}
                         @endforeach
 
                     </div><!-- commnets-area -->

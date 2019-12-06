@@ -25,7 +25,15 @@
         <form action="{{route('publisher.post.store')}}" method="post" enctype="multipart/form-data">
             @csrf
 
-
+{{--            @if ($errors->any())--}}
+{{--                <div class="alert alert-danger">--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @endif--}}
 
             <div class="row clearfix">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
@@ -43,6 +51,11 @@
                                 <div class="form-line">
                                     <input type="text" id="title" class="form-control" name="title" placeholder="{{old('title')}}">
                                     <label class="form-label" for="">Enter unique Post Title</label>
+                                    @error('title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                                 {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 
@@ -57,7 +70,7 @@
                             <div class="form-group form-float {{ $errors->has('quantity') ? 'has-error' : ''}}">
                                 <div class="form-line">
                                     <label for="">Product Quantity</label>
-                                    <input type="number" name="quantity" >
+                                    <input type="number" name="quantity" min="1">
                                 </div>
                                 {!! $errors->first('quantity', '<p class="help-block">:message</p>') !!}
 
@@ -65,7 +78,7 @@
                             <div class="form-group form-float {{ $errors->has('price') ? 'has-error' : ''}}">
                                 <div class="form-line">
                                     <label for="">Product Price</label>
-                                    <input type="number" name="price" >
+                                    <input type="number" name="price" min="1">
                                 </div>
                                 {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -92,18 +105,6 @@
                         </div>
                         <div class="body">
 
-                            {{--                            <div class="form-group form-float">--}}
-                            {{--                                <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">--}}
-                            {{--                                    <label for="">Select Category</label>--}}
-                            {{--                                    <select name="categories" class="form-control" >--}}
-                            {{--                                        <option value="">--Select Category--</option>--}}
-                            {{--                                        @foreach($categories as $category)--}}
-                            {{--                                        <option  value="">{{$category->name}}</option>--}}
-                            {{--                                        @endforeach--}}
-                            {{--                                    </select>--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-
                             <div class="form-group form-float">
                                 <div class="form-line {{ $errors->has('categories') ? 'focused error' : '' }}">
                                     <label for="">Select Category</label>
@@ -112,6 +113,7 @@
                                             <option value="{{$category->id}}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                             </div>
                             <div class="form-group form-float">
@@ -120,9 +122,7 @@
                                     <select name="tags[]" class="form-control show-tick" data-live-searche="true" multiple>
                                         @foreach($tags as $tag)
                                             <option value="{{$tag->id}}">{{$tag->name}}</option>
-
                                         @endforeach
-
                                     </select>
 
                                 </div>
@@ -149,8 +149,12 @@
                         </div>
                         <div class="body">
                             <textarea id="tinymce" name="body"></textarea>
-
                         </div>
+                        @error('body')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                 </div>
             </div>

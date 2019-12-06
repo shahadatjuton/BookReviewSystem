@@ -71,7 +71,7 @@
                                 <a href="{{route('cart.destroy',$cart->id)}}">Delete item</a>
                             </div>
                         </td>
-                        <td class="price-col">{{$cart->price}} Taka</td>
+                        <td class="price-col">{{(\App\Post::find($cart->post_id)->price)}} Taka</td>
                         <td class="quy-col">
                             <div class="quy-input">
                                 @if((\App\Post::find($cart->post_id)->quantity)>($cart->quantity))
@@ -94,9 +94,9 @@
                             </div>
                         </td>
                         @php
-                            $total_price += $cart->quantity * $cart->price
+                            $total_price += $cart->quantity * (\App\Post::find($cart->post_id)->price)
                         @endphp
-                        <td class="total-col">{{($cart->quantity) *($cart->price)}} Taka</td>
+                        <td class="total-col">{{($cart->quantity) *(\App\Post::find($cart->post_id)->price)}} Taka</td>
                     </tr>
                     @empty
 

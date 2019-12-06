@@ -7,10 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AdminNotification extends Notification implements ShouldQueue
+class NotifyAdmin extends Notification
 {
     use Queueable;
     public $post;
+
     /**
      * Create a new notification instance.
      *
@@ -41,13 +42,13 @@ class AdminNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting('Assalamu Alaikum Admin!')
-                    ->subject('Need approval')
-                    ->line($this->post->title)
-                    ->line('posted by '. $this->post->user->name)
-                    ->line('To approve the post click the below button')
-                     ->action('View the post', url(route('admin.post.show', $this->post->id)))
-                    ->line('Thank you for using our application!');
+            ->line('Assalamu Alaikum Admin!! ')
+            ->line('New post needed to be approved')
+            ->line('posted by'. $this->post->user->name)
+            ->line('To approve click the button in below.')
+            ->line('post title.'. $this->post->title)
+            ->action('view', url(route('admin.post.show',$this->post->id)))
+            ->line('Thank you for using our application!');
     }
 
     /**

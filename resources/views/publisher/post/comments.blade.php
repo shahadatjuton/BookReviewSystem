@@ -17,12 +17,7 @@
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
-                <div class="header">
-                    <h2>
-                        All COMMENTS
-                        <span class="badge bg-blue">0</span>
-                    </h2>
-                </div>
+
                 <div class="body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover dataTable js-exportable">
@@ -105,7 +100,6 @@
                                     </td>
                                 </tr>
 
-                                <h2>No post comment found</h2>
                                     @endforeach
                                 @endforeach
                                 </thead>

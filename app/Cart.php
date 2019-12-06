@@ -10,7 +10,9 @@ class Cart extends Model
         return $this->belongsToMany('App\Post')->withTimestamps();
     }
 
-
+    public function oreder(){
+        return $this->belongsTo('App\Order');
+    }
 
 
 

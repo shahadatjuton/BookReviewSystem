@@ -90,4 +90,35 @@ class UserController extends Controller
 
 
     }
+
+
+    public function weekly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(7);
+
+        $weekly_users = User::where('created_at', '>=', $date)->get();
+
+
+
+        return view('admin.user.weekly',compact('weekly_users'));
+    }
+
+
+    public function monthly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(30);
+
+        $last_months_users = User::where('created_at', '>=', $date)->get();
+
+
+        return view('admin.user.monthly',compact('last_months_users'));
+    }
+
+
+
+
+
+
+
+
 }

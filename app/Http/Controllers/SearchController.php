@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BlogPost;
 use App\Post;
+use App\Quote;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -28,7 +29,13 @@ class SearchController extends Controller
     }
 
 
-
+public function quotesSearch(Request $request)
+{
+    $keyword = $request->keyword;
+    $quotes = Quote::where('quote','LIKE',"%$keyword%")
+        ->orWhere('author','LIKE',"%$keyword%")->get();
+    return view('community.search',compact('quotes','keyword'));
+}
 
 
 

@@ -80,6 +80,22 @@
                     </ul>
                 </li>
 
+                <li class="{{ Request::is('admin/uote*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">apps</i>
+                        <span>Quotes</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.quote.index')}}">Index</a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('admin.quote.pending')}}">Pending</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="{{ Request::is('admin/post*') ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">library_books</i>
@@ -109,6 +125,12 @@
                             </a>
 
                         </li>
+                        <li>
+                            <a href="{{route('admin.post.weekly')}}">Last Week-Post</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.post.monthly')}}">Last Month-Post</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -121,6 +143,12 @@
                     <ul class="ml-menu">
                         <li>
                             <a href="{{route('admin.user.index')}}">Index</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.user.weekly')}}">Last Week Registered User</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.user.monthly')}}">Last Month Registered User</a>
                         </li>
                     </ul>
                 </li>
@@ -140,22 +168,44 @@
                     </ul>
                 </li>
 
-
-
                 <li class="{{ Request::is('admin/subscriber') ? 'active' : '' }}">
-                    <a href="{{route('admin.subscriber.index')}}">
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">subscriptions</i>
                         <span>Subscriber List</span>
                     </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="{{route('admin.subscriber.index')}}">Subscriber List</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.subscriber.weekly')}}">Last Week Subscriber List</a>
+                        </li>
+                        <li>
+                            <a href="{{route('admin.subscriber.monthly')}}">Last Month Subscriber List</a>
+                        </li>
+                    </ul>
                 </li>
+
+
                 <li class="{{ Request::is('admin/contact') ? 'active' : '' }}">
                     <a href="{{route('admin.contact.index')}}">
                         <i class="material-icons">message</i>
                         <span>Contact-Message</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/orders') ? 'active' : '' }}">
+                    <a href="{{route('admin.order.index')}}">
+                        <i class="material-icons">list</i>
+                        <span>Orders</span>
+                    </a>
+                </li>
 
-
+                <li class="{{ Request::is('Admin/Request*') ? 'active' : '' }}">
+                    <a href="{{route('admin.publisherRequest')}}">
+                        <i class="material-icons">list</i>
+                        <span>publisherRequest</span>
+                    </a>
+                </li>
                 <li class="header ">System</li>
 
                 <li class="{{ Request::is('settings*') ? 'active' : '' }}">
@@ -277,30 +327,30 @@
                 </li>
 {{--===================Collecting Articles=====================================--}}
 
-                <li class="{{ Request::is('publisher/Collected') ? 'active' : '' }}">
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">comment</i>
-                        <span>Collected writings</span>
-                    </a>
+{{--                <li class="{{ Request::is('publisher/Collected') ? 'active' : '' }}">--}}
+{{--                    <a href="javascript:void(0);" class="menu-toggle">--}}
+{{--                        <i class="material-icons">comment</i>--}}
+{{--                        <span>Collected writings</span>--}}
+{{--                    </a>--}}
 
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="{{route('publisher.collections.index')}}">
-                                <i class="material-icons">comment</i>
-                                <span>Index</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('publisher.collections.create')}}">
-                                <i class="material-icons">comment</i>
-                                <span>Create</span>
-                            </a>
-                        </li>
+{{--                    <ul class="ml-menu">--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('publisher.collections.index')}}">--}}
+{{--                                <i class="material-icons">comment</i>--}}
+{{--                                <span>Index</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li>--}}
+{{--                            <a href="{{route('publisher.collections.create')}}">--}}
+{{--                                <i class="material-icons">comment</i>--}}
+{{--                                <span>Create</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                    </ul>
+{{--                    </ul>--}}
 
-                </li>
-                <li class="{{ Request::is('settings*') ? 'active' : '' }}">
+{{--                </li>--}}
+                <li class="{{ Request::is('publisher/settings*') ? 'active' : '' }}">
                     <a href="{{route('publisher.settings.index')}}">
                         <i class="material-icons">settings</i>
                         <span>Settings</span>
@@ -321,70 +371,42 @@
                 </li>
         @endif
 
-        <!-- ================End User Side bar ============================  -->
+        <!-- ================End Publisher Side bar ============================  -->
 
+
+        @if(Request::is('user*'))
             <!-- ===================Start User  Side bar ============================  -->
-{{--            <li class="{{ Request::is('settings*') ? 'active' : '' }}">--}}
-{{--                <a href="{{route('publisher.settings.index')}}">--}}
-{{--                    <i class="material-icons">settings</i>--}}
-{{--                    <span>Settings</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+
+
+                <li class="{{ Request::is('user/favourite') ? 'active' : '' }}">
+                    <a href="{{route('user.favourite')}}">
+                        <i class="material-icons">favorite</i>
+                        <span>Favourite-List</span>
+                    </a>
+                </li>
+
+                <li class="{{ Request::is('user/order') ? 'active' : '' }}">
+                    <a href="{{route('user.order')}}">
+                        <i class="material-icons">list</i>
+                        <span>Order-List</span>
+                    </a>
+                </li>
+
+            <li class="{{ Request::is('user/settings*') ? 'active' : '' }}">
+                <a href="{{route('user.settings.index')}}">
+                    <i class="material-icons">settings</i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
 
             <!-- ================End User Side bar ============================  -->
 
-
+            @endif
 
             <li class="header ">System</li>
 
 
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">perm_media</i>
-                    <span>Medias</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/medias/image-gallery.html">Image Gallery</a>
-                    </li>
-                    <li>
-                        <a href="pages/medias/carousel.html">Carousel</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:void(0);" class="menu-toggle">
-                    <i class="material-icons">pie_chart</i>
-                    <span>Charts</span>
-                </a>
-                <ul class="ml-menu">
-                    <li>
-                        <a href="pages/charts/morris.html">Morris</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/flot.html">Flot</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/chartjs.html">ChartJS</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/sparkline.html">Sparkline</a>
-                    </li>
-                    <li>
-                        <a href="pages/charts/jquery-knob.html">Jquery Knob</a>
-                    </li>
-                </ul>
-            </li>
-
-
-
-            <li class="header">LABELS</li>
-            <li>
-                <a href="javascript:void(0);">
-                    <i class="material-icons col-red">donut_large</i>
-                    <span>Important</span>
-                </a>
-            </li>
 
         </ul>
     </div>

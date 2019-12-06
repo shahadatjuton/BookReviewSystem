@@ -6,6 +6,7 @@ use App\ContactMessage;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMessageToUser;
 use App\Mail\NotifySubscriber;
+use App\Notifications\NotifyPublisher;
 use App\Reply;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ContactMessageController extends Controller
 {
     public function index()
     {
-        $contact_messages = ContactMessage::all();
+        $contact_messages = ContactMessage::orderBy('id', 'DESC')->get();
         return view('admin.contact.index',compact('contact_messages'));
     }
 
@@ -32,6 +33,9 @@ class ContactMessageController extends Controller
     {
 
          $messages = ContactMessage::findOrFail($id);
+         $messages->read_status =1;
+         $messages->save();
+
          return view('admin.contact.reply',compact('messages'));
     }
 
@@ -48,7 +52,7 @@ class ContactMessageController extends Controller
         $reply->reply=$request->reply;
         $reply->contact_message_id = $id;
         $reply->save();
-
+//        $contact_message->user->notify(new NotifyPublisher($reply));
         Mail::to($contact_message->email)->send(new ContactMessageToUser($reply));
 
         Toastr::success('Reply sent successfully','success');

@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Mail\publisher\PostApproval;
 use App\Notifications\AdminNotification;
+use App\Notifications\NotifyAdmin;
 use App\Notifications\SubscriberNotification;
 use App\Post;
 use App\Subscriber;
@@ -58,12 +59,12 @@ class PostController extends Controller
         $this->validate($request,[
 
             'title'=>'required|max:255',
-            'image'=>'mimes:jpeg,bmp,png,jpg',
+            'image'=>'image|mimes:jpeg,bmp,png,jpg|max:5140',
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
-            'quantity'=>'required|numeric|min:0',
-            'price'=>'required|numeric|min:0',
+            'quantity'=>'required|numeric|min:1',
+            'price'=>'required|numeric|min:1',
 
 
 
@@ -116,7 +117,8 @@ class PostController extends Controller
 //            Notification::send($subscriber, new SubscriberNotification($post));
 //
 //        }
-
+        $users=User::where('role_id','1')->get();
+        Notification::send($users, new NotifyAdmin($post));
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
@@ -196,12 +198,13 @@ class PostController extends Controller
 
         $this->validate($request,[
 
-            'title'=>'required',
-            'image'=>'image',
+            'title'=>'required|max:255',
+            'image'=>'image|mimes:jpeg,bmp,png,jpg|max:5140',
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
-            'quantity'=>'required',
+            'quantity'=>'required|numeric|min:1',
+            'price'=>'required|numeric|min:1',
 
 
         ]);
@@ -238,11 +241,12 @@ class PostController extends Controller
         }
 
         $post->user_id = Auth::id();
-        $post->title = $request->title;
-        $post->slug = $slug;
-        $post->image = $image_name;
+        $post->title=$request->title;
+        $post->slug=$slug;
+        $post->image=$image_name;
         $post->quantity = $request->quantity;
-        $post->body = $request->body;
+        $post->price = $request->price;
+        $post->body=$request->body;
         $post->status = false;
         $post->save();
 

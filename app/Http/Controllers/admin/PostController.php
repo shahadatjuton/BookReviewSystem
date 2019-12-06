@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\admin;
+use App\Notifications\NotifyPublisher;
 use App\Subscriber;
+use Barryvdh\DomPDF\Facade as PDF;
 use Notification;
 use App\Category;
 use App\Http\Controllers\Controller;
@@ -58,7 +60,7 @@ class PostController extends Controller
         $this->validate($request,[
 
             'title'=>'required',
-            'image'=>'mimes:jpeg,bmp,png,jpg',
+            'image'=>'image|mimes:jpeg,bmp,png,jpg|max:5140',
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
@@ -182,7 +184,7 @@ class PostController extends Controller
         $this->validate($request,[
 
             'title'=>'required',
-            'image'=>'image',
+            'image'=>'image|mimes:jpeg,bmp,png,jpg|max:5140',
             'categories'=>'required',
             'tags'=>'required',
             'body'=>'required',
@@ -284,7 +286,7 @@ class PostController extends Controller
             $pendingPost->status=true;
             $pendingPost->save();
 
-            $pendingPost->user->notify(new PublisherNotification($pendingPost));
+            $pendingPost->user->notify(new NotifyPublisher($pendingPost));
 
             $subscribers = Subscriber::all();
 
@@ -298,6 +300,51 @@ class PostController extends Controller
         }
         return redirect()->back();
     }
+
+
+    public function weekly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(7);
+
+        $weekly_posts = Post::where('created_at', '>=', $date)->get();
+
+
+
+        return view('admin.post.weekly',compact('weekly_posts'));
+    }
+
+
+    public function monthly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(30);
+
+        $last_months_posts = Post::where('created_at', '>=', $date)->get();
+
+
+        return view('admin.post.monthly',compact('last_months_posts'));
+    }
+
+
+    public function monthlyreport()
+    {
+        $date = \Carbon\Carbon::today()->subDays(30);
+        $last_months_posts = Post::where('created_at', '>=', $date)->get();
+
+        $pdf = PDF::loadView('admin.reports.monthlyPost', compact('last_months_posts'));
+        return $pdf->stream('monthly_post_list_report.pdf');
+    }
+
+
+    public function weeklyreport()
+    {
+        $date = \Carbon\Carbon::today()->subDays(7);
+        $weekly_posts = Post::where('created_at', '>=', $date)->get();
+
+        $pdf = PDF::loadView('admin.reports.weeklyPost', compact('weekly_posts'));
+        return $pdf->stream('weekly_post_list_report.pdf');
+    }
+
+
 
 
 

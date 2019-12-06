@@ -7,6 +7,8 @@ use App\Category;
 use App\Order;
 use App\PaymentMethod;
 use App\Post;
+use App\Rating;
+use App\Transection;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use function Sodium\increment;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 
 class CartController extends Controller
@@ -142,35 +146,108 @@ class CartController extends Controller
 
     public function order(Request $request)
     {
-return $request;
 
-//        $this->validate($request,[
-//
-//            'name'=>'required',
-//            'email'=>'mimes:jpeg,bmp,png,jpg',
-//            'phone'=>'required',
-//            'address'=>'required',
-//        ]);
+//return $request;
+        $this->validate($request,[
+
+            'name'=>'required',
+            'email'=>'required|email',
+            'phone'=>'required',
+            'address'=>'required',
+        ]);
 
         $user_ip = $request->ip();
         $carts =Cart::where('user_ip',$user_ip)->get();
 
         $order =new Order();
         $order->user_id= Auth::id();
-        $order->title=$request->title;
-        $order->slug=$slug;
-        $order->image=$image_name;
-        $order->quantity = $request->quantity;
-        $order->price = $request->price;
-        $order->body=$request->body;
-//        if (isset($request->status)) {
-//            $post->status=true;
-//        }else {
-//            $post->status=false;
-//
-//        }
-        $post->status=true;
+        $order->name=$request->name;
+        $order->email=$request->email;
+        $order->phone=$request->phone;
+        $order->address = $request->address;
+        $order->order_status = false;
+
+        foreach ($request->paymentmethod as $value){
+
+         $order->payment_method=$value;
+
+        }
+
+
         $order->save();
+
+
+        if ($value ==2)
+        {
+            $order_no= $order->id;
+            return view('cart.stripe',compact('order_no'));
+        }elseif ($value==3 or $value==4)
+        {
+            $order_no= $order->id;
+            return view('cart.transection',compact('order_no'));
+        }else
+        {
+           $order_no= $order->id;
+            $user_ip = $request->ip();
+
+            $carts =  Cart::where('user_ip',$user_ip);
+            $carts->delete();
+            return view('cart.successful',compact('order_no'));
+        }
+
+
+
     }
 
+
+    public function transection(Request $request)
+    {
+
+
+        return view('cart.transection');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function stripe(Request $request)
+    {
+        Stripe::setApiKey('sk_test_MSg5Fdl1Pj41suNB4aFipQEb00eEskG5eV');
+
+// Token is created using Stripe Checkout or Elements!
+// Get the payment token ID submitted by the form:
+        $token = $_POST['stripeToken'];
+        $charge =Charge::create([
+            'amount' => 999 * 100,
+            'currency' => 'usd',
+            'description' => 'Successfully paid',
+            'source' => $token,
+        ]);
+        dd($charge);
+        return redirect()->back();
+    }
+
+
+    public function transectionStore(Request $request)
+    {
+
+
+        foreach ($request->paymentmethod as $value){
+
+            $payment=$value;
+        }
+        $transaction = new Transection();
+            $transaction->user_id=Auth::user()->id;
+          $transaction->payment_method=$payment;
+          $transaction->trx_ID=$request->trx_id;
+          $transaction->order_id =$request->order_no;
+        $transaction->save();
+        $user_ip = $request->ip();
+
+        $carts =  Cart::where('user_ip',$user_ip);
+        $carts->delete();
+        Toastr::success('Your transection id sent!!','success');
+        return redirect()->route('home');
+    }
 }

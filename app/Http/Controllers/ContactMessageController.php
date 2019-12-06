@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ContactMessage;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactMessageController extends Controller
 {
@@ -32,6 +33,7 @@ class ContactMessageController extends Controller
         $contact_info->email = $request->email;
         $contact_info->phone = $request->phone;
         $contact_info->message = $request->message;
+        $contact_info->user_id=Auth::user()->id;
         $contact_info->save();
         Toastr::success('Your message sent successfully','success');
         return redirect()->back();

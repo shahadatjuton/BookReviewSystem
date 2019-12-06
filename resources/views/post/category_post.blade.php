@@ -9,6 +9,22 @@ Book Review System-{{$category->slug}}
     <link href="{{ asset('assets/frontend/css/home/home.css')}}" rel="stylesheet">
 
 
+    <style>
+        .favourite_posts{
+            color: #0f9d58;
+        }
+
+
+        .text-warning {
+            color: #ccc !important;
+        }
+
+        .has {
+            color: #ffb700 !important;
+        }
+
+    </style>
+
 @endpush
 
 @section('content')
@@ -43,65 +59,62 @@ Book Review System-{{$category->slug}}
 
 
                 @forelse( $category->posts as $post )
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="course-1-item">
-                        <figure class="thumnail">
-                            <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
-                            <div class="price">99.00 TAKA</div>
-                            <div class="category"><h3>{{$post->title}}</h3></div>
-                        </figure>
-                        <div class="course-1-content pb-4">
-                            @if($post->quantity > 0)
-                                <p><a href="{{ route('cart.store', $post->id) }}" class="btn btn-success rounded-0 px-4">Add to Cart</a></p>
-                            @else
-                                <p class="btn btn-danger rounded-0 px-4 disabled">Stock Out</p>
-                            @endif
-                            <p class="desc mb-4">{{Str::limit( $post->body, 30) }}</p>
-                            <div class="rating text-center mb-3">
-                                <span class="icon-star2 text-warning"></span>
-                                <span class="icon-star2 text-warning"></span>
-                                <span class="icon-star2 text-warning"></span>
-                                <span class="icon-star2 text-warning"></span>
-                                <span class="icon-star2 text-warning"></span>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="course-1-item">
+                            <figure class="thumnail">
+                                <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
+                                <div class="price">$99.00</div>
+                                <div class="category"><h3>{{$post->title}}</h3></div>
+                            </figure>
+                            <div class="course-1-content pb-4">
+                                <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-danger rounded-0 px-4">Add to Cart</a></p>
+
+                                <p class="desc mb-4">{{Str::limit( $post->body,30) }}</p>
+                                <div class="rating text-center mb-3">
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                                <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-primary rounded-0 px-4">Book Details</a></p>
+
+
+
                             </div>
-                            <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-primary rounded-0 px-4">Book Details</a></p>
+                            <div class="post-footer">
+                                <ul >
 
-
-
-                        </div>
-                        <div class="post-footer">
-                            <ul >
-
-                                <li>
-                                    @guest
-                                        <a href="javascript:void(0);"
-                                           onclick="toastr.info('To add favorite list. You need to login first.','Info',{
+                                    <li>
+                                        @guest
+                                            <a href="javascript:void(0);"
+                                               onclick="toastr.info('To add favorite list. You need to login first.','Info',{
                                                     closeButton: true,
                                                     progressBar: true,
                                                 })"><i class="fas fa-heart"></i>{{ $post->favourite_to_users->count() }}</a>
-                                    @else
-                                        <a href="javascript:void(0);"
-                                           onclick="document.getElementById('favourite-post-{{$post->id}}').submit();"
+                                        @else
+                                            <a href="javascript:void(0);"
+                                               onclick="document.getElementById('favourite-post-{{$post->id}}').submit();"
 
-                                           class="{{ Auth::user()->favourite_posts()->where('post_id',$post->id)->count()==0? 'favourite_posts':'' }}" >
-                                            <i class="fas fa-heart"></i>{{ $post->favourite_to_users->count() }}</a>
+                                               class="{{ Auth::user()->favourite_posts()->where('post_id',$post->id)->count()==0? 'favourite_posts':'' }}" >
+                                                <i class="fas fa-heart"></i>{{ $post->favourite_to_users->count() }}</a>
 
-                                        <form id="favourite-post-{{$post->id}}" method="post" action="{{route('post.favourite',$post->id)}}" style="display: none;">
-                                            @csrf
-                                        </form>
+                                            <form id="favourite-post-{{$post->id}}" method="post" action="{{route('post.favourite',$post->id)}}" style="display: none;">
+                                                @csrf
+                                            </form>
 
-                                    @endguest
+                                        @endguest
 
 
 
-                                </li>
-                                <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
-                                <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
-                            </ul>
+                                    </li>
+                                    <li><a href="#"><i class="fas fa-comment"></i>6</a></li>
+                                    <li><a href="#"><i class="fas fa-eye"> </i>{{ $post->view_count}}</a></li>
+                                </ul>
+                            </div>
+
                         </div>
-
                     </div>
-                </div>
                     @empty
 
                     <div>
@@ -113,139 +126,6 @@ Book Review System-{{$category->slug}}
                 @endforelse
 
 
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_4.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_5.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_6.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                --}}
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_4.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_5.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="col-lg-4 col-md-6 mb-4">--}}
-{{--                    <div class="course-1-item">--}}
-{{--                        <figure class="thumnail">--}}
-{{--                            <a href="course-single.html"><img src="images/course_6.jpg" alt="Image" class="img-fluid"></a>--}}
-{{--                            <div class="price">$99.00</div>--}}
-{{--                            <div class="category"><h3>Mobile Application</h3></div>--}}
-{{--                        </figure>--}}
-{{--                        <div class="course-1-content pb-4">--}}
-{{--                            <h2>How To Create Mobile Apps Using Ionic</h2>--}}
-{{--                            <div class="rating text-center mb-3">--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                                <span class="icon-star2 text-warning"></span>--}}
-{{--                            </div>--}}
-{{--                            <p class="desc mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique accusantium ipsam.</p>--}}
-{{--                            <p><a href="course-single.html" class="btn btn-primary rounded-0 px-4">Enroll In This Course</a></p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
 
             </div>
         </div>

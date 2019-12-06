@@ -7,21 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class SubscriberNotification extends Notification
+class NotifyPublisher extends Notification
 {
     use Queueable;
-
-    public $post;
-
-
+    public $pendingPost;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($post)
+    public function __construct($pendingPost)
     {
-        $this->post = $post;
+        $this->pendingPost = $pendingPost;
     }
 
     /**
@@ -44,11 +41,11 @@ class SubscriberNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting('Assalamu Alaikum '. $this->post->user->name.'!')
-            ->subject('See the new book')
-            ->line($this->post->title)
-            ->line('To check out click the below button')
-            ->action('View the post', url(route('home', $this->post->id)))
+            ->line('Assalamu Alaikum  '. $this->pendingPost->user->name)
+            ->line('Your post is approved.')
+            ->line('To check details click on button.')
+            ->line('Title: '.$this->pendingPost->title)
+            ->action('Notification Action', url(route('publisher.post.show', $this->pendingPost->id)))
             ->line('Thank you for using our application!');
     }
 

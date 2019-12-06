@@ -40,7 +40,6 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>

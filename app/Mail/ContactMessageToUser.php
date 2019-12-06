@@ -11,7 +11,8 @@ class ContactMessageToUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-//    public $reply;
+
+    public $reply;
 
 
 
@@ -20,10 +21,10 @@ class ContactMessageToUser extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($reply)
     {
 
-//        $this->reply = $reply;
+        $this->reply = $reply;
     }
 
     /**
@@ -33,6 +34,7 @@ class ContactMessageToUser extends Mailable
      */
     public function build()
     {
-        return $this->view('email.ReplyToUsers');
+       $reply= $this->reply;
+        return $this->view('email.ReplyToUsers',compact('reply'));
     }
 }

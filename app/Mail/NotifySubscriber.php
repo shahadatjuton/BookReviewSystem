@@ -5,20 +5,21 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Queue\SerializesModels;
 
 class NotifySubscriber extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $pendingPost;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($pendingPost)
     {
-        //
+        $this->pendingPost =$pendingPost;
     }
 
     /**
@@ -26,8 +27,12 @@ class NotifySubscriber extends Mailable
      *
      * @return $this
      */
+
+
+
     public function build()
     {
-        return $this->view('email');
+        $pendingPost = $this->pendingPost;
+        return $this->view('email',compact('pendingPost'));
     }
 }

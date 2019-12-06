@@ -49,7 +49,7 @@
                                 @foreach($contact_messages as $key=> $message)
 
 
-                                    <tr>
+                                    <tr class={{ ($message->read_status == 0)?"bg-info":"" }}>
                                         <td>{{ $key +1 }}</td>
                                         <td>{{$message->first_name}}</td>
                                         <td>{{$message->email}}</td>

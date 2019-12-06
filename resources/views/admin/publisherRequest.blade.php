@@ -1,6 +1,6 @@
 @extends('layouts.backend.master')
 
-@section('title', 'Tag')
+@section('title', 'Post')
 
 @push('css')
 
@@ -10,16 +10,17 @@
 @endpush
 
 
+
 @section('content')
 
     <div class="container-fluid">
         <div class="block-header">
-            <h2>
-                Taggs Table
-
-            </h2>
 
 
+            <a class="btn btn-primary waves-effect" href="{{route('admin.post.create' )}}">
+
+                <span>Create Post</span>
+            </a>
         </div>
 
         <!-- Exportable Table -->
@@ -28,21 +29,10 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            TOTAL TAGS <b>:</b>
-                            <span class="badge bg-blue">{{ $users->count() }}</span>
+                            TOTAL POSTS
+                            <span class="badge bg-blue">{{ $user_request->count() }}</span>
                         </h2>
-                        <ul class="header-dropdown m-r--5">
-                            <li class="dropdown">
-                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">more_vert</i>
-                                </a>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">Action</a></li>
-                                    <li><a href="javascript:void(0);">Another action</a></li>
-                                    <li><a href="javascript:void(0);">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+
                     </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -50,47 +40,22 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Total Posts</th>
-                                    <th>Total Comments</th>
-                                    <th>Favourite Posts</th>
-
-                                    <th>Created At </th>
+                                    <th>User Role Id</th>
+                                    <th>Created  At</th>
                                     <th>Action</th>
-
                                 </tr>
                                 </thead>
-
-
-
-                                @foreach($users as $key=> $user)
-
+                                @foreach($user_request as $key=> $user_request)
 
                                     <tr>
                                         <td>{{ $key +1 }}</td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->posts()->count()}}</td>
-                                        <td>{{$user->comments()->count()}}</td>
-                                        <td>{{$user->favourite_posts()->count()}}</td>
-
-
-
-                                        <td>{{$user->created_at}}</td>
-
+                                        <td>{{$user_request->user_id}}</td>
+                                        <td>{{$user_request->created_at}} At</td>
                                         <td>
 
-                                            <button type="button" name="button"  class="btn btn-danger waves-effect" onclick="deleteuser({{$user->id}})">
-                                                <i class="material-icons" >delete</i>
-
-                                            </button>
-                                            <form  id="delete-user-{{$user->id}}" action="{{route('admin.user.destroy', $user->id)}}"
-                                                   method="post" style="display:none;"
-                                            >
-                                                @csrf
-                                                @method('DELETE')
-
-                                            </form>
-
+                                            <a class="btn btn-info waves-effect" href="{{route('admin.publisherRequest.accept', $user_request->user_id)}}">
+                                                Accept
+                                            </a>
                                         </td>
                                     </tr>
 
@@ -138,7 +103,7 @@
 
     <script type="text/javascript">
 
-        function deleteuser(id) {
+        function deletepost(id) {
 
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -159,14 +124,14 @@
             }).then((result) => {
                 if (result.value) {
                     event.preventDefault();
-                    document.getElementById('delete-user-' + id).submit();
+                    document.getElementById('delete-post-' + id).submit();
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
-                        'The user is remain in the system :)',
+                        'Your data is safe :)',
                         'error'
                     )
                 }

@@ -19,8 +19,8 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h2>
-                        TABS WITH ONLY ICON TITLE
+                    <h2 style="margin-bottom: 20px;">
+                        {{Auth::user()->name}}'s Profile
                     </h2>
 
 
@@ -30,19 +30,6 @@
                     </div>
 
 
-
-                    <ul class="header-dropdown m-r--5">
-                        <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">more_vert</i>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Action</a></li>
-                                <li><a href="javascript:void(0);">Another action</a></li>
-                                <li><a href="javascript:void(0);">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
                 <div class="body">
                     <!-- Nav tabs -->
@@ -70,24 +57,13 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="card">
                                         <div class="header">
-                                            <h2>
-                                                HORIZONTAL LAYOUT
+                                            <h2 style="margin-bottom: 20px;">
+                                                {{Auth::user()->name}}
                                             </h2>
-                                            <ul class="header-dropdown m-r--5">
-                                                <li class="dropdown">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="material-icons">more_vert</i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li><a href="javascript:void(0);">Action</a></li>
-                                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+
                                         </div>
                                         <div class="body">
-                                            <form class="form-horizontal" action="{{route('admin.settings.update', Auth::user()->id)}}" method="post" enctype="multipart/form-data">
+                                            <form class="form-horizontal" action="{{route('user.settings.update', Auth::user()->id)}}" method="post" enctype="multipart/form-data">
 
                                                 @csrf
 
@@ -151,23 +127,14 @@
                                     <div class="card">
                                         <div class="header">
                                             <h2>
-                                                HORIZONTAL LAYOUT
+                                                <h2 style="margin-bottom: 20px;">
+                                                    {{Auth::user()->name}}
+                                                </h2>
                                             </h2>
-                                            <ul class="header-dropdown m-r--5">
-                                                <li class="dropdown">
-                                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="material-icons">more_vert</i>
-                                                    </a>
-                                                    <ul class="dropdown-menu pull-right">
-                                                        <li><a href="javascript:void(0);">Action</a></li>
-                                                        <li><a href="javascript:void(0);">Another action</a></li>
-                                                        <li><a href="javascript:void(0);">Something else here</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
+
                                         </div>
                                         <div class="body">
-                                            <form class="form-horizontal" action="{{route('admin.password.change', Auth::user()->id)}}" method="post" enctype="multipart/form-data">
+                                            <form class="form-horizontal" action="{{route('user.password.change', Auth::user()->id)}}" method="post" enctype="multipart/form-data">
 
                                                 @csrf
 

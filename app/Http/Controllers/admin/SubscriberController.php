@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Post;
 use App\Subscriber;
+use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
@@ -88,6 +90,53 @@ class SubscriberController extends Controller
         Toastr::success('Email is deleted from the subscriberlist', 'success');
         return redirect()->back();
     }
+
+
+
+
+
+    public function weekly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(7);
+
+        $weekly_subscriber = Subscriber::where('created_at', '>=', $date)->get();
+
+        return view('admin.subscriber.weekly',compact('weekly_subscriber'));
+    }
+
+
+    public function monthly()
+    {
+        $date = \Carbon\Carbon::today()->subDays(30);
+
+        $last_months_subscriber = Subscriber::where('created_at', '>=', $date)->get();
+
+        return view('admin.subscriber.monthly',compact('last_months_subscriber'));
+    }
+
+
+    public function monthlyreport()
+    {
+        $date = \Carbon\Carbon::today()->subDays(30);
+        $last_months_subscriber = Post::where('created_at', '>=', $date)->get();
+
+        $pdf = PDF::loadView('admin.reports.monthlySubscriber', compact('last_months_subscriber'));
+        return $pdf->stream('monthly_post_list_report.pdf');
+    }
+
+
+    public function weeklyreport()
+    {
+        $date = \Carbon\Carbon::today()->subDays(7);
+        $weekly_subscriber = Post::where('created_at', '>=', $date)->get();
+
+        $pdf = PDF::loadView('admin.reports.weeklySubscriber', compact('weekly_subscriber'));
+        return $pdf->stream('weekly_post_list_report.pdf');
+    }
+
+
+
+
 
 
 }

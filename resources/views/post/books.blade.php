@@ -31,6 +31,21 @@
 
         }
 
+         .favourite_posts{
+             color: #0f9d58;
+         }
+
+
+        .text-warning {
+            color: #ccc !important;
+        }
+
+        .has {
+            color: #ffb700 !important;
+        }
+
+
+
     </style>
 
 @endpush
@@ -85,7 +100,7 @@
                                 <div class="course-1-item">
                                     <figure class="thumnail">
                                         <a href="course-single.html"><img src="{{asset('storage/post/'.$post->image)}}" alt="{{$post->title}}"  class="img-fluid"></a>
-                                        <div class="price">$99.00</div>
+                                        <div class="price">{{$post->price}}</div>
                                         <div class="category"><h3>{{$post->title}}</h3></div>
                                     </figure>
                                     <div class="course-1-content pb-4">
@@ -94,14 +109,74 @@
                                         @else
                                             <p class="btn btn-danger rounded-0 px-4"> Stock Out </p>
                                         @endif
-                                        <p class="desc mb-4">{{ $post->body }}</p>
-                                        <div class="rating text-center mb-3">
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                        </div>
+
+
+                                            {{-- ==============================Start-Ratings======================================================--}}
+
+                                            @php
+                                                $ratingsSum = \App\Rating::where('post_id', $post->id)->sum('rating_star');
+                                                $ratingsCount = \App\Rating::where('post_id', $post->id)->count();
+
+                                                $avgRating = 0;
+
+                                               if ($ratingsCount > 0)
+                                               {
+                                                $avgRating = $ratingsSum/$ratingsCount;
+                                               }
+                                            @endphp
+                                            @if($avgRating < 1)
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                </div>
+                                            @elseif($avgRating == 1 || $avgRating < 1.5)
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                </div>
+                                            @elseif($avgRating == 2 || $avgRating < 2.5)
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                </div>
+                                            @elseif($avgRating == 3 || $avgRating < 3.5)
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                </div>
+                                            @elseif($avgRating == 4 || $avgRating < 4.5)
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning"></span>
+                                                </div>
+                                            @else
+                                                <div class="rating text-center mb-2 mt-5">
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                    <span class="icon-star2 text-warning has"></span>
+                                                </div>
+                                            @endif
+                                            {{-- ==============================End-Ratings======================================================--}}
+
+                                        <p class="desc mb-4">{{Str::limit( $post->body, 30) }}</p>
+
                                         <p><a href="{{ route('post.details', $post->slug) }}" class="btn btn-primary rounded-0 px-4">Book Details</a></p>
                                     </div>
                                     <div class="post-footer mr-2">

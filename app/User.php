@@ -85,15 +85,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function ratings(){
-        return $this->hasMany('App\Rating')->withTimestamps();
+        return $this->hasMany('App\Rating');
+    }
+    public function review_replies(){
+        return $this->hasMany('App\ReviewReply');
     }
 
 
+    public function quotes(){
+        return $this->hasMany('App\Quote');
+
+    }
 
 
-
-
-
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
 
 
 

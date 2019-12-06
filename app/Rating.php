@@ -14,4 +14,8 @@ class Rating extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function review_replies(){
+        return $this->hasMany('App\ReviewReply');
+    }
+
 }

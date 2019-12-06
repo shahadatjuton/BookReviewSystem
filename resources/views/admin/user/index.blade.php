@@ -14,10 +14,6 @@
 
     <div class="container-fluid">
         <div class="block-header">
-            <h2>
-                Taggs Table
-
-            </h2>
 
 
         </div>
@@ -30,7 +26,13 @@
                         <h2>
                             <b>TOTAL USERS </b>
                             <span class="badge bg-blue" style="font-size: 35px;">{{ $users->count() }}</span>
+
+                           <div class="pull-right "><a href="{{route('admin.report.user')}}" class="btn btn-success"> Generate User Report </a></div>
                         </h2>
+
+
+
+
                     </div>
                     <div class="body">
                         <div class="table-responsive">
